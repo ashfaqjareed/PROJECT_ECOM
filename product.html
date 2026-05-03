@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Product — AJ VANTAGE</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="scrollProgress"></div>
+
+<header class="header" id="header">
+  <a href="index.html" class="logo"><img src="site-logo.png" alt="AJ Vantage Logo" class="site-logo"></a>
+                  <nav class="desktop-nav">
+      <a href="index.html">Home</a>
+      <a href="shop.html" class="active">Shop</a>
+      <a href="collections.html">Collections</a>
+      <a href="support.html">Support</a>
+    </nav>
+  <div class="search-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" placeholder="Search..."></div>
+  <div class="header-actions">
+    <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></a>
+    <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-badge" id="cartCount">0</span></a>
+    <a href="profile.html" class="avatar">A</a>
+  </div>
+</header>
+
+<div class="app-container">
+  <div class="page-header reveal">
+    <div class="breadcrumb">
+      <a href="index.html">Home</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      <a href="shop.html">Shop</a>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
+      <span id="prodBread">Product</span>
+    </div>
+  </div>
+
+  <div class="prod-layout">
+    <!-- GALLERY -->
+    <div class="prod-gallery reveal">
+      <div class="prod-img-main" id="mainImg"></div>
+      <div class="prod-thumbnails" id="thumbs"></div>
+    </div>
+
+    <!-- INFO -->
+    <div class="prod-info reveal" style="transition-delay:100ms">
+      <div class="prod-brand">AJ VANTAGE</div>
+      <h1 class="prod-title" id="prodTitle">Product</h1>
+
+      <!-- Rating -->
+      <div class="prod-rating">
+        <div class="prod-stars" id="prodStars"></div>
+        <span class="prod-review-count" id="prodReviews">128 reviews</span>
+      </div>
+
+      <div class="prod-price" id="prodPrice">$0</div>
+      <p class="prod-desc" id="prodDesc"></p>
+
+      <!-- Color Swatches -->
+      <div>
+        <div class="qty-label" style="margin-bottom:10px">Color — <span id="colorName">Default</span></div>
+        <div class="prod-color-row" id="colorRow"></div>
+      </div>
+
+      <!-- Size -->
+      <div>
+        <div class="qty-label" style="margin-bottom:10px">Size</div>
+        <div class="prod-size-row" id="sizeRow"></div>
+      </div>
+
+      <!-- Quantity -->
+      <div class="qty-row">
+        <span class="qty-label">Quantity</span>
+        <div class="qty-picker">
+          <button class="qty-btn" onclick="changeQty(-1)">−</button>
+          <span class="qty-val" id="qtyVal">1</span>
+          <button class="qty-btn" onclick="changeQty(1)">+</button>
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="prod-actions">
+        <button class="btn-buy-lg" id="buyBtn" onclick="addAndGo()">Add to Cart — <span id="buyPrice">$0</span></button>
+        <button class="btn-wish-lg" id="wishBtn" onclick="toggleProdWish()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </button>
+      </div>
+
+      <!-- Features -->
+      <ul class="prod-features" style="margin-top:32px" id="featureList"></ul>
+
+      <!-- Tabs -->
+      <div class="prod-tabs" id="tabBar"></div>
+      <div id="tabContent"></div>
+    </div>
+  </div>
+
+  <!-- Related -->
+  <div class="section-header reveal"><h2 class="section-title">You May Also Like</h2></div>
+  <div class="slider-wrap">
+    <div class="slider-track" id="relatedTrack"></div>
+  </div>
+</div>
+
+        <footer>
+    <div class="f-grid">
+      <div class="f-about">
+        <div class="logo"><img src="AJ2.png" alt="AJ Vantage Logo" class="site-logo"></div>
+        <p>Premium leather goods crafted with passion since 2026. Our collection consists of 80% new and 20% selectively curated pre-owned pieces available across our Website, WhatsApp Catalog, and Facebook Marketplace.</p>
+      </div>
+      <div class="f-col">
+        <h4>Shopping</h4>
+        <a href="shop.html">Shop</a>
+        <a href="collections.html">Collections</a>
+        <a href="shop.html?new=true">New Collections</a>
+        <a href="shop.html">Products</a>
+      </div>
+      <div class="f-col">
+        <h4>Support</h4>
+        <a href="support.html">FAQ</a>
+        <a href="support.html">Help Center</a>
+        <a href="payment.html">Payment Methods</a>
+      </div>
+      <div class="f-col">
+        <h4>Legal</h4>
+        <a href="about.html">About Us</a>
+        <a href="legal.html">Privacy and Terms</a>
+      </div>
+    </div>
+    <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA 🇱🇰</span></div>
+  </footer>
+
+<div class="toast" id="toast"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span id="toastMsg">Done</span></div>
+<script src="app.js"></script>
+<script>
+let pid, qty = 1;
+let selectedColor = '';
+let selectedSize = '';
+const colors = [
+  { name: 'Black', hex: '#1c1b1b', stock: true }, 
+  { name: 'Tan', hex: '#c8956c', stock: true }, 
+  { name: 'Cognac', hex: '#8b4513', stock: false },
+  { name: 'Navy', hex: '#1e3a5f', stock: true }, 
+  { name: 'Olive', hex: '#556b2f', stock: true }, 
+  { name: 'Burgundy', hex: '#722f37', stock: false }
+];
+const sizes = [
+  { label: 'XS', stock: true }, 
+  { label: 'S', stock: true }, 
+  { label: 'M', stock: true }, 
+  { label: 'L', stock: false }, 
+  { label: 'XL', stock: true }
+];
+const features = [
+  { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg>', text: 'Handcrafted from premium materials' },
+  { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>', text: 'Lifetime warranty included' },
+  { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>', text: 'Free shipping on orders over $200' },
+  { icon: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/></svg>', text: '30-day hassle-free returns' },
+];
+const tabs = [
+  { label: 'Description', key: 'desc' },
+  { label: 'Specifications', key: 'specs' },
+  { label: 'Shipping', key: 'ship' },
+  { label: 'Reviews', key: 'reviews' }
+];
+let activeTab = 'desc';
+
+function changeQty(d) { 
+  qty = Math.max(1, Math.min(10, qty + d)); 
+  document.getElementById('qtyVal').textContent = qty; 
+  
+  // Update UI price based on quantity
+  const p = allProducts.find(x => x.id === pid) || allProducts[0];
+  document.getElementById('buyPrice').textContent = p.isGhost ? 'Coming Soon' : '$' + (p.price * qty);
+}
+
+function switchTab(key) {
+  activeTab = key;
+  document.querySelectorAll('.prod-tab').forEach(t => t.classList.toggle('active', t.dataset.key === key));
+  document.querySelectorAll('.prod-tab-content').forEach(c => c.classList.toggle('active', c.dataset.key === key));
+}
+
+// Override toggleWish to update local button state if needed
+const _origToggleWish = toggleWish;
+toggleWish = function(id) {
+  _origToggleWish(id);
+  if (id === pid) {
+    const btn = document.getElementById('wishBtn');
+    const wish = getWish();
+    btn.classList.toggle('active', wish.includes(pid));
+  }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  const u = new URLSearchParams(location.search); 
+  pid = parseInt(u.get('id')) || 1;
+  const p = allProducts.find(x => x.id === pid) || allProducts[0];
+  const icon = getIcon(p.cat);
+  const isGhost = p.isGhost;
+
+  document.getElementById('prodTitle').textContent = p.name;
+  document.getElementById('prodPrice').textContent = isGhost ? 'Coming Soon' : '$' + p.price;
+  document.getElementById('buyPrice').textContent = isGhost ? 'Coming Soon' : '$' + (p.price * qty);
+  document.getElementById('prodDesc').textContent = p.desc;
+  document.getElementById('prodBread').textContent = p.name;
+  document.title = p.name + ' — AJ VANTAGE';
+
+  if (isGhost) {
+    const buyBtn = document.getElementById('buyBtn');
+    buyBtn.disabled = true;
+    buyBtn.style.opacity = '0.5';
+    buyBtn.style.cursor = 'not-allowed';
+    buyBtn.textContent = 'Coming Soon';
+  }
+
+  // Main image
+  document.getElementById('mainImg').innerHTML = `<div style="width:120px;height:120px;color:var(--accent-2)">${icon.replace('class="prod-svg"', 'style="width:100%;height:100%"')}</div>`;
+
+  // Thumbnails
+  document.getElementById('thumbs').innerHTML = [1, 2, 3, 4].map((_, i) => `<div class="prod-thumb ${i === 0 ? 'active' : ''}" onclick="this.parentElement.querySelectorAll('.prod-thumb').forEach(t=>t.classList.remove('active'));this.classList.add('active')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="width:32px;height:32px;color:var(--text-light)"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg></div>`).join('');
+
+  // Stars
+  const rating = 4 + (p.id % 2 === 0 ? .5 : 0);
+  const reviewCount = 50 + (p.id * 17) % 200;
+  const starSVG = '<svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+  document.getElementById('prodStars').innerHTML = starSVG.repeat(Math.floor(rating)) + (rating % 1 ? '<svg viewBox="0 0 24 24" style="opacity:.4"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>' : '');
+  document.getElementById('prodReviews').textContent = reviewCount + ' reviews';
+
+  // Colors
+  const avColors = colors.filter(c => c.stock);
+  if(avColors.length > 0) selectedColor = avColors[0].name;
+  
+  document.getElementById('colorRow').innerHTML = colors.map((c, i) => {
+    const isAvail = c.stock;
+    const isSel = c.name === selectedColor;
+    return `<div class="prod-color-swatch ${isSel ? 'active' : ''} ${!isAvail ? 'out-of-stock' : ''}" style="background:${c.hex}" onclick="if(${!isAvail}) return; document.querySelectorAll('.prod-color-swatch').forEach(s=>s.classList.remove('active'));this.classList.add('active');document.getElementById('colorName').textContent='${c.name}';selectedColor='${c.name}';" title="${c.name}"></div>`;
+  }).join('');
+  document.getElementById('colorName').textContent = selectedColor || colors[0].name;
+
+  // Sizes
+  const avSizes = sizes.filter(s => s.stock);
+  if(avSizes.length > 0) selectedSize = avSizes[Math.floor(avSizes.length/2)].label; // default to middle available size
+  else selectedSize = sizes[0].label;
+
+  document.getElementById('sizeRow').innerHTML = sizes.map((s, i) => {
+    const isAvail = s.stock;
+    const isSel = s.label === selectedSize;
+    return `<div class="prod-size ${isSel ? 'active' : ''} ${!isAvail ? 'out-of-stock' : ''}" onclick="if(${!isAvail}) return; document.querySelectorAll('.prod-size').forEach(x=>x.classList.remove('active'));this.classList.add('active');selectedSize='${s.label}';">${s.label}</div>`;
+  }).join('');
+
+  // Features
+  document.getElementById('featureList').innerHTML = features.map(f => `<li>${f.icon}${f.text}</li>`).join('');
+
+  // Tabs
+  document.getElementById('tabBar').innerHTML = tabs.map(t => `<div class="prod-tab ${t.key === 'desc' ? 'active' : ''}" data-key="${t.key}" onclick="switchTab('${t.key}')">${t.label}</div>`).join('');
+
+  document.getElementById('tabContent').innerHTML = `
+    <div class="prod-tab-content active" data-key="desc"><p>${p.desc} This product is designed for those who appreciate fine craftsmanship. Each piece undergoes rigorous quality control to ensure it meets the highest standards of excellence.</p></div>
+    <div class="prod-tab-content" data-key="specs">
+      <div class="spec-grid" style="margin-top:0">
+        <div class="spec-item"><div class="spec-label">Material</div><div class="spec-value">${p.material || 'Full-Grain Leather'}</div></div>
+        <div class="spec-item"><div class="spec-label">Color</div><div class="spec-value">${p.color || 'Multi'}</div></div>
+        <div class="spec-item"><div class="spec-label">Weight</div><div class="spec-value">${isGhost ? '---' : (0.5 + p.price / 200).toFixed(1) + ' lbs'}</div></div>
+        <div class="spec-item"><div class="spec-label">Warranty</div><div class="spec-value">Lifetime</div></div>
+        <div class="spec-item"><div class="spec-label">Origin</div><div class="spec-value">Handmade</div></div>
+        <div class="spec-item"><div class="spec-label">SKU</div><div class="spec-value">AJV-${String(p.id).padStart(4, '0')}</div></div>
+      </div>
+    </div>
+    <div class="prod-tab-content" data-key="ship"><p>Free standard shipping on all orders over $200. Standard delivery takes 5–7 business days. Express (2–3 days) available at checkout. International shipping to 40+ countries within 10–14 days.</p></div>
+    <div class="prod-tab-content" data-key="reviews"><p><strong>${reviewCount} reviews</strong> — Average ${rating}/5 stars. Customers love the quality craftsmanship and attention to detail. Most popular among professionals aged 25–45.</p></div>`;
+
+  // Related products
+  const related = allProducts.filter(x => x.id !== pid && x.cat === p.cat).slice(0, 8);
+  const fallback = related.length < 4 ? [...related, ...allProducts.filter(x => x.id !== pid).slice(0, 8 - related.length)] : related;
+  const wish = getWish();
+  const track = document.getElementById('relatedTrack');
+  if (track) track.innerHTML = fallback.map((r, i) => cardHTML(r, i, wish)).join('');
+
+  // Wishlist button state
+  if (wish.includes(pid)) document.getElementById('wishBtn').classList.add('active');
+
+  setTimeout(observeReveals, 50);
+});
+
+function addAndGo() { addToCart(pid, qty, selectedSize, selectedColor); }
+function toggleProdWish() { toggleWish(pid); }
+</script>
+</body>
+</html>

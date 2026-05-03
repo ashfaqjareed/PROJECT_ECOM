@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="icon" type="image/png" href="favicon.png">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Wishlist — AJ VANTAGE</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div id="scrollProgress"></div>
+
+<header class="header" id="header">
+  <a href="index.html" class="logo"><img src="site-logo.png" alt="AJ Vantage Logo" class="site-logo"></a>
+                  <nav class="desktop-nav">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="collections.html">Collections</a>
+      <a href="support.html">Support</a>
+    </nav>
+  <div class="search-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input type="text" placeholder="Search..."></div>
+  <div class="header-actions">
+    <a href="wishlist.html" class="cart-btn active"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></a>
+    <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-badge" id="cartCount">0</span></a>
+    <a href="profile.html" class="avatar">A</a>
+  </div>
+</header>
+
+<div class="app-container">
+  <div class="page-header reveal">
+    <h1 class="page-title">My Wishlist</h1>
+    <p class="page-sub">Your curated selection of luxury goods.</p>
+  </div>
+
+  <div class="product-grid" id="wishlistGrid"></div>
+
+  <!-- EMPTY STATE -->
+  <div id="emptyWish" class="empty-cart" style="display:none">
+    <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+    <h2>Your wishlist is empty</h2>
+    <p>Save items you love to find them easily later.</p>
+    <a href="shop.html" class="btn-primary" style="margin-top:24px">Browse Shop</a>
+  </div>
+</div>
+
+        <footer>
+    <div class="f-grid">
+      <div class="f-about">
+        <div class="logo"><img src="AJ2.png" alt="AJ Vantage Logo" class="site-logo"></div>
+        <p>Premium leather goods crafted with passion since 2026. Our collection consists of 80% new and 20% selectively curated pre-owned pieces available across our Website, WhatsApp Catalog, and Facebook Marketplace.</p>
+      </div>
+      <div class="f-col">
+        <h4>Shopping</h4>
+        <a href="shop.html">Shop</a>
+        <a href="collections.html">Collections</a>
+        <a href="shop.html?new=true">New Collections</a>
+        <a href="shop.html">Products</a>
+      </div>
+      <div class="f-col">
+        <h4>Support</h4>
+        <a href="support.html">FAQ</a>
+        <a href="support.html">Help Center</a>
+        <a href="payment.html">Payment Methods</a>
+      </div>
+      <div class="f-col">
+        <h4>Legal</h4>
+        <a href="about.html">About Us</a>
+        <a href="legal.html">Privacy and Terms</a>
+      </div>
+    </div>
+    <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA 🇱🇰</span></div>
+  </footer>
+
+<div class="toast" id="toast"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg><span id="toastMsg">Done</span></div>
+<script src="app.js"></script>
+<script>
+function renderWishlist(){
+  const ids = getWish();
+  const grid = document.getElementById('wishlistGrid');
+  const empty = document.getElementById('emptyWish');
+
+  if(ids.length === 0){
+    grid.style.display = 'none';
+    empty.style.display = 'flex';
+    return;
+  }
+
+  grid.style.display = 'grid';
+  empty.style.display = 'none';
+
+  const wishProducts = ids.map(id => allProducts.find(x => x.id === id)).filter(Boolean);
+  grid.innerHTML = wishProducts.map((p, i) => cardHTML(p, i, ids)).join('');
+
+  setTimeout(observeReveals, 50);
+}
+
+// Redefine toggleWish for this page to refresh list
+const _origToggle = toggleWish;
+window.toggleWish = function(id){
+  _origToggle(id);
+  renderWishlist();
+};
+
+document.addEventListener('DOMContentLoaded', renderWishlist);
+</script>
+</body>
+</html>
