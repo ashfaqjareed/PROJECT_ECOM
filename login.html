@@ -209,23 +209,22 @@
   </script>
   <script src="app.js"></script>
   <script>
-    function handleLogin() {
+    async function handleLogin() {
       const email = document.getElementById('loginEmail').value;
-      if (!email.includes('@')) { toast('Please enter a valid email'); return; }
+      const pass = document.getElementById('loginPass').value;
 
-      let accounts = JSON.parse(localStorage.getItem('aj_accounts') || '[]');
-      if (!accounts.includes(email)) {
-        toast('Account not found. Redirecting to Sign Up...');
-        setTimeout(() => location.href = 'signup.html', 2000);
-        return;
-      }
+      if (!email.includes('@')) { toast('Please enter a valid email'); return; }
+      if (!pass) { toast('Please enter your password'); return; }
 
       toast('Authenticating...');
-      setTimeout(() => {
-        localStorage.setItem('aj_logged_in', 'true');
-        localStorage.setItem('aj_user_email', email);
-        location.href = 'profile.html';
-      }, 1500);
+      try {
+        await auth.signInWithEmailAndPassword(email, pass);
+        localStorage.setItem('aj_has_account', 'true');
+        toast('Welcome back!');
+        setTimeout(() => location.href = 'profile.html', 1500);
+      } catch (error) {
+        toast('Authentication Failed: Check credentials.');
+      }
     }
     document.addEventListener('DOMContentLoaded', observeReveals);
   </script>

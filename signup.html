@@ -213,27 +213,35 @@
   </script>
   <script src="app.js"></script>
   <script>
-    function handleSignup() {
+    async function handleSignup() {
       const name = document.getElementById('signupName').value;
       const email = document.getElementById('signupEmail').value;
       const pass = document.getElementById('signupPass').value;
 
       if (!name) { toast('Please enter your name'); return; }
       if (!email.includes('@')) { toast('Please enter a valid email'); return; }
-      if (pass.length < 6) { toast('Password must be at least 6 characters'); return; }
-
-      let accounts = JSON.parse(localStorage.getItem('aj_accounts') || '[]');
-      if (!accounts.includes(email)) {
-        accounts.push(email);
-        localStorage.setItem('aj_accounts', JSON.stringify(accounts));
+      if (pass.length < 8 || pass.length > 16) { 
+        toast('Security: Password must be 8-16 characters'); 
+        return; 
       }
 
-      toast('Creating Account...');
-      setTimeout(() => {
-        localStorage.setItem('aj_logged_in', 'true');
-        localStorage.setItem('aj_user_email', email);
-        location.href = 'profile.html';
-      }, 1500);
+      toast('Verifying Details...');
+      try {
+        const userCredential = await auth.createUserWithEmailAndPassword(email, pass);
+        const user = userCredential.user;
+        
+        await db.collection('users').doc(user.uid).set({
+          name: name,
+          email: email,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        });
+
+        localStorage.setItem('aj_has_account', 'true');
+        toast('Account Created! Redirecting...');
+        setTimeout(() => location.href = 'profile.html', 1500);
+      } catch (error) {
+        toast(error.message);
+      }
     }
     document.addEventListener('DOMContentLoaded', observeReveals);
   </script>

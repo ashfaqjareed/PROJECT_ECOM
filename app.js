@@ -530,6 +530,16 @@ window.addEventListener('scroll', () => {
   if (h) h.classList.toggle('scrolled', window.scrollY > 40);
 }, { passive: true });
 
+function checkAccountAndGo(event) {
+  if (event) event.preventDefault();
+  if (isLoggedIn()) {
+    location.href = 'profile.html';
+  } else {
+    const hasAccount = localStorage.getItem('aj_has_account') === 'true';
+    location.href = hasAccount ? 'login.html' : 'signup.html';
+  }
+}
+
 function renderHeaderAuth() {
   const actions = document.querySelector('.header-actions');
   const avatar = document.querySelector('.avatar');
@@ -543,7 +553,7 @@ function renderHeaderAuth() {
       authGroup.style.display = 'flex';
       authGroup.style.gap = '10px';
       authGroup.innerHTML = `
-        <a href="login.html" class="btn-outline" style="padding: 10px 20px; font-size: 13px;">Sign In</a>
+        <a href="login.html" onclick="checkAccountAndGo(event)" class="btn-outline" style="padding: 10px 20px; font-size: 13px;">Sign In</a>
         <a href="signup.html" class="btn-primary" style="padding: 10px 20px; font-size: 13px;">Sign Up</a>
       `;
       const mobileBtn = document.querySelector('.mobile-menu-btn');
@@ -555,6 +565,7 @@ function renderHeaderAuth() {
       const av = document.createElement('a');
       av.href = 'profile.html';
       av.className = 'avatar';
+      av.onclick = (e) => checkAccountAndGo(e);
       av.textContent = localStorage.getItem('aj_user_email')?.charAt(0).toUpperCase() || 'A';
 
       const authGroup = document.querySelector('.header-auth-group');
@@ -564,12 +575,28 @@ function renderHeaderAuth() {
       if (mobileBtn) actions.insertBefore(av, mobileBtn);
       else actions.appendChild(av);
     } else {
+      avatar.onclick = (e) => checkAccountAndGo(e);
       avatar.textContent = localStorage.getItem('aj_user_email')?.charAt(0).toUpperCase() || 'A';
     }
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Sync Firebase Auth State
+  if (typeof auth !== 'undefined') {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        localStorage.setItem('aj_logged_in', 'true');
+        localStorage.setItem('aj_user_email', user.email);
+        localStorage.setItem('aj_has_account', 'true');
+      } else {
+        localStorage.removeItem('aj_logged_in');
+        localStorage.removeItem('aj_user_email');
+      }
+      renderHeaderAuth();
+    });
+  }
+
   renderHeaderAuth();
   updateCartBadge();
   if (document.getElementById('productGrid')) renderProducts();
