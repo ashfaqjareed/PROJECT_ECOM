@@ -338,7 +338,7 @@
     <div class="product-grid" id="productGrid"></div>
     <div id="pagination" class="pagination-wrap reveal"></div>
 
-    <!-- PAGE 3: COMING SOON SECTION — rendered by JS -->
+    <!-- PAGE 3: COMING SOON SECTION â€” rendered by JS -->
     <div id="comingSoonPage" style="display:none;">
       <div class="cs-slider-wrap reveal">
 
@@ -346,12 +346,12 @@
         <div class="cs-hero-banner">
           <div class="cs-big-number">420</div>
           <div class="cs-subtitle">Products Coming Soon</div>
-          <div class="cs-tag">Expanding Collection • November 2026</div>
+          <div class="cs-tag">Expanding Collection â€¢ November 2026</div>
           <div class="cs-progress-bar">
             <div class="cs-progress-fill"></div>
           </div>
           <div class="cs-percent-text">16% Revealed</div>
-          <div class="cs-month-badge">🔥 Dropping By November 2026 with Nationwide Availability</div>
+          <div class="cs-month-badge">ðŸ”¥ Dropping By November 2026 with Nationwide Availability</div>
         </div>
 
         <!-- ANIMATED GHOST SLIDER -->
@@ -377,7 +377,7 @@
           </div>
           <div>
             <div style="font-size:14px;font-weight:800;">AJ Assistant</div>
-            <div style="font-size:11px;color:var(--text-muted);">Online — Replies instantly</div>
+            <div style="font-size:11px;color:var(--text-muted);">Online â€” Replies instantly</div>
           </div>
         </div>
         <button onclick="toggleChat()"
@@ -391,7 +391,7 @@
       <div class="chat-body" id="chatBody">
         <div class="chat-msg bot">Welcome to <strong>AJ VANTAGE</strong>. I'm your dedicated assistant. How can I help
           you today?</div>
-        <div class="chat-msg bot" style="background:rgba(255,149,0,0.1);color:var(--primary);">✦ Coming soon to AJ
+        <div class="chat-msg bot" style="background:rgba(255,149,0,0.1);color:var(--primary);">âœ¦ Coming soon to AJ
           VANTAGE: Live Order Tracking, Style Recommendations & more.</div>
       </div>
       <div class="chat-input-area">
@@ -438,7 +438,7 @@
         <a href="legal.html">Privacy & Terms</a>
       </div>
     </div>
-    <div class="f-bottom"><span>© 2026 AJ VANTAGE. All rights reserved.</span><span class="sri-tag">Made with ❤️ in Sri
+    <div class="f-bottom"><span>Â© 2026 AJ VANTAGE. All rights reserved.</span><span class="sri-tag">Made with â¤ï¸ in Sri
         Lanka</span></div>
   </footer>
 
@@ -446,6 +446,24 @@
       stroke-width="2">
       <path d="M20 6L9 17l-5-5" />
     </svg><span id="toastMsg">Done</span></div>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBy44sne8A7Ynm5GEgA7DBrEmeuJkRc890",
+      authDomain: "aj-vantage-ecom.firebaseapp.com",
+      projectId: "aj-vantage-ecom",
+      storageBucket: "aj-vantage-ecom.firebasestorage.app",
+      messagingSenderId: "797206947976",
+      appId: "1:797206947976:web:ec58e49ce403741dd9d73d",
+      measurementId: "G-WJCRWVWB6H"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
   <script src="app.js"></script>
   <script>
     // Override renderProducts to show/hide coming soon page on page 3
@@ -491,8 +509,8 @@
         <div class="ghost-img-area">${ghostIcons[i % ghostIcons.length]}</div>
         <div class="ghost-info">
           <div class="ghost-cat">${cats[i % cats.length]}</div>
-          <div class="ghost-name">Vantage ${cats[i % cats.length]} Elite — Coming Soon</div>
-          <div class="ghost-price">??? LKR — November 2025</div>
+          <div class="ghost-name">Vantage ${cats[i % cats.length]} Elite â€” Coming Soon</div>
+          <div class="ghost-price">??? LKR â€” November 2025</div>
         </div>
       </div>
     `).join('');

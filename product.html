@@ -79,7 +79,7 @@
 
         <!-- Color Swatches -->
         <div>
-          <div class="qty-label" style="margin-bottom:10px">Color — <span id="colorName">Default</span></div>
+          <div class="qty-label" style="margin-bottom:10px">Color â€” <span id="colorName">Default</span></div>
           <div class="prod-color-row" id="colorRow"></div>
         </div>
 
@@ -93,7 +93,7 @@
         <div class="qty-row">
           <span class="qty-label">Quantity</span>
           <div class="qty-picker">
-            <button class="qty-btn" onclick="changeQty(-1)">−</button>
+            <button class="qty-btn" onclick="changeQty(-1)">âˆ’</button>
             <span class="qty-val" id="qtyVal">1</span>
             <button class="qty-btn" onclick="changeQty(1)">+</button>
           </div>
@@ -101,7 +101,7 @@
 
         <!-- Actions -->
         <div class="prod-actions">
-          <button class="btn-buy-lg" id="buyBtn" onclick="addAndGo()">Add to Cart — <span
+          <button class="btn-buy-lg" id="buyBtn" onclick="addAndGo()">Add to Cart â€” <span
               id="buyPrice">$0</span></button>
           <button class="btn-wish-lg" id="wishBtn" onclick="toggleProdWish()">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -155,7 +155,7 @@
         <a href="legal.html">Privacy and Terms</a>
       </div>
     </div>
-    <div class="f-bottom"><span>© 2026 AJ VANTAGE. All rights reserved.</span><span class="sri-tag">Made with ❤️ in Sri
+    <div class="f-bottom"><span>Â© 2026 AJ VANTAGE. All rights reserved.</span><span class="sri-tag">Made with â¤ï¸ in Sri
         Lanka</span></div>
   </footer>
 
@@ -163,6 +163,24 @@
       stroke-width="2">
       <path d="M20 6L9 17l-5-5" />
     </svg><span id="toastMsg">Done</span></div>
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBy44sne8A7Ynm5GEgA7DBrEmeuJkRc890",
+      authDomain: "aj-vantage-ecom.firebaseapp.com",
+      projectId: "aj-vantage-ecom",
+      storageBucket: "aj-vantage-ecom.firebasestorage.app",
+      messagingSenderId: "797206947976",
+      appId: "1:797206947976:web:ec58e49ce403741dd9d73d",
+      measurementId: "G-WJCRWVWB6H"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
   <script src="app.js"></script>
   <script>
     let pid, qty = 1;
@@ -235,7 +253,7 @@
       document.getElementById('buyPrice').textContent = isGhost ? 'Coming Soon' : fmtLKR(p.price * qty);
       document.getElementById('prodDesc').textContent = p.desc;
       document.getElementById('prodBread').textContent = p.name;
-      document.title = p.name + ' — AJ VANTAGE';
+      document.title = p.name + ' â€” AJ VANTAGE';
 
       if (isGhost) {
         const buyBtn = document.getElementById('buyBtn');
@@ -336,7 +354,7 @@
           <div class="spec-grid" style="margin-top:0">${specsHTML}</div>
         </div>
         <div class="prod-tab-content" data-key="ship">
-          <p>${p.shipping || 'Free standard shipping on all orders over RS.2000. Standard delivery takes 5–7 business days.'}</p>
+          <p>${p.shipping || 'Free standard shipping on all orders over RS.2000. Standard delivery takes 5â€“7 business days.'}</p>
         </div>
         <div class="prod-tab-content" data-key="reviews">
           <div class="reviews-list">${reviewsHTML}</div>
