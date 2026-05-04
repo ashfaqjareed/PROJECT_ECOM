@@ -117,7 +117,7 @@
         <section style="margin-bottom: 60px;">
           <h3
             style="font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); margin-bottom: 32px; font-weight: 800;">
-            01 â€” Shipping Destination</h3>
+            01 — Shipping Destination</h3>
           <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
             <div style="grid-column: 1/-1; display: flex; flex-direction: column; gap: 10px;">
               <label style="font-size: 13px; font-weight: 700; color: var(--text-light);">Full Name</label>
@@ -135,7 +135,7 @@
         <section style="margin-bottom: 60px;">
           <h3
             style="font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); margin-bottom: 32px; font-weight: 800;">
-            02 â€” Payment Selection</h3>
+            02 — Payment Selection</h3>
 
           <div class="pay-opt active" onclick="setPay('whatsapp', this)">
             <div class="pay-opt-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
@@ -171,7 +171,7 @@
               </svg></div>
             <div class="pay-opt-text">
               <div class="pay-opt-title">Bank Transfer</div>
-              <div class="pay-opt-sub">Direct Deposit â€” Secure & Manual</div>
+              <div class="pay-opt-sub">Direct Deposit — Secure & Manual</div>
             </div>
             <span class="coming-pill">Active</span>
           </div>
@@ -328,11 +328,14 @@
           <img src="${p.img}" style="width: 100%; height: 100%; object-fit: cover;">
         </div>
         <div style="flex: 1;">
-          <div style="font-weight: 800; font-size: 14px; margin-bottom: 2px;">${p.name}</div>
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <div style="font-weight: 800; font-size: 14px; margin-bottom: 2px;">${p.name}</div>
+            <a href="cart.html" style="font-size:10px; text-transform:uppercase; color:var(--primary); font-weight:800; text-decoration:none;">Edit</a>
+          </div>
           <div style="font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px;">
             ${item.color !== 'Default' ? item.color + ' / ' : ''}${item.size !== 'Default' ? 'Size ' + item.size : ''}
           </div>
-          <div style="font-size: 13px; font-weight: 700; color: var(--primary); margin-top: 4px;">${item.qty} Ã— ${fmtLKR(p.price)}</div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--primary); margin-top: 4px;">${item.qty} × ${fmtLKR(p.price)}</div>
         </div>
       </div>
     `;

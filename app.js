@@ -455,7 +455,7 @@ function renderCartItems() {
     const itemTotal = p.price * item.qty;
     subtotal += itemTotal;
     return `
-      <div class="cart-card reveal">
+      <div class="cart-card reveal" onclick="location.href='product.html?id=${p.id}'" style="cursor:pointer">
         <div class="cart-img">
           <img src="${p.img}" alt="${p.name}">
         </div>
@@ -463,9 +463,17 @@ function renderCartItems() {
           <div style="font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:1px; margin-bottom:4px;">${catLabels[p.cat]}</div>
           <div style="font-size:18px; font-weight:800; margin-bottom:4px;">${p.name}</div>
           <div style="font-size:13px; color:var(--text-light); margin-bottom:8px;">${item.color !== 'Default' ? item.color + ' / ' : ''}${item.size !== 'Default' ? 'Size ' + item.size : ''}</div>
-          <div style="font-size:16px; font-weight:700; color:var(--primary);">${item.qty} × ${fmtLKR(p.price)}</div>
+          
+          <div style="display:flex; align-items:center; gap:15px; margin-top:10px;">
+            <div class="qty-picker" style="margin:0; padding:4px 8px; scale:0.9; transform-origin:left;" onclick="event.stopPropagation()">
+              <button class="qty-btn" onclick="updateCartQty('${item.cartId}', -1)">−</button>
+              <span class="qty-val" style="min-width:20px; text-align:center;">${item.qty}</span>
+              <button class="qty-btn" onclick="updateCartQty('${item.cartId}', 1)">+</button>
+            </div>
+            <div style="font-size:16px; font-weight:700; color:var(--primary);">${fmtLKR(itemTotal)}</div>
+          </div>
         </div>
-        <button class="cart-remove-btn" onclick="removeFromCart('${item.cartId}')">
+        <button class="cart-remove-btn" onclick="event.stopPropagation(); removeFromCart('${item.cartId}')">
           <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><line x1="10" y1="11" x2="10" y2="17"/><line x1="14" y1="11" x2="14" y2="17"/></svg>
         </button>
       </div>
@@ -492,6 +500,16 @@ function removeFromCart(cartId) {
   setCart(c);
   renderCartItems();
   toast('Item removed from cart');
+}
+
+function updateCartQty(cartId, delta) {
+  let c = getCart();
+  const item = c.find(x => x.cartId == cartId);
+  if (item) {
+    item.qty = Math.max(1, Math.min(10, item.qty + delta));
+    setCart(c);
+    renderCartItems();
+  }
 }
 
 function renderSlider() {
