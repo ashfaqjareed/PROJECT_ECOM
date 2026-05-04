@@ -21,7 +21,7 @@ const mobileNavTemplate = (active) => `  <nav class="mobile-nav" id="mobileNav">
 const footerTemplate = `  <footer>
     <div class="f-grid">
       <div class="f-about">
-        <div class="logo"><img src="AJ2.png" alt="AJ Vantage Logo" class="site-logo"></div>
+        <div class="logo"><img src="assets/brand/AJ2.png" alt="AJ Vantage Logo" class="site-logo"></div>
         <p>Premium leather goods crafted with passion since 2026. Our collection consists of 80% new and 20% selectively curated pre-owned pieces available across our Website, WhatsApp Catalog, and Facebook Marketplace.</p>
       </div>
       <div class="f-col">
@@ -59,6 +59,15 @@ files.forEach(file => {
   // Replace footer
   content = content.replace(/<footer[\s\S]*?<\/footer>/, footerTemplate);
   
+  // GLOBAL ASSET PATH CORRECTIONS
+  content = content.replace(/src=["']AJ2\.png["']/g, 'src="assets/brand/AJ2.png"');
+  content = content.replace(/href=["']AJ\.png["']/g, 'href="assets/brand/AJ.png"');
+  content = content.replace(/src=["']AJ\.png["']/g, 'src="assets/brand/AJ.png"');
+  content = content.replace(/src=["']Ashfaq\.png["']/g, 'src="assets/products/Ashfaq.png"');
+  content = content.replace(/src=["']Ashfaq2\.png["']/g, 'src="assets/products/Ashfaq2.png"');
+  content = content.replace(/src=["']Jareed\.jpg["']/g, 'src="assets/products/Jareed.jpg"');
+  content = content.replace(/src=["']Jareed2\.png["']/g, 'src="assets/products/Jareed2.png"');
+
   fs.writeFileSync(path.join(dir, file), content);
 });
 

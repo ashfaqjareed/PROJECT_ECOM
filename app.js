@@ -1,10 +1,10 @@
 /* === AJ VANTAGE — 500+ Product Catalog Master Logic === */
 
-const categories = ['bags','wallets','belts','accessories','footwear','watches','travel','tech','office','lifestyle','gifting','grooming','apparel','home','collections'];
+const categories = ['bags', 'wallets', 'belts', 'accessories', 'footwear', 'watches', 'travel', 'tech', 'office', 'lifestyle', 'gifting', 'grooming', 'apparel', 'home', 'collections'];
 const catLabels = {
-  bags:'Bags', wallets:'Wallets', belts:'Belts', accessories:'Accessories', footwear:'Footwear', 
-  watches:'Watches', travel:'Travel', tech:'Tech', office:'Office', lifestyle:'Lifestyle', 
-  gifting:'Gifting', grooming:'Grooming', apparel:'Apparel', home:'Home', collections:'Collections'
+  bags: 'Bags', wallets: 'Wallets', belts: 'Belts', accessories: 'Accessories', footwear: 'Footwear',
+  watches: 'Watches', travel: 'Travel', tech: 'Tech', office: 'Office', lifestyle: 'Lifestyle',
+  gifting: 'Gifting', grooming: 'Grooming', apparel: 'Apparel', home: 'Home', collections: 'Collections'
 };
 
 const products = [];
@@ -27,7 +27,7 @@ const baseImages = {
 };
 
 // Generate 80 Active Products
-for(let i=1; i<=80; i++) {
+for (let i = 1; i <= 80; i++) {
   const cat = categories[i % categories.length];
   products.push({
     id: i,
@@ -40,16 +40,107 @@ for(let i=1; i<=80; i++) {
   });
 }
 
+// === MANUAL PRODUCT Information Enter ===
+const overrides = [
+  {
+    id: 1,
+    name: "AJ Vantage Executive Briefcase",
+    price: 85000,
+    img: "assets/products/Ashfaq.png",
+    gallery: ["assets/products/Ashfaq.png", "assets/products/Ashfaq2.png", "assets/products/Ashfaq.jpg"],
+    desc: "A masterpiece of utility and style. Handcrafted with precision, this briefcase features triple-reinforced stitching and premium full-grain leather.",
+    sizes: ['Standard', 'Executive XL', 'Custom Fit'],
+    colors: [
+      { name: 'Midnight Black', hex: '#111111', stock: true },
+      { name: 'Saddle Brown', hex: '#5d3a1a', stock: true },
+      { name: 'Navy Blue', hex: '#1e3a5f', stock: true },
+      { name: 'Hunter Green', hex: '#1b3022', stock: false }
+    ],
+    specs: {
+      "Material": "Full-Grain Italian Leather",
+      "Hardware": "Solid Brass",
+      "Dimensions": "16\" x 12\" x 4\"",
+      "Weight": "3.5 lbs",
+      "Lining": "Reinforced Suede"
+    },
+    reviews: [
+      { user: "Sarah L.", rating: 5, comment: "The quality is unmatched. Truly a lifetime piece." },
+      { user: "David K.", rating: 5, comment: "Worth every rupee. The leather feels incredible." }
+    ],
+    shipping: "Free global express shipping via DHL. 3-5 business days.",
+    additionalInfo: "Includes a custom dust bag and a lifetime warranty certificate."
+  },
+  {
+    id: 2,
+    name: "Noir Edition Leather Wallet",
+    price: 12500,
+    img: "assets/products/Ashfaq.png",
+    gallery: ["assets/products/Ashfaq.png", "assets/products/Ashfaq2.png"],
+    desc: "Minimalist design, maximum security. The Noir Edition is designed for the modern professional who values precision and privacy.",
+    sizes: ['Slim', 'Bi-Fold', 'XL', 'Card Holder'],
+    colors: [
+      { name: 'Obsidian Noir', hex: '#0a0a0a', stock: true },
+      { name: 'Carbon Gray', hex: '#333333', stock: true },
+      { name: 'Deep Burgundy', hex: '#4a0e0e', stock: true },
+      { name: 'Tan', hex: '#c8956c', stock: false }
+    ],
+    specs: {
+      "Material": "Nappa Leather",
+      "RFID Block": "Yes",
+      "Dimensions": "4.1\" x 3.2\" x 0.4\"",
+      "Weight": "0.15 lbs",
+      "Capacity": "6-8 Cards"
+    },
+    reviews: [
+      { user: "M. Ashfaq", rating: 5, comment: "Perfectly minimal. Exactly what I needed." }
+    ],
+    shipping: "Standard shipping: 2-3 business days. Express: 24 hours.",
+    additionalInfo: "Packaged in a signature AJ Vantage gift box."
+  },
+  {
+    id: 3,
+    name: "AJ Vantage Classic Belt",
+    price: 8500,
+    img: "assets/products/Ashfaq.png",
+    gallery: ["assets/products/Ashfaq.png", "assets/products/Ashfaq2.png"],
+    desc: "Classic aesthetic meets uncompromising durability. Handcrafted to be the last belt you ever buy.",
+    sizes: ['30', '32', '34', '36', '38', '40', '42'],
+    colors: [
+      { name: 'Antique Black', hex: '#111111', stock: true },
+      { name: 'Vintage Brown', hex: '#3d2b1f', stock: true },
+      { name: 'Mahogany', hex: '#4b2a1a', stock: true },
+      { name: 'Tan', hex: '#b87333', stock: true }
+    ],
+    specs: {
+      "Material": "Vegetable Tanned Leather",
+      "Buckle": "Stainless Steel",
+      "Width": "1.5 inches",
+      "Edge": "Hand-burnished"
+    },
+    reviews: [
+      { user: "Chris T.", rating: 5, comment: "Solid build, the leather is thick and premium." }
+    ],
+    shipping: "Ships in 1-2 business days.",
+    additionalInfo: "Vegetable tanned leather will develop a beautiful patina over time."
+  },
+
+];
+
+overrides.forEach(ov => {
+  const p = products.find(x => x.id === ov.id);
+  if (p) Object.assign(p, ov);
+});
+
 // Generate 420 Ghost Products (Coming Soon)
 const ghostProducts = [];
-for(let i=81; i<=500; i++) {
+for (let i = 81; i <= 500; i++) {
   const cat = categories[i % categories.length];
   ghostProducts.push({
     id: i,
-    name: `Artisan Concept #${i}`,
+    name: `COMING SOON!!!${i}`,
     cat: cat,
     price: 0,
-    badge: "Nov 2024",
+    badge: "Nov 2026",
     isGhost: true,
     desc: "A visionary design currently under development in our artisan studio. Launching soon."
   });
@@ -75,21 +166,21 @@ const catIcons = {
   collections: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`
 };
 
-function getIcon(cat){ return catIcons[cat] || catIcons.bags; }
-function fmtLKR(v){ return 'Rs. ' + Math.round(v).toLocaleString(); }
+function getIcon(cat) { return catIcons[cat] || catIcons.bags; }
+function fmtLKR(v) { return 'RS. ' + Math.round(v).toLocaleString(); }
 
 /* === State === */
-function getCart(){ 
-  let c = JSON.parse(localStorage.getItem('aj_cart')||'[]'); 
+function getCart() {
+  let c = JSON.parse(localStorage.getItem('aj_cart') || '[]');
   // Migration for old cart array of IDs
-  if(c.length > 0 && typeof c[0] === 'number') { c = []; setCart(c); }
+  if (c.length > 0 && typeof c[0] === 'number') { c = []; setCart(c); }
   return c;
 }
-function setCart(c){ localStorage.setItem('aj_cart',JSON.stringify(c)); updateCartBadge(); }
-function getWish(){ return JSON.parse(localStorage.getItem('aj_wish')||'[]'); }
-function setWish(w){ localStorage.setItem('aj_wish',JSON.stringify(w)); }
+function setCart(c) { localStorage.setItem('aj_cart', JSON.stringify(c)); updateCartBadge(); }
+function getWish() { return JSON.parse(localStorage.getItem('aj_wish') || '[]'); }
+function setWish(w) { localStorage.setItem('aj_wish', JSON.stringify(w)); }
 
-function updateCartBadge(){
+function updateCartBadge() {
   const c = getCart();
   document.querySelectorAll('#cartCount,.cart-badge').forEach(el => {
     el.textContent = c.length;
@@ -101,7 +192,7 @@ function updateCartBadge(){
 function updateFloatingCart() {
   const c = getCart();
   let floatCart = document.getElementById('aj-float-cart');
-  if(!floatCart) {
+  if (!floatCart) {
     floatCart = document.createElement('div');
     floatCart.id = 'aj-float-cart';
     floatCart.style.cssText = 'position:fixed;top:50%;right:20px;transform:translateY(-50%);background:var(--primary);color:#000;border-radius:30px;padding:12px 20px;font-weight:800;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,0.5);display:none;flex-direction:column;align-items:center;gap:4px;z-index:9999;transition:all 0.3s ease;';
@@ -110,22 +201,22 @@ function updateFloatingCart() {
     floatCart.onmouseleave = () => floatCart.style.transform = 'translateY(-50%) scale(1)';
     document.body.appendChild(floatCart);
   }
-  
-  if(c.length === 0) {
+
+  if (c.length === 0) {
     floatCart.style.display = 'none';
     return;
   }
-  
+
   let subtotal = 0;
   let count = 0;
   c.forEach(item => {
     const p = allProducts.find(x => x.id === item.id);
-    if(p) {
+    if (p) {
       subtotal += p.price * item.qty;
       count += item.qty;
     }
   });
-  
+
   floatCart.style.display = 'flex';
   floatCart.innerHTML = `
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
@@ -134,48 +225,70 @@ function updateFloatingCart() {
   `;
 }
 
-function toast(msg){
+function toast(msg) {
   const t = document.getElementById('toast');
-  if(!t) return;
+  if (!t) return;
   const msgEl = document.getElementById('toastMsg');
-  if(msgEl) msgEl.textContent = msg;
+  if (msgEl) msgEl.textContent = msg;
   t.classList.add('show');
   clearTimeout(window._toastTimer);
-  window._toastTimer = setTimeout(()=> t.classList.remove('show'), 2400);
+  window._toastTimer = setTimeout(() => t.classList.remove('show'), 2400);
 }
 
-function toggleFaq(btn){
+function expandImage(src) {
+  let modal = document.querySelector('.image-modal');
+  if (!modal) {
+    modal = document.createElement('div');
+    modal.className = 'image-modal';
+    modal.innerHTML = `
+      <div class="image-modal-close">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </div>
+      <img class="image-modal-content" src="" alt="Expanded View">
+    `;
+    modal.onclick = (e) => {
+      if (!e.target.closest('.image-modal-content')) modal.classList.remove('active');
+    };
+    modal.querySelector('.image-modal-close').onclick = () => modal.classList.remove('active');
+    document.body.appendChild(modal);
+  }
+  const img = modal.querySelector('.image-modal-content');
+  img.src = src;
+  setTimeout(() => modal.classList.add('active'), 10);
+}
+
+function toggleFaq(btn) {
   const item = btn.parentElement;
   const isActive = item.classList.contains('active');
   document.querySelectorAll('.faq-item').forEach(el => el.classList.remove('active'));
-  if(!isActive) item.classList.add('active');
+  if (!isActive) item.classList.add('active');
 }
 
-function isLoggedIn(){ return localStorage.getItem('aj_logged_in') === 'true'; }
+function isLoggedIn() { return localStorage.getItem('aj_logged_in') === 'true'; }
 
-function deleteAccount(){
-  if(confirm("Are you sure you want to delete your AJ VANTAGE account? This action cannot be undone.")) {
+function deleteAccount() {
+  if (confirm("Are you sure you want to delete your AJ VANTAGE account? This action cannot be undone later.")) {
     localStorage.removeItem('aj_logged_in');
     localStorage.removeItem('aj_user_email');
     localStorage.removeItem('aj_cart');
     localStorage.removeItem('aj_wish');
-    toast("Account permanently deleted");
+    toast("Account Permanently Deleted");
     setTimeout(() => location.href = 'signup.html', 1500);
   }
 }
 
-function addToCart(id, qty = 1, size = 'Default', color = 'Default'){
-  if(!isLoggedIn()){
-    toast('Membership Required — Redirecting to Login');
+function addToCart(id, qty = 1, size = 'Default', color = 'Default') {
+  if (!isLoggedIn()) {
+    toast('Account Required | Redirecting to Login');
     setTimeout(() => location.href = 'login.html', 1500);
     return;
   }
   const p = allProducts.find(x => x.id === id);
-  if(p && p.isGhost) { toast('Sneak Peak Only — Launching Nov'); return; }
+  if (p && p.isGhost) { toast('Sneak Peak Only — Launching Nov'); return; }
   const c = getCart();
   // Check if same product + size + color exists
   const existing = c.find(item => item.id === id && item.size === size && item.color === color);
-  if(existing) {
+  if (existing) {
     existing.qty += qty;
     toast('Cart updated');
   } else {
@@ -185,30 +298,30 @@ function addToCart(id, qty = 1, size = 'Default', color = 'Default'){
   setCart(c);
 }
 
-function toggleWish(id){
-  if(!isLoggedIn()){
-    toast('Membership Required — Please Log In');
+function toggleWish(id) {
+  if (!isLoggedIn()) {
+    toast('Account Required | Redirecting to Login');
     setTimeout(() => location.href = 'login.html', 1500);
     return;
   }
   let w = getWish();
-  if(w.includes(id)){ w = w.filter(x=>x!==id); setWish(w); toast('Removed from wishlist'); }
+  if (w.includes(id)) { w = w.filter(x => x !== id); setWish(w); toast('Removed from Wishlist'); }
   else { w.push(id); setWish(w); toast('Added to wishlist'); }
-  
+
   // Re-render UI to update heart color
-  if(window.location.pathname.includes('wishlist.html') && typeof renderWishlist === 'function') renderWishlist();
-  else if(typeof renderProducts === 'function') renderProducts();
+  if (window.location.pathname.includes('wishlist.html') && typeof renderWishlist === 'function') renderWishlist();
+  else if (typeof renderProducts === 'function') renderProducts();
 }
 
-function goProduct(id){ location.href = `product.html?id=${id}`; }
+function goProduct(id) { location.href = `product.html?id=${id}`; }
 
-function filterCat(cat){
+function filterCat(cat) {
   const url = new URL(window.location);
   url.searchParams.set('cat', cat);
   url.searchParams.set('page', '1');
   window.history.pushState({}, '', url);
   renderProducts();
-  
+
   // Update UI Pills
   document.querySelectorAll('.cat-pill').forEach(btn => {
     btn.classList.toggle('active', btn.getAttribute('onclick').includes(`'${cat}'`));
@@ -216,23 +329,25 @@ function filterCat(cat){
 }
 
 /* === Master Rendering === */
-function cardHTML(p, i, wish){
+function cardHTML(p, i, wish) {
   const isGhost = p.isGhost;
   const inWish = wish.includes(p.id);
-  return `<div class="product-card reveal ${isGhost?'ghost-card':''}" style="animation-delay:${(i%12)*50}ms" onclick="${isGhost?'toast(\'Coming Soon November 2024\')':`goProduct(${p.id})`}">
+  return `<div class="product-card reveal ${isGhost ? 'ghost-card' : ''}" style="animation-delay:${(i % 12) * 50}ms" 
+    onclick="${isGhost ? 'toast(\'Coming Soon November 2024\')' : `goProduct(${p.id})`}"
+    ondblclick="event.stopPropagation(); expandImage('${p.img}')">
     <div class="product-img-area">
       ${isGhost ? `<div class="ghost-placeholder">${getIcon(p.cat)}</div>` : `<img src="${p.img}" alt="${p.name}" class="p-img-main">`}
-      ${p.badge ? `<span class="badge-status ${isGhost?'coming-soon':''}">${p.badge}</span>` : ''}
-      ${!isGhost ? `<button class="wishlist-btn ${inWish?'active':''}" onclick="event.stopPropagation();toggleWish(${p.id})">
+      ${p.badge ? `<span class="badge-status ${isGhost ? 'coming-soon' : ''}">${p.badge}</span>` : ''}
+      ${!isGhost ? `<button class="wishlist-btn ${inWish ? 'active' : ''}" onclick="event.stopPropagation();toggleWish(${p.id})">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       </button>` : ''}
     </div>
     <div class="product-info">
-      <div class="product-cat">${catLabels[p.cat]||p.cat}</div>
+      <div class="product-cat">${catLabels[p.cat] || p.cat}</div>
       <div class="product-name">${p.name}</div>
     </div>
     <div class="product-bot">
-      <span class="product-price">${isGhost?'Coming Soon':fmtLKR(p.price)}</span>
+      <span class="product-price">${isGhost ? 'Coming Soon' : fmtLKR(p.price)}</span>
       ${!isGhost ? `<button class="add-to-cart" onclick="event.stopPropagation();addToCart(${p.id})">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       </button>` : ''}
@@ -240,9 +355,9 @@ function cardHTML(p, i, wish){
   </div>`;
 }
 
-function renderProducts(){
+function renderProducts() {
   const grid = document.getElementById('productGrid');
-  if(!grid) return;
+  if (!grid) return;
   const wish = getWish();
   const urlParams = new URLSearchParams(window.location.search);
   const page = parseInt(urlParams.get('page') || '1');
@@ -250,27 +365,27 @@ function renderProducts(){
   const isShop = window.location.pathname.includes('shop.html');
 
   let filtered = allProducts;
-  if(cat !== 'all') {
+  if (cat !== 'all') {
     filtered = products.filter(p => p.cat === cat);
     // If no active products in this cat, maybe show ghost? 
     // For now, just filter active ones.
   }
 
-  if(isShop && cat === 'all'){
-    if(page === 1) filtered = products.slice(0, 40);
-    else if(page === 2) filtered = products.slice(40, 80);
-    else if(page === 3) filtered = ghostProducts.slice(0, 8); // Sneak peak
+  if (isShop && cat === 'all') {
+    if (page === 1) filtered = products.slice(0, 40);
+    else if (page === 2) filtered = products.slice(40, 80);
+    else if (page === 3) filtered = ghostProducts.slice(0, 8); // Sneak peak
   } else if (isShop && cat !== 'all') {
     // Basic pagination for category filtering
     const perPage = 40;
-    filtered = filtered.slice((page-1)*perPage, page*perPage);
+    filtered = filtered.slice((page - 1) * perPage, page * perPage);
   } else if (!isShop) {
     // For Home page "Recent Drops"
     filtered = products.slice(0, 8);
   }
 
   let html = '';
-  if(isShop && page === 3 && cat === 'all'){
+  if (isShop && page === 3 && cat === 'all') {
     html = `<div class="coming-soon-poster reveal" style="grid-column:1/-1; background: var(--text); border-radius: var(--radius-xl); padding: 80px 40px; text-align: center; color: #fff; margin-bottom: 40px; position:relative; overflow:hidden">
       <div style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0.1; background-image: radial-gradient(circle at 50% 50%, var(--primary), transparent)"></div>
       <div style="position:relative; z-index:1">
@@ -285,9 +400,9 @@ function renderProducts(){
       </div>
     </div>`;
     html += `<div style="grid-column:1/-1; margin:40px 0 20px; text-align:center;"><h3 style="font-size:24px; font-weight:700">Sneak Peak of the Future</h3></div>`;
-    html += filtered.map((p,i) => cardHTML(p,i,wish)).join('');
+    html += filtered.map((p, i) => cardHTML(p, i, wish)).join('');
   } else {
-    html = filtered.map((p,i) => cardHTML(p,i,wish)).join('');
+    html = filtered.map((p, i) => cardHTML(p, i, wish)).join('');
   }
 
   grid.innerHTML = html || '<div class="empty-state">No products found</div>';
@@ -295,48 +410,48 @@ function renderProducts(){
   setTimeout(observeReveals, 50);
 }
 
-function renderPagination(current, show){
+function renderPagination(current, show) {
   const wrap = document.getElementById('pagination');
-  if(!wrap) return;
-  if(!show) { wrap.innerHTML = ''; return; }
-  
+  if (!wrap) return;
+  if (!show) { wrap.innerHTML = ''; return; }
+
   let html = `
-    <a href="?page=${Math.max(1, current-1)}" class="page-btn ${current===1?'disabled':''}" onclick="if(${current===1})return false">
+    <a href="?page=${Math.max(1, current - 1)}" class="page-btn ${current === 1 ? 'disabled' : ''}" onclick="if(${current === 1})return false">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>
     </a>
-    <a href="?page=1" class="page-btn ${current===1?'active':''}">1</a>
-    <a href="?page=2" class="page-btn ${current===2?'active':''}">2</a>
-    <a href="?page=3" class="page-btn ${current===3?'active':''}">3</a>
-    <a href="?page=${Math.min(3, current+1)}" class="page-btn ${current===3?'disabled':''}" onclick="if(${current===3})return false">
+    <a href="?page=1" class="page-btn ${current === 1 ? 'active' : ''}">1</a>
+    <a href="?page=2" class="page-btn ${current === 2 ? 'active' : ''}">2</a>
+    <a href="?page=3" class="page-btn ${current === 3 ? 'active' : ''}">3</a>
+    <a href="?page=${Math.min(3, current + 1)}" class="page-btn ${current === 3 ? 'disabled' : ''}" onclick="if(${current === 3})return false">
       <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>
     </a>
   `;
   wrap.innerHTML = html;
 }
 
-function renderCartItems(){
+function renderCartItems() {
   const container = document.getElementById('cartItems');
-  if(!container) return;
+  if (!container) return;
   const cart = getCart();
   const empty = document.getElementById('emptyCart');
   const layout = document.querySelector('.cart-layout');
   const sub = document.getElementById('cartSub');
 
-  if(!cart.length){
-    if(layout) layout.style.display = 'none';
-    if(empty) empty.style.display = 'flex';
-    if(sub) sub.style.display = 'none';
+  if (!cart.length) {
+    if (layout) layout.style.display = 'none';
+    if (empty) empty.style.display = 'flex';
+    if (sub) sub.style.display = 'none';
     return;
   }
 
-  if(layout) layout.style.display = 'grid';
-  if(empty) empty.style.display = 'none';
-  if(sub) sub.style.display = 'block';
+  if (layout) layout.style.display = 'grid';
+  if (empty) empty.style.display = 'none';
+  if (sub) sub.style.display = 'block';
 
   let subtotal = 0;
   container.innerHTML = cart.map(item => {
     const p = allProducts.find(x => x.id === item.id);
-    if(!p) return '';
+    if (!p) return '';
     const itemTotal = p.price * item.qty;
     subtotal += itemTotal;
     return `
@@ -364,14 +479,14 @@ function renderCartItems(){
   const taxEl = document.getElementById('tax');
   const totalEl = document.getElementById('total');
 
-  if(subEl) subEl.textContent = fmtLKR(subtotal);
-  if(taxEl) taxEl.textContent = fmtLKR(tax);
-  if(totalEl) totalEl.textContent = fmtLKR(total);
-  
+  if (subEl) subEl.textContent = fmtLKR(subtotal);
+  if (taxEl) taxEl.textContent = fmtLKR(tax);
+  if (totalEl) totalEl.textContent = fmtLKR(total);
+
   setTimeout(observeReveals, 50);
 }
 
-function removeFromCart(cartId){
+function removeFromCart(cartId) {
   let c = getCart();
   c = c.filter(item => item.cartId != cartId);
   setCart(c);
@@ -379,18 +494,18 @@ function removeFromCart(cartId){
   toast('Item removed from cart');
 }
 
-function renderSlider(){
+function renderSlider() {
   const track = document.getElementById('sliderTrack');
-  if(!track) return;
+  if (!track) return;
   const wish = getWish();
   const featured = products.slice(-9).reverse();
-  track.innerHTML = featured.map((p,i)=> cardHTML(p,i,wish)).join('');
+  track.innerHTML = featured.map((p, i) => cardHTML(p, i, wish)).join('');
   setTimeout(observeReveals, 50);
 }
 
-function renderHomeCategories(){
+function renderHomeCategories() {
   const grid = document.getElementById('categoryGrid');
-  if(!grid) return;
+  if (!grid) return;
   const isIndex = window.location.pathname.includes('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/');
   const catsToRender = isIndex ? categories.slice(0, 6) : categories;
   grid.innerHTML = catsToRender.map(cat => `
@@ -401,28 +516,28 @@ function renderHomeCategories(){
   `).join('');
 }
 
-function observeReveals(){
-  const obs = new IntersectionObserver((entries)=>{
-    entries.forEach(e=>{
-      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+function observeReveals() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
     });
-  },{ threshold:0.05 });
+  }, { threshold: 0.05 });
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => obs.observe(el));
 }
 
-window.addEventListener('scroll',()=>{
+window.addEventListener('scroll', () => {
   const h = document.getElementById('header');
-  if(h) h.classList.toggle('scrolled', window.scrollY > 40);
-},{passive:true});
+  if (h) h.classList.toggle('scrolled', window.scrollY > 40);
+}, { passive: true });
 
 function renderHeaderAuth() {
   const actions = document.querySelector('.header-actions');
   const avatar = document.querySelector('.avatar');
-  if(!actions) return;
-  
-  if(!isLoggedIn()) {
-    if(avatar) avatar.remove();
-    if(!document.querySelector('.header-auth-group')) {
+  if (!actions) return;
+
+  if (!isLoggedIn()) {
+    if (avatar) avatar.remove();
+    if (!document.querySelector('.header-auth-group')) {
       const authGroup = document.createElement('div');
       authGroup.className = 'header-auth-group';
       authGroup.style.display = 'flex';
@@ -432,21 +547,21 @@ function renderHeaderAuth() {
         <a href="signup.html" class="btn-primary" style="padding: 10px 20px; font-size: 13px;">Sign Up</a>
       `;
       const mobileBtn = document.querySelector('.mobile-menu-btn');
-      if(mobileBtn) actions.insertBefore(authGroup, mobileBtn);
+      if (mobileBtn) actions.insertBefore(authGroup, mobileBtn);
       else actions.appendChild(authGroup);
     }
   } else {
-    if(!avatar) {
+    if (!avatar) {
       const av = document.createElement('a');
       av.href = 'profile.html';
       av.className = 'avatar';
       av.textContent = localStorage.getItem('aj_user_email')?.charAt(0).toUpperCase() || 'A';
-      
+
       const authGroup = document.querySelector('.header-auth-group');
-      if(authGroup) authGroup.remove();
-      
+      if (authGroup) authGroup.remove();
+
       const mobileBtn = document.querySelector('.mobile-menu-btn');
-      if(mobileBtn) actions.insertBefore(av, mobileBtn);
+      if (mobileBtn) actions.insertBefore(av, mobileBtn);
       else actions.appendChild(av);
     } else {
       avatar.textContent = localStorage.getItem('aj_user_email')?.charAt(0).toUpperCase() || 'A';
@@ -454,28 +569,28 @@ function renderHeaderAuth() {
   }
 }
 
-document.addEventListener('DOMContentLoaded',()=>{
+document.addEventListener('DOMContentLoaded', () => {
   renderHeaderAuth();
   updateCartBadge();
-  if(document.getElementById('productGrid')) renderProducts();
-  if(document.getElementById('sliderTrack')) renderSlider();
-  if(document.getElementById('categoryGrid')) renderHomeCategories();
-  if(document.getElementById('cartItems')) renderCartItems();
+  if (document.getElementById('productGrid')) renderProducts();
+  if (document.getElementById('sliderTrack')) renderSlider();
+  if (document.getElementById('categoryGrid')) renderHomeCategories();
+  if (document.getElementById('cartItems')) renderCartItems();
   observeReveals();
 });
 
 /* === CHATBOT LOGIC === */
 function toggleChat() {
   const w = document.getElementById('chatWindow');
-  if(w) w.classList.toggle('open');
+  if (w) w.classList.toggle('open');
 }
 
 function sendChatMessage() {
   const input = document.getElementById('chatInput');
   const body = document.getElementById('chatBody');
   const text = input.value.trim();
-  if(!text) return;
-  
+  if (!text) return;
+
   // User Message
   const uMsg = document.createElement('div');
   uMsg.className = 'chat-msg user';
@@ -490,13 +605,13 @@ function sendChatMessage() {
     bMsg.className = 'chat-msg bot';
     let reply = "I understand. Our collections are crafted for maximum utility and durability.";
     const t = text.toLowerCase();
-    
-    if(t.includes('shipping') || t.includes('track')) reply = "We ship globally via DHL Express (7-14 days). You can track your order in the Profile section.";
-    else if(t.includes('return') || t.includes('refund')) reply = "Returns are accepted within 30 days of delivery, provided the item is unused and in original packaging.";
-    else if(t.includes('price') || t.includes('cost')) reply = "All prices are listed in LKR. Our pricing reflects the premium materials and artisanal labor invested.";
-    else if(t.includes('material') || t.includes('leather')) reply = "We exclusively use full-grain leather, sourced ethically and treated for longevity.";
-    else if(t.includes('contact') || t.includes('support')) reply = "You may use the Direct Transmission form on this page or email m.ashfaqjareed@gmail.com.";
-    
+
+    if (t.includes('shipping') || t.includes('track')) reply = "We ship globally via DHL Express (7-14 days). You can track your order in the Profile section.";
+    else if (t.includes('return') || t.includes('refund')) reply = "Returns are accepted within 30 days of delivery, provided the item is unused and in original packaging.";
+    else if (t.includes('price') || t.includes('cost')) reply = "All prices are listed in LKR. Our pricing reflects the premium materials and artisanal labor invested.";
+    else if (t.includes('material') || t.includes('leather')) reply = "We exclusively use full-grain leather, sourced ethically and treated for longevity.";
+    else if (t.includes('contact') || t.includes('support')) reply = "You may use the Direct Transmission form on this page or email m.ashfaqjareed@gmail.com.";
+
     bMsg.textContent = reply;
     body.appendChild(bMsg);
     body.scrollTop = body.scrollHeight;
@@ -536,36 +651,72 @@ function fuzzyMatch(str, query) {
   return false;
 }
 
+/* === SEARCH LOGIC — STRUCTURED DROPDOWN === */
 function filterSearch(query) {
-  const q = query.toLowerCase();
-  const grid = document.getElementById('productGrid');
-  const count = document.getElementById('resultCount');
-  if(!grid) return;
+  const q = query.toLowerCase().trim();
+  let resultsList = document.getElementById('aj-search-results');
+  const searchPill = document.querySelector('.search-pill');
 
-  const filtered = allProducts.filter(p => 
-    fuzzyMatch(p.name.toLowerCase(), q) || 
+  if (!resultsList) {
+    resultsList = document.createElement('div');
+    resultsList.id = 'aj-search-results';
+    resultsList.className = 'search-results-list';
+    if (searchPill) searchPill.style.position = 'relative';
+    searchPill?.appendChild(resultsList);
+  }
+
+  if (!q) {
+    resultsList.classList.remove('active');
+    return;
+  }
+
+  const filtered = allProducts.filter(p =>
+    fuzzyMatch(p.name.toLowerCase(), q) ||
     (p.cat && fuzzyMatch(p.cat.toLowerCase(), q)) ||
     (catLabels[p.cat] && fuzzyMatch(catLabels[p.cat].toLowerCase(), q))
-  );
-  
-  if(filtered.length === 0){
-    grid.innerHTML = '<div style="grid-column:1/-1;padding:100px 0;text-align:center;color:var(--text-light);font-weight:700;">No products found matching your search.</div>';
-    renderPagination(1, false);
+  ).slice(0, 10); // Limit to top 10
+
+  if (filtered.length === 0) {
+    resultsList.innerHTML = '<div style="padding:20px;text-align:center;font-size:13px;color:var(--text-light); font-weight: 500;">No results found for "' + q + '"</div>';
   } else {
-    const wish = getWish();
-    grid.innerHTML = filtered.map((p,i) => cardHTML(p,i,wish)).join('');
-    renderPagination(1, false); 
+    resultsList.innerHTML = filtered.map(p => `
+      <div class="search-result-item" onclick="location.href='product.html?id=${p.id}'">
+        <div class="search-result-img-wrap">
+          <img src="${p.img}" class="search-result-img" alt="${p.name}">
+        </div>
+        <div class="search-result-info">
+          <div class="search-result-name">${p.name}</div>
+          <div class="search-result-cat">${catLabels[p.cat] || p.cat}</div>
+          <div class="search-result-price">${p.isGhost ? 'Coming Soon' : fmtLKR(p.price)}</div>
+        </div>
+      </div>
+    `).join('');
   }
-  if(count) count.textContent = `Showing ${filtered.length} products`;
+
+  resultsList.classList.add('active');
 }
 
-document.getElementById('searchInput')?.addEventListener('input', (e) => filterSearch(e.target.value));
+// Close search on click outside
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.search-pill')) {
+    document.getElementById('aj-search-results')?.classList.remove('active');
+  }
+});
+
+// Update all search inputs to use the new logic
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInputs = document.querySelectorAll('.search-pill input');
+  searchInputs.forEach(input => {
+    input.addEventListener('input', (e) => filterSearch(e.target.value));
+    input.addEventListener('focus', (e) => { if (e.target.value) filterSearch(e.target.value); });
+  });
+});
 
 /* === MOBILE MENU === */
 function toggleMobileMenu() {
   const nav = document.getElementById('mobileNav');
   const overlay = document.getElementById('navOverlay');
-  if(nav && overlay) {
+  if (nav && overlay) {
     nav.classList.toggle('open');
     overlay.classList.toggle('active');
     document.body.style.overflow = nav.classList.contains('open') ? 'hidden' : '';
