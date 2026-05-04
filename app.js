@@ -266,14 +266,50 @@ function toggleFaq(btn) {
 
 function isLoggedIn() { return localStorage.getItem('aj_logged_in') === 'true'; }
 
-function deleteAccount() {
-  if (confirm("Are you sure you want to delete your AJ VANTAGE account? This action cannot be undone later.")) {
-    localStorage.removeItem('aj_logged_in');
-    localStorage.removeItem('aj_user_email');
-    localStorage.removeItem('aj_cart');
-    localStorage.removeItem('aj_wish');
-    toast("Account Permanently Deleted");
-    setTimeout(() => location.href = 'signup.html', 1500);
+async function deleteAccount() {
+  const user = auth.currentUser;
+  if (!user) return;
+  
+  if (confirm("CRITICAL: Are you sure you want to delete your AJ VANTAGE account? All your data, orders, and preferences will be permanently erased. This action cannot be reversed.")) {
+    toast("Initiating Secure Deletion...");
+    try {
+      // 1. Delete Firestore Data
+      await db.collection('users').doc(user.uid).delete();
+      
+      // 2. Delete Auth User
+      await user.delete();
+      
+      localStorage.clear();
+      toast("Account Permanently Erased");
+      setTimeout(() => location.href = 'index.html', 1500);
+    } catch (error) {
+      if (error.code === 'auth/requires-recent-login') {
+        toast("Security: Please Re-login to Delete Account");
+        setTimeout(() => auth.signOut(), 2000);
+      } else {
+        toast("Deletion Failed: " + error.message);
+      }
+    }
+  }
+}
+
+let loginAttempts = 0;
+async function trackLoginAttempt(success) {
+  if (success) {
+    loginAttempts = 0;
+  } else {
+    loginAttempts++;
+    if (loginAttempts >= 2) {
+      toast("Security: Multiple failed attempts. Forgot password?");
+      // Small delay before suggesting reset
+      setTimeout(() => {
+        if(confirm("Would you like to reset your password?")) {
+           const email = document.getElementById('loginEmail')?.value;
+           if(email) handleForgotPassword(email);
+           else toast("Enter email first");
+        }
+      }, 1000);
+    }
   }
 }
 
@@ -599,14 +635,22 @@ function renderHeaderAuth() {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Sync Firebase Auth State
+document.addEventListener('DOMContentLoaded', async () => {
+  // 1. Global Fail-Safe Check
+  await checkSiteStatus();
+
+  // 2. IP Based Onboarding
+  detectIPAndRedirect();
+
+  // 3. Sync Firebase Auth State
   if (typeof auth !== 'undefined') {
     auth.onAuthStateChanged((user) => {
       if (user) {
         localStorage.setItem('aj_logged_in', 'true');
         localStorage.setItem('aj_user_email', user.email);
         localStorage.setItem('aj_has_account', 'true');
+        // Update user activity timestamp
+        db.collection('users').doc(user.uid).set({ lastSeen: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
       } else {
         localStorage.removeItem('aj_logged_in');
         localStorage.removeItem('aj_user_email');
@@ -623,6 +667,82 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.getElementById('cartItems')) renderCartItems();
   observeReveals();
 });
+
+/* === SECURITY & SYSTEM LOGIC === */
+
+async function checkSiteStatus() {
+  try {
+    // Check global status in Firestore
+    const statusDoc = await db.collection('system').doc('status').get();
+    if (statusDoc.exists && statusDoc.data().active === false) {
+      showFailSafe(statusDoc.data().message || "AJ VANTAGE is currently undergoing secure maintenance.");
+    }
+  } catch (e) {
+    console.warn("System check offline.");
+  }
+}
+
+function showFailSafe(msg) {
+  let overlay = document.getElementById('aj-fail-safe');
+  if (!overlay) {
+    overlay = document.createElement('div');
+    overlay.id = 'aj-fail-safe';
+    overlay.style.cssText = 'position:fixed;inset:0;background:#000;z-index:100000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center;color:#fff;';
+    overlay.innerHTML = `
+      <img src="assets/brand/AJ3.png" style="height:40px; margin-bottom:40px;">
+      <h1 style="font-size:32px; font-weight:800; margin-bottom:20px; letter-spacing:-1px;">System Restricted</h1>
+      <p style="color:var(--text-muted); max-width:500px; line-height:1.6; margin-bottom:32px;">${msg}</p>
+      <div style="padding:12px 24px; border:1px solid var(--border); border-radius:var(--radius); font-family:monospace; font-size:12px; color:var(--primary);">ERROR_CODE: 0x5173_MNT</div>
+    `;
+    document.body.appendChild(overlay);
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+async function detectIPAndRedirect() {
+  const onboarded = localStorage.getItem('aj_onboarded');
+  const loggedIn = isLoggedIn();
+  const isAuthPage = window.location.pathname.includes('login.html') || window.location.pathname.includes('signup.html');
+  
+  if (onboarded || loggedIn || isAuthPage) return;
+
+  try {
+    const res = await fetch('https://ipapi.co/json/');
+    const data = await res.json();
+    
+    if (data.country_name) {
+      localStorage.setItem('aj_onboarded', 'true');
+      toast(`New Visitor detected from ${data.city || data.country_name}. Redirecting to secure onboarding...`);
+      setTimeout(() => {
+        if (!isLoggedIn()) location.href = 'signup.html';
+      }, 2500);
+    }
+  } catch (e) {
+    console.warn("IP Tracking Blocked");
+  }
+}
+
+async function handleForgotPassword(email) {
+  if (!email) { toast("Email required for reset"); return; }
+  try {
+    await auth.sendPasswordResetEmail(email);
+    toast("Security: Reset link sent to your email.");
+  } catch (error) {
+    toast("Reset Failed: " + error.message);
+  }
+}
+
+async function handleSignOut() {
+  try {
+    await auth.signOut();
+    localStorage.removeItem('aj_logged_in');
+    localStorage.removeItem('aj_user_email');
+    toast("Signing out securely...");
+    setTimeout(() => location.href = 'index.html', 1000);
+  } catch (e) {
+    location.href = 'index.html';
+  }
+}
 
 /* === CHATBOT LOGIC === */
 function toggleChat() {

@@ -387,9 +387,13 @@
                 <div class="info-label">Phone Number</div><input type="text" id="editPhone" value="+94 072 122 6766"
                   readonly class="info-value">
               </div>
+              <div class="info-box" style="grid-column: 1 / -1;">
+                <div class="info-label">Shipping Address</div><input type="text" id="editAddress" value="No. 42, Luxury Lane, Colombo 07"
+                  readonly class="info-value">
+              </div>
               <div class="info-box">
                 <div class="info-label">Country / Region</div><input type="text" id="editCountry"
-                  value="Sri Lanka ðŸ‡±ðŸ‡°" readonly class="info-value">
+                  value="Sri Lanka 🇱🇰" readonly class="info-value">
               </div>
               <div class="info-box">
                 <div class="info-label">Member Since</div>
@@ -398,6 +402,15 @@
               <div class="info-box">
                 <div class="info-label">Account Tier</div>
                 <div class="info-value" style="color:var(--primary);">Vantage Gold ✦ Member</div>
+              </div>
+              <div class="info-box" style="cursor: pointer;" onclick="handleChangePassword()">
+                <div class="info-label">Account Security</div>
+                <div class="info-value" style="display:flex; align-items:center; gap:8px;">
+                  Change Password 
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+                  </svg>
+                </div>
               </div>
             </div>
             <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
@@ -518,28 +531,97 @@
   <script src="app.js"></script>
   <script>
     let isEditing = false;
-    function toggleEdit() {
+    let userData = null;
+
+    async function loadUserProfile() {
+      auth.onAuthStateChanged(async (user) => {
+        if (!user) { location.href = 'login.html'; return; }
+        
+        try {
+          const doc = await db.collection('users').doc(user.uid).get();
+          if (doc.exists) {
+            userData = doc.data();
+            document.getElementById('userName').textContent = userData.name || 'Vantage Member';
+            document.getElementById('userEmailDisplay').textContent = user.email;
+            document.getElementById('editName').value = userData.name || '';
+            document.getElementById('editEmail').value = user.email;
+            document.getElementById('editPhone').value = userData.phone || '+94';
+            document.getElementById('editAddress').value = userData.address || '';
+            document.getElementById('editCountry').value = userData.country || 'Sri Lanka';
+          }
+        } catch (e) {
+          console.error("Error loading profile", e);
+        }
+      });
+    }
+
+    async function toggleEdit() {
+      const user = auth.currentUser;
+      if (!user) return;
+
       isEditing = !isEditing;
       const btn = document.getElementById('editBtn');
-      const inputs = ['editName', 'editEmail', 'editPhone', 'editCountry'];
+      const inputs = ['editName', 'editPhone', 'editCountry', 'editAddress']; 
+      
       inputs.forEach(id => {
         const el = document.getElementById(id);
         el.readOnly = !isEditing;
-        if (isEditing) { el.style.background = 'rgba(0,0,0,0.05)'; el.style.padding = '4px 8px'; el.style.borderRadius = '4px'; }
-        else { el.style.background = 'none'; el.style.padding = '0'; }
+        if (isEditing) { 
+          el.style.background = 'var(--surface-dim)'; 
+          el.style.padding = '8px 12px'; 
+          el.style.borderRadius = 'var(--radius)';
+          el.style.border = '1px solid var(--primary)';
+        } else { 
+          el.style.background = 'none'; 
+          el.style.padding = '0';
+          el.style.border = 'none';
+        }
       });
-      btn.textContent = isEditing ? 'Save Details' : 'Edit Profile';
+
+      btn.textContent = isEditing ? 'Save Changes' : 'Edit Profile';
+      
       if (!isEditing) {
-        toast('Profile updated');
-        document.getElementById('userName').textContent = document.getElementById('editName').value;
-        document.getElementById('userEmailDisplay').textContent = document.getElementById('editEmail').value;
+        toast('Syncing with AJ VANTAGE Cloud...');
+        try {
+          await db.collection('users').doc(user.uid).update({
+            name: document.getElementById('editName').value,
+            phone: document.getElementById('editPhone').value,
+            address: document.getElementById('editAddress').value,
+            country: document.getElementById('editCountry').value
+          });
+          toast('Profile Successfully Updated');
+          document.getElementById('userName').textContent = document.getElementById('editName').value;
+        } catch (e) {
+          toast('Update Failed: ' + e.message);
+        }
       }
     }
-    function handleSignOut() {
-      localStorage.removeItem('aj_logged_in');
-      toast('Signing out...');
-      setTimeout(() => location.href = 'login.html', 1000);
+
+    async function handleChangePassword() {
+      const user = auth.currentUser;
+      if (user) {
+        const newPass = prompt("Enter your NEW secure password (8-16 chars):");
+        if (!newPass) return;
+        if (newPass.length < 8 || newPass.length > 16) {
+          toast("Security: Password must be 8-16 characters.");
+          return;
+        }
+        
+        try {
+          toast("Updating Security Shield...");
+          await user.updatePassword(newPass);
+          toast("Password Updated Instantly");
+        } catch (e) {
+          if (e.code === 'auth/requires-recent-login') {
+            toast("Security: Please Re-login to change password");
+            setTimeout(() => handleSignOut(), 2000);
+          } else {
+            toast("Update Failed: " + e.message);
+          }
+        }
+      }
     }
+
     function showTab(id, el) {
       ['info', 'orders', 'payment'].forEach(t => {
         const tab = document.getElementById('tab-' + t);
@@ -548,8 +630,9 @@
       document.querySelectorAll('.p-nav-item').forEach(n => n.classList.remove('active'));
       if (el) el.classList.add('active');
     }
+
     document.addEventListener('DOMContentLoaded', () => {
-      if (!isLoggedIn()) location.href = 'login.html';
+      loadUserProfile();
       showTab('info', document.querySelector('.p-nav-item'));
     });
   </script>
