@@ -131,13 +131,26 @@
     <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA 🇱🇰</span></div>
   </footer>
 
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBy44sne8A7Ynm5GEgA7DBrEmeuJkRc890",
+      authDomain: "aj-vantage-ecom.firebaseapp.com",
+      projectId: "aj-vantage-ecom",
+      storageBucket: "aj-vantage-ecom.firebasestorage.app",
+      messagingSenderId: "797206947976",
+      appId: "1:797206947976:web:ec58e49ce403741dd9d73d",
+      measurementId: "G-WJCRWVWB6H"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+  </script>
   <script>window.isPreOwnedPage = true;</script>
   <script src="app.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      renderProducts();
-    });
-  </script>
 </body>
 
 </html>

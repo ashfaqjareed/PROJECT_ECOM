@@ -768,13 +768,13 @@ function renderHeaderAuth() {
 
 document.addEventListener('DOMContentLoaded', async () => {
   // 1. Global Fail-Safe Check (Non-blocking)
-  checkSiteStatus();
+  if (typeof db !== 'undefined') checkSiteStatus();
 
   // 2. IP Based Onboarding
   detectIPAndRedirect();
 
   // 3. Sync Firebase Auth State
-  if (typeof auth !== 'undefined') {
+  if (typeof auth !== 'undefined' && auth.onAuthStateChanged) {
     auth.onAuthStateChanged((user) => {
       if (user) {
         localStorage.setItem('aj_logged_in', 'true');
@@ -1186,8 +1186,9 @@ async function submitEnquiry() {
 function injectWelcomePopup() {
   if (sessionStorage.getItem('aj_welcomed') === '1') return;
 
-  const isIndex = window.location.pathname.endsWith('index.html') || window.location.pathname === '/' || window.location.pathname.endsWith('/');
-  const delay = isIndex ? 7000 : 0;
+  const pathname = window.location.pathname;
+  const isIndex = pathname === '/' || pathname.endsWith('index.html') || pathname.endsWith('/PROJECT_ECOM/') || pathname === '';
+  const delay = isIndex ? 3000 : 0; // Reduced to 3s for better UX
 
   setTimeout(() => {
     if (sessionStorage.getItem('aj_welcomed') === '1') return;
@@ -1217,7 +1218,7 @@ function injectWelcomePopup() {
 
     const panel = document.getElementById('ajvPopupPanel');
     const content = document.getElementById('popupAuthContent');
-    const user = typeof firebase !== 'undefined' && firebase.auth ? firebase.auth().currentUser : null;
+    const user = (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) ? firebase.auth().currentUser : null;
 
     if (user) {
       const firstName = (user.displayName || 'Member').split(' ')[0];
@@ -1244,12 +1245,8 @@ function injectWelcomePopup() {
     };
     popup.addEventListener('click', dismissHandler);
 
-    const closeOnScrollOrClick = (e) => {
-      if (!popup.contains(e.target) && e.target.id !== 'ajvPopup') {
-        closeWelcomePopup();
-      }
-    };
-    window.addEventListener('scroll', closeWelcomePopup, { once: true, passive: true });
+    // Removed scroll listener that closed popup immediately
+    // window.addEventListener('scroll', closeWelcomePopup, { once: true, passive: true });
 
   }, delay);
 }
