@@ -40,7 +40,9 @@ const footerTemplate = `  <footer>
       <div class="f-col">
         <h4>Legal</h4>
         <a href="about.html">About Us</a>
-        <a href="legal.html">Privacy and Terms</a>
+        <a href="legal.html#privacy">Privacy Policy</a>
+        <a href="legal.html#terms">Terms of Service</a>
+        <a href="legal.html#shipping">Shipping Policy</a>
       </div>
     </div>
     <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA 🇱🇰</span></div>

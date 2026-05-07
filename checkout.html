@@ -145,7 +145,7 @@
                   d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.862L.057 23.994l6.305-1.654A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.007-1.374l-.36-.214-3.724.976.997-3.633-.235-.374A9.818 9.818 0 1 1 12 21.818z" />
               </svg></div>
             <div class="pay-opt-text">
-              <div class="pay-opt-title">WhatsApp Buisness Checkout</div>
+              <div class="pay-opt-title">WhatsApp Business</div>
               <div class="pay-opt-sub">Place Order via AJ VANTAGE | WhatsApp Catalog Channel</div>
             </div>
             <span class="coming-pill">Active</span>
@@ -174,6 +174,29 @@
               <div class="pay-opt-sub">Direct Deposit — Secure & Manual</div>
             </div>
             <span class="coming-pill">Active</span>
+          </div>
+
+          <div class="pay-opt" onclick="setPay('frimi', this)">
+            <div class="pay-opt-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <rect x="2" y="5" width="20" height="14" rx="2" />
+                <path d="M2 10h20" />
+              </svg></div>
+            <div class="pay-opt-text">
+              <div class="pay-opt-title">FriMi QR Scan</div>
+              <div class="pay-opt-sub">Instant Checkout via FriMi Merchant QR</div>
+            </div>
+            <span class="coming-pill">Active</span>
+          </div>
+
+          <div class="pay-opt" onclick="setPay('cod', this)">
+            <div class="pay-opt-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M10 17h4V5H2v12h3m5 0h4m5-3h3l1.1 2.2a2 2 0 0 1 .1.8V19a1 1 0 0 1-1 1h-1M14 17h5m-5 0V9h7v8M5 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0m14 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0" />
+              </svg></div>
+            <div class="pay-opt-text">
+              <div class="pay-opt-title">Cash on Delivery</div>
+              <div class="pay-opt-sub">Pay at Your Doorstep (Verification Required)</div>
+            </div>
+            <span class="coming-pill" id="codPill">Available Aug 15</span>
           </div>
 
           <div class="pay-opt" style="opacity:0.6; cursor:not-allowed;">
@@ -208,8 +231,36 @@
               <div class="bank-label">Branch</div>
               <div class="bank-val">Wattala</div>
             </div>
-            <p style="font-size:11px; color:var(--text-muted); margin-top:16px;">Please upload Receipt of Bank Transfer.
-            </p>
+            <p style="font-size:11px; color:var(--text-muted); margin-top:16px;">Please upload Receipt of Bank Transfer.</p>
+          </div>
+
+          <div class="bank-info-card" id="frimiInfo" style="text-align:center;">
+            <div style="background:var(--surface-dim); padding:20px; border-radius:var(--radius); border:1px dashed var(--border); margin-bottom:16px;">
+              <div style="font-size:12px; font-weight:800; color:var(--primary); margin-bottom:12px;">SCAN TO PAY</div>
+              <!-- Placeholder for QR -->
+              <div style="width:140px; height:140px; background:var(--surface-high); margin:0 auto; display:flex; align-items:center; justify-content:center; border-radius:var(--radius);">
+                 <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <path d="M3 7V5a2 2 0 0 1 2-2h2m10 0h2a2 2 0 0 1 2 2v2m0 10v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2" />
+                    <rect x="7" y="7" width="3" height="3" />
+                    <rect x="14" y="7" width="3" height="3" />
+                    <rect x="7" y="14" width="3" height="3" />
+                 </svg>
+              </div>
+              <div style="margin-top:12px; font-size:13px; font-weight:800;">Merchant ID: AJV-FRI-2026</div>
+            </div>
+            <p style="font-size:11px; color:var(--text-muted);">Confirm payment in your FriMi app after scanning.</p>
+          </div>
+
+          <div class="bank-info-card" id="codInfo">
+            <div style="padding:16px; background:rgba(255,149,0,0.05); border:1px solid rgba(255,149,0,0.2); border-radius:var(--radius);">
+               <div style="font-size:14px; font-weight:800; color:var(--primary); margin-bottom:8px;">COD Official Policy 2026</div>
+               <ul style="font-size:12px; color:var(--text); padding-left:16px; line-height:1.6;">
+                  <li>Available for orders under RS. 50,000.</li>
+                  <li>Flat handling fee of RS. 350 applies.</li>
+                  <li>Mandatory verification call for first-time orders.</li>
+                  <li>Estimated Launch: August 15, 2026.</li>
+               </ul>
+            </div>
           </div>
         </section>
 
@@ -307,6 +358,12 @@
       document.querySelectorAll('.pay-opt').forEach(opt => opt.classList.remove('active'));
       el.classList.add('active');
       document.getElementById('bankInfo').style.display = type === 'bank' ? 'block' : 'none';
+      document.getElementById('frimiInfo').style.display = type === 'frimi' ? 'block' : 'none';
+      document.getElementById('codInfo').style.display = type === 'cod' ? 'block' : 'none';
+      
+      if (type === 'cod') {
+        toast('COD Service Active from Aug 15');
+      }
     }
 
     function renderCheckout() {
@@ -347,18 +404,79 @@
       document.getElementById('total').textContent = fmtLKR(subtotal + tax);
     }
 
-    function placeOrder() {
+    async function placeOrder() {
       const name = document.getElementById('shipName').value;
-      if (!name) { toast('Please enter shipping details'); return; }
+      const addr = document.getElementById('shipAddr').value;
+      if (!name || !addr) { toast('Please enter complete shipping details'); return; }
 
-      toast('Finalizing Authorization...');
-      setTimeout(() => {
+      const user = auth.currentUser;
+      if (!user) { 
+        toast('Authentication Required'); 
+        setTimeout(() => location.href = 'login.html', 1500);
+        return; 
+      }
+
+      toast('Authorizing Order Path...');
+      
+      const orderId = 'AJV-' + Math.floor(100000 + Math.random() * 900000);
+      const totalStr = document.getElementById('total').textContent;
+      const cart = getCart();
+
+      // Create Order Record
+      const orderData = {
+        userId: user.uid,
+        orderId: orderId,
+        customer: name,
+        address: addr,
+        total: totalStr,
+        payment: selectedPay.toUpperCase(),
+        status: 'authorized',
+        timestamp: firebase.firestore.FieldValue.serverTimestamp(),
+        items: cart.map(item => {
+          const p = globalProducts.find(x => x.id === item.id);
+          return {
+            id: item.id,
+            name: p ? p.name : 'Unknown Product',
+            qty: item.qty,
+            price: p ? p.price : 0,
+            color: item.color,
+            size: item.size,
+            img: p ? p.img : ''
+          };
+        })
+      };
+
+      try {
+        await db.collection('orders').doc(orderId).set(orderData);
+        
+        const waNumber = '94704800058';
+        let msg = `*NEW ORDER AUTHORIZED*\n`;
+        msg += `Order ID: ${orderId}\n`;
+        msg += `Total: ${totalStr}\n`;
+        msg += `Payment: ${selectedPay.toUpperCase()}\n`;
+        msg += `Customer: ${name}\n`;
+        msg += `------------------\n`;
+        
+        if (selectedPay === 'bank') msg += `Action: Attaching Bank Receipt now...`;
+        else if (selectedPay === 'frimi') msg += `Action: Attaching FriMi Screenshot now...`;
+        else if (selectedPay === 'cod') msg += `Action: Requesting COD Verification...`;
+        else if (selectedPay === 'facebook') {
+           window.open(`https://m.me/61567115848149`, '_blank');
+        } else {
+           msg += `Action: Finalizing via WhatsApp...`;
+        }
+
+        if (selectedPay !== 'facebook') {
+          window.open(`https://wa.me/${waNumber}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
         localStorage.removeItem('aj_cart');
-        const orderId = '#AJV-' + Math.floor(Math.random() * 1000000);
-        if (selectedPay === 'whatsapp') window.open(`https://wa.me/94771234567?text=New Order: ${orderId}. Total: ${document.getElementById('total').textContent}`, '_blank');
-        alert('Order ' + orderId + ' Successfully Authorized. Status: Processing.');
+        alert(`Order ${orderId} Successfully Authorized.\nRedirecting to secure channel for confirmation.`);
         location.href = 'index.html';
-      }, 2000);
+      } catch (e) {
+        console.error("Order Failure", e);
+        toast('Order Sync Failed: ' + e.message);
+      }
     }
 
     document.addEventListener('DOMContentLoaded', () => {

@@ -247,9 +247,248 @@
       color: var(--primary);
       font-size: 11px;
       font-weight: 800;
+    }
+
+    .p-email {
+      font-size: 13px;
+      color: var(--text-muted)
+    }
+
+    .p-badge {
+      display: inline-block;
+      margin-top: 12px;
+      padding: 5px 14px;
+      background: rgba(255, 149, 0, 0.1);
+      color: var(--primary);
+      border-radius: var(--radius-full);
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 1px
+    }
+
+    .p-nav {
+      padding: 12px 0
+    }
+
+    .p-nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 24px;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: all .3s var(--ease);
+      border-left: 3px solid transparent
+    }
+
+    .p-nav-item:hover {
+      background: var(--surface-dim);
+      color: var(--text);
+      border-left-color: var(--border)
+    }
+
+    .p-nav-item.active {
+      background: rgba(255, 149, 0, 0.06);
+      color: var(--primary);
+      border-left-color: var(--primary)
+    }
+
+    .p-nav-item svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0
+    }
+
+    .p-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 8px 16px
+    }
+
+    .p-nav-item.danger {
+      color: #ef4444
+    }
+
+    .p-nav-item.danger:hover {
+      background: rgba(239, 68, 68, 0.06);
+      border-left-color: #ef4444;
+      color: #ef4444
+    }
+
+    .p-main {
+      display: flex;
+      flex-direction: column;
+      gap: 28px
+    }
+
+    .p-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 36px;
+      transition: border-color .3s var(--ease)
+    }
+
+    .p-card:hover {
+      border-color: rgba(255, 149, 0, 0.25)
+    }
+
+    .p-card-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px
+    }
+
+    .p-card-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--text)
+    }
+
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px
+    }
+
+    .info-box {
+      background: var(--surface-dim);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      padding: 22px 24px;
+      transition: border-color .3s var(--ease)
+    }
+
+    .info-box:hover {
+      border-color: var(--primary)
+    }
+
+    .info-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--text-muted);
+      margin-bottom: 8px
+    }
+
+    .info-value {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+      width: 100%;
+      background: none;
+      border: none;
+      outline: none;
+      font-family: inherit
+    }
+
+    .pay-method {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 24px;
+      background: var(--surface-dim);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-xl);
+      transition: all .3s var(--ease);
+      margin-bottom: 16px
+    }
+
+    .pay-method:last-child {
+      margin-bottom: 0
+    }
+
+    .pay-method:hover {
+      border-color: var(--primary);
+      transform: translateX(4px)
+    }
+
+    .pay-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--radius-lg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0
+    }
+
+    .pay-icon svg {
+      width: 26px;
+      height: 26px
+    }
+
+    .pay-title {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--text);
+      margin-bottom: 4px
+    }
+
+    .pay-sub {
+      font-size: 13px;
+      color: var(--text-muted)
+    }
+
+    .coming-pill {
+      padding: 6px 14px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 149, 0, 0.1);
+      color: var(--primary);
+      font-size: 11px;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 1px;
       border: 1px solid rgba(255, 149, 0, 0.2)
+    }
+
+    .order-card {
+      background: var(--surface-dim);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin-bottom: 16px;
+      transition: all 0.3s var(--ease);
+    }
+    .order-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+    .order-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+    .order-id { font-weight: 800; color: var(--primary); font-size: 14px; }
+    .order-status {
+      font-size: 11px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: var(--radius-full);
+      background: rgba(255, 149, 0, 0.1);
+      color: var(--primary);
+    }
+    .order-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 13px;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+    }
+    .order-total {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border);
+      display: flex;
+      justify-content: space-between;
+      font-weight: 800;
+      color: var(--text);
     }
 
     @media(max-width:900px) {
@@ -266,12 +505,16 @@
       }
     }
   </style>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <script src="app.js" defer></script>
 </head>
 
 <body>
   <header class="header" id="header">
     <a href="index.html" class="logo"><img src="assets/brand/AJ3.png" alt="AJ Vantage Logo" class="site-logo"></a>
-    <nav class="desktop-nav">
+                <nav class="desktop-nav">
       <a href="index.html">Home</a>
       <a href="shop.html">Shop</a>
       <a href="collections.html">Collections</a>
@@ -308,7 +551,7 @@
   </header>
 
   <div class="nav-overlay" id="navOverlay"></div>
-  <nav class="mobile-nav" id="mobileNav">
+        <nav class="mobile-nav" id="mobileNav">
     <a href="index.html">Home</a>
     <a href="shop.html">Shop</a>
     <a href="collections.html">Collections</a>
@@ -429,12 +672,14 @@
             <div class="p-card-head">
               <div class="p-card-title">Order History</div>
             </div>
-            <div
-              style="background:var(--surface-dim);border:1px solid var(--border);border-radius:var(--radius-xl);padding:24px;text-align:center;">
-              <p style="color:var(--text-muted);font-weight:600;">No orders found in the last 6 months.</p>
+            <div id="orderContainer">
+              <div style="background:var(--surface-dim);border:1px solid var(--border);border-radius:var(--radius-xl);padding:24px;text-align:center;">
+                <p style="color:var(--text-muted);font-weight:600;">Loading your order history...</p>
+              </div>
             </div>
           </div>
         </div>
+
 
         <div id="tab-payment" style="display:none;">
           <div class="p-card">
@@ -480,13 +725,11 @@
       stroke-width="2">
       <path d="M20 6L9 17l-5-5" />
     </svg><span id="toastMsg">Done</span></div>
-
-  <footer>
+        <footer>
     <div class="f-grid">
       <div class="f-about">
         <div class="logo"><img src="assets/brand/AJ2.png" alt="AJ Vantage Logo" class="site-logo"></div>
-        <p>Premium leather goods crafted with passion since 2026. Our collection consists of 80% new and 20% selectively
-          curated pre-owned pieces available across our Website, WhatsApp Catalog, and Facebook Marketplace.</p>
+        <p>Premium leather goods crafted with passion since 2026. Our collection consists of 80% new and 20% selectively curated pre-owned pieces available across our Website, WhatsApp Catalog, and Facebook Marketplace.</p>
       </div>
       <div class="f-col">
         <h4>Shopping</h4>
@@ -504,55 +747,97 @@
       <div class="f-col">
         <h4>Legal</h4>
         <a href="about.html">About Us</a>
-        <a href="legal.html">Privacy & Terms</a>
+        <a href="legal.html#privacy">Privacy Policy</a>
+        <a href="legal.html#terms">Terms of Service</a>
+        <a href="legal.html#shipping">Shipping Policy</a>
       </div>
     </div>
-    <div class="f-bottom"><span>© 2026 AJ VANTAGE. All rights reserved.</span><span class="sri-tag">Made with ❤️ in Sri Lanka</span></div>
+    <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA 🇱🇰</span></div>
   </footer>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
   <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBy44sne8A7Ynm5GEgA7DBrEmeuJkRc890",
-      authDomain: "aj-vantage-ecom.firebaseapp.com",
-      projectId: "aj-vantage-ecom",
-      storageBucket: "aj-vantage-ecom.firebasestorage.app",
-      messagingSenderId: "797206947976",
-      appId: "1:797206947976:web:ec58e49ce403741dd9d73d",
-      measurementId: "G-WJCRWVWB6H"
-    };
-    firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
-  </script>
-  <script src="app.js"></script>
-  <script>
     let isEditing = false;
-    let userData = null;
+
+    function toast(msg) {
+      const t = document.getElementById('toast');
+      const tm = document.getElementById('toastMsg');
+      if (!t || !tm) return;
+      tm.textContent = msg;
+      t.classList.add('show');
+      setTimeout(() => t.classList.remove('show'), 3000);
+    }
 
     async function loadUserProfile() {
       auth.onAuthStateChanged(async (user) => {
-        if (!user) { location.href = 'login.html'; return; }
-        
+        if (!user) {
+          location.href = 'login.html';
+          return;
+        }
+
         try {
           const doc = await db.collection('users').doc(user.uid).get();
           if (doc.exists) {
-            userData = doc.data();
-            document.getElementById('userName').textContent = userData.name || 'Vantage Member';
+            const data = doc.data();
+            document.getElementById('userName').textContent = data.name || 'Member';
             document.getElementById('userEmailDisplay').textContent = user.email;
-            document.getElementById('editName').value = userData.name || '';
+            document.getElementById('editName').value = data.name || '';
             document.getElementById('editEmail').value = user.email;
-            document.getElementById('editPhone').value = userData.phone || '+94';
-            document.getElementById('editAddress').value = userData.address || '';
-            document.getElementById('editCountry').value = userData.country || 'Sri Lanka';
+            document.getElementById('editPhone').value = data.phone || '';
+            document.getElementById('editAddress').value = data.address || '';
+            document.getElementById('editCountry').value = data.country || '';
+            document.querySelector('.p-avatar-ring').textContent = (data.name || 'U').charAt(0).toUpperCase();
           }
+          loadOrderHistory(user.uid);
         } catch (e) {
-          console.error("Error loading profile", e);
+          console.error("Profile Load Error:", e);
         }
       });
+    }
+
+    async function loadOrderHistory(uid) {
+      const container = document.getElementById('orderContainer');
+      if (!container) return;
+      try {
+        const snapshot = await db.collection('orders')
+          .where('userId', '==', uid)
+          .orderBy('timestamp', 'desc')
+          .get();
+
+        if (snapshot.empty) {
+          container.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-muted);">No orders found yet. <a href="shop.html" style="color:var(--primary);text-decoration:none;font-weight:700;">Start Shopping →</a></div>';
+          return;
+        }
+
+        container.innerHTML = snapshot.docs.map(doc => {
+          const order = doc.data();
+          const date = order.timestamp ? order.timestamp.toDate().toLocaleDateString() : 'Recent';
+          return `
+            <div class="order-card">
+              <div class="order-header">
+                <span class="order-id">#${doc.id.slice(-8).toUpperCase()}</span>
+                <span class="order-status">${order.status || 'Processing'}</span>
+              </div>
+              <div style="margin-bottom:8px;font-size:12px;color:var(--text-muted);">${date}</div>
+              <div class="order-items">
+                ${(order.items || []).map(item => `
+                  <div class="order-item">
+                    <span>${item.name} x ${item.qty}</span>
+                    <span>Rs. ${(item.price * item.qty).toLocaleString()}</span>
+                  </div>
+                `).join('')}
+              </div>
+              <div class="order-total">
+                <span>Total Amount</span>
+                <span>${typeof order.total === 'number' ? 'Rs. ' + order.total.toLocaleString() : order.total}</span>
+              </div>
+            </div>
+          `;
+        }).join('');
+      } catch (e) {
+        container.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">Could not load history.</p>';
+      }
     }
 
     async function toggleEdit() {
@@ -561,25 +846,23 @@
 
       isEditing = !isEditing;
       const btn = document.getElementById('editBtn');
-      const inputs = ['editName', 'editPhone', 'editCountry', 'editAddress']; 
+      const inputs = ['editName', 'editPhone', 'editCountry', 'editAddress'];
       
       inputs.forEach(id => {
         const el = document.getElementById(id);
+        if (!el) return;
         el.readOnly = !isEditing;
-        if (isEditing) { 
-          el.style.background = 'var(--surface-dim)'; 
-          el.style.padding = '8px 12px'; 
-          el.style.borderRadius = 'var(--radius)';
-          el.style.border = '1px solid var(--primary)';
-        } else { 
-          el.style.background = 'none'; 
-          el.style.padding = '0';
-          el.style.border = 'none';
+        if (isEditing) {
+          el.style.background = 'rgba(255,149,0,0.05)';
+          el.style.borderBottom = '1px solid var(--primary)';
+        } else {
+          el.style.background = 'none';
+          el.style.borderBottom = 'none';
         }
       });
 
-      btn.textContent = isEditing ? 'Save Changes' : 'Edit Profile';
-      
+      if (btn) btn.textContent = isEditing ? 'Save Changes' : 'Edit Profile';
+
       if (!isEditing) {
         toast('Syncing with AJ VANTAGE Cloud...');
         try {
@@ -591,6 +874,7 @@
           });
           toast('Profile Successfully Updated');
           document.getElementById('userName').textContent = document.getElementById('editName').value;
+          document.querySelector('.p-avatar-ring').textContent = document.getElementById('editName').value.charAt(0).toUpperCase();
         } catch (e) {
           toast('Update Failed: ' + e.message);
         }
@@ -599,25 +883,50 @@
 
     async function handleChangePassword() {
       const user = auth.currentUser;
-      if (user) {
-        const newPass = prompt("Enter your NEW secure password (8-16 chars):");
-        if (!newPass) return;
-        if (newPass.length < 8 || newPass.length > 16) {
-          toast("Security: Password must be 8-16 characters.");
-          return;
+      if (!user) return;
+      const newPass = prompt("Enter your NEW secure password (8-16 chars):");
+      if (!newPass) return;
+      if (newPass.length < 8 || newPass.length > 16) {
+        toast("Security: Password must be 8-16 characters.");
+        return;
+      }
+      try {
+        toast("Updating Security Shield...");
+        await user.updatePassword(newPass);
+        toast("Password Updated Instantly");
+      } catch (e) {
+        if (e.code === 'auth/requires-recent-login') {
+          toast("Security: Please Re-login to change password");
+          setTimeout(() => handleSignOut(), 2000);
+        } else {
+          toast("Update Failed: " + e.message);
         }
-        
-        try {
-          toast("Updating Security Shield...");
-          await user.updatePassword(newPass);
-          toast("Password Updated Instantly");
-        } catch (e) {
-          if (e.code === 'auth/requires-recent-login') {
-            toast("Security: Please Re-login to change password");
-            setTimeout(() => handleSignOut(), 2000);
-          } else {
-            toast("Update Failed: " + e.message);
-          }
+      }
+    }
+
+    async function handleSignOut() {
+      try {
+        await auth.signOut();
+        location.href = 'index.html';
+      } catch (e) {
+        toast("Sign Out Failed");
+      }
+    }
+
+    async function deleteAccount() {
+      if (!confirm("CRITICAL: This will PERMANENTLY delete your AJ VANTAGE account. Proceed?")) return;
+      const user = auth.currentUser;
+      if (!user) return;
+      try {
+        await db.collection('users').doc(user.uid).delete();
+        await user.delete();
+        toast("Account Terminated");
+        location.href = 'index.html';
+      } catch (e) {
+        if (e.code === 'auth/requires-recent-login') {
+          toast("Security: Re-login required to delete account.");
+        } else {
+          toast("Failed: " + e.message);
         }
       }
     }

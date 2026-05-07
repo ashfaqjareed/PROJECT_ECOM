@@ -5,27 +5,70 @@
   <link rel="icon" type="image/png" href="assets/brand/AJ.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>AJ VANTAGE | Collections Page</title>
+  <title>AJ VANTAGE | Pre-Owned Collection</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .preowned-hero {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      color: white;
+      padding: 100px 40px;
+      text-align: center;
+      border-radius: var(--radius-xl);
+      margin-bottom: 60px;
+      border: 1px solid rgba(255,109,46,0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .preowned-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle, rgba(255,109,46,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .preowned-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 30px;
+      margin-bottom: 100px;
+    }
+
+    .preowned-badge {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: var(--primary);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 30px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 1px;
+      z-index: 2;
+    }
+  </style>
 </head>
 
 <body>
 
   <header class="header" id="header">
     <a href="index.html" class="logo"><img src="assets/brand/AJ3.png" alt="AJ Vantage Logo" class="site-logo"></a>
-                <nav class="desktop-nav">
+    <nav class="desktop-nav">
       <a href="index.html">Home</a>
       <a href="shop.html">Shop</a>
-      <a href="collections.html" class="active">Collections</a>
+      <a href="collections.html">Collections</a>
       <a href="support.html">Support</a>
     </nav>
-    <div class="search-pill">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <div class="search-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+        stroke-width="2">
         <circle cx="11" cy="11" r="8" />
         <path d="m21 21-4.3-4.3" />
-      </svg>
-      <input type="text" placeholder="Search...">
-    </div>
+      </svg><input type="text" placeholder="Search..."></div>
     <div class="header-actions">
       <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
           stroke="currentColor" stroke-width="2">
@@ -39,36 +82,26 @@
           <path d="M16 10a4 4 0 0 1-8 0" />
         </svg><span class="cart-badge" id="cartCount">0</span></a>
       <a href="profile.html" class="avatar">A</a>
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
-      </button>
     </div>
   </header>
 
-  <div class="nav-overlay" id="navOverlay"></div>
-        <nav class="mobile-nav" id="mobileNav">
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="collections.html" class="active">Collections</a>
-    <a href="support.html">Support</a>
-  </nav>
-
   <div class="app-container">
-    <div class="page-header reveal">
-      <h1 class="page-title">All Categories</h1>
-      <p class="page-sub">Explore our comprehensive catalog of masterfully crafted items.</p>
+    <div class="preowned-hero reveal">
+      <h1 style="font-size: clamp(40px, 6vw, 72px); font-weight: 800; margin-bottom: 20px; letter-spacing: -2px;">Pre-Owned Heritage</h1>
+      <p style="font-size: 18px; opacity: 0.8; max-width: 600px; margin: 0 auto 40px;">Selectively curated masterpieces. Individually inspected, authenticated, and restored to pristine condition.</p>
+      <div style="display: flex; justify-content: center; gap: 40px;">
+        <div><div style="font-size: 32px; font-weight: 800; color: var(--primary);">20</div><div style="font-size: 12px; opacity: 0.6; text-transform: uppercase;">Unique Pieces</div></div>
+        <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
+        <div><div style="font-size: 32px; font-weight: 800; color: var(--primary);">100%</div><div style="font-size: 12px; opacity: 0.6; text-transform: uppercase;">Authenticated</div></div>
+      </div>
     </div>
 
-    <section class="cat-section" style="padding-bottom: 80px;">
-      <div class="category-grid" id="categoryGrid"></div>
-    </section>
+    <div class="preowned-grid" id="productGrid">
+      <!-- Injected by JS -->
+    </div>
   </div>
 
-        <footer>
+  <footer>
     <div class="f-grid">
       <div class="f-about">
         <div class="logo"><img src="assets/brand/AJ2.png" alt="AJ Vantage Logo" class="site-logo"></div>
@@ -98,25 +131,13 @@
     <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA 🇱🇰</span></div>
   </footer>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBy44sne8A7Ynm5GEgA7DBrEmeuJkRc890",
-      authDomain: "aj-vantage-ecom.firebaseapp.com",
-      projectId: "aj-vantage-ecom",
-      storageBucket: "aj-vantage-ecom.firebasestorage.app",
-      messagingSenderId: "797206947976",
-      appId: "1:797206947976:web:ec58e49ce403741dd9d73d",
-      measurementId: "G-WJCRWVWB6H"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-  </script>
+  <script>window.isPreOwnedPage = true;</script>
   <script src="app.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      renderProducts();
+    });
+  </script>
 </body>
 
 </html>

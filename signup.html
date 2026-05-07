@@ -132,6 +132,35 @@
       margin-top: 12px;
       justify-content: center;
     }
+
+    .pass-criteria {
+      margin-top: 8px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+
+    .criteria-item {
+      font-size: 11px;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: color 0.3s var(--ease);
+    }
+    
+    .criteria-item svg {
+      opacity: 0.3;
+      transition: opacity 0.3s var(--ease), color 0.3s var(--ease);
+    }
+
+    .criteria-item.met {
+      color: #10b981;
+    }
+    .criteria-item.met svg {
+      opacity: 1;
+      color: #10b981;
+    }
   </style>
 </head>
 
@@ -172,7 +201,22 @@
         </div>
         <div class="form-group">
           <label>Password</label>
-          <input type="password" placeholder="*** **** *****" id="signupPass">
+          <input type="password" placeholder="*** **** *****" id="signupPass" oninput="checkPassCriteria()">
+          <div class="pass-criteria" id="passCriteria">
+            <div class="criteria-item" id="crit-length"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 8-12 Characters</div>
+            <div class="criteria-item" id="crit-upper"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 1 Uppercase Letter</div>
+            <div class="criteria-item" id="crit-num"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 1 Number</div>
+            <div class="criteria-item" id="crit-sym"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 1 Symbol</div>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Confirm Password</label>
+          <input type="password" placeholder="*** **** *****" id="signupPassConfirm">
+        </div>
+
+        <div class="form-group" style="display:flex; align-items:flex-start; gap:10px; margin-bottom:24px;">
+          <input type="checkbox" id="signupTc" style="width:18px; height:18px; flex-shrink:0; cursor:pointer; accent-color:var(--primary); margin-top:2px;">
+          <label for="signupTc" style="font-size:12px; color:var(--text-muted); text-transform:none; letter-spacing:0; margin:0;">I agree to the <a href="legal.html" style="color:var(--primary); font-weight:700;">Terms & Conditions</a> and <a href="legal.html" style="color:var(--primary); font-weight:700;">Privacy Policy</a>.</label>
         </div>
 
         <button class="btn-primary auth-btn" onclick="handleSignup()">Create Account</button>
@@ -213,17 +257,36 @@
   </script>
   <script src="app.js"></script>
   <script>
+    function checkPassCriteria() {
+      const pass = document.getElementById('signupPass').value;
+      const cLength = document.getElementById('crit-length');
+      const cUpper = document.getElementById('crit-upper');
+      const cNum = document.getElementById('crit-num');
+      const cSym = document.getElementById('crit-sym');
+      
+      if (pass.length >= 8 && pass.length <= 12) cLength.classList.add('met'); else cLength.classList.remove('met');
+      if (/[A-Z]/.test(pass)) cUpper.classList.add('met'); else cUpper.classList.remove('met');
+      if (/[0-9]/.test(pass)) cNum.classList.add('met'); else cNum.classList.remove('met');
+      if (/[^A-Za-z0-9]/.test(pass)) cSym.classList.add('met'); else cSym.classList.remove('met');
+    }
+
     async function handleSignup() {
       const name = document.getElementById('signupName').value;
       const email = document.getElementById('signupEmail').value;
       const pass = document.getElementById('signupPass').value;
+      const passConf = document.getElementById('signupPassConfirm').value;
+      const tc = document.getElementById('signupTc').checked;
 
       if (!name) { toast('Please enter your name'); return; }
       if (!email.includes('@')) { toast('Please enter a valid email'); return; }
-      if (pass.length < 8 || pass.length > 16) { 
-        toast('Security: Password must be 8-16 characters'); 
+      if (pass !== passConf) { toast('Passwords do not match'); return; }
+      
+      if (pass.length < 8 || pass.length > 12 || !/[A-Z]/.test(pass) || !/[0-9]/.test(pass) || !/[^A-Za-z0-9]/.test(pass)) { 
+        toast('Please meet all password criteria'); 
         return; 
       }
+
+      if (!tc) { toast('Please accept the Terms & Conditions'); return; }
 
       toast('Verifying Details...');
       try {
