@@ -37,7 +37,7 @@ if (MAINTENANCE_MODE) {
 // ═══ PRE-OWNED PRODUCT EDITOR ═══
 const preOwnedProducts = [
   {
-    id: 'po-01', name: 'VR-BOX 360°', price: 2000, img: "assets/pre-owned/VR-1.jpg", gallery: ["assets/pre-owned/VR-1.jpg", "assets/pre-owned/VR-2.jpg", "assets/pre-owned/VR-3.jpg", "assets/pre-owned/VR-4.jpg"], desc: 'Antique VR-BOX, made for Tech Consumers', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'White', hex: '#ffffffff' }, sizes: ['Default'],
+    id: 'po-01', name: 'VR-BOX 360°', price: 2000, img: "assets/pre-owned/vr1.JPG", gallery: ["assets/pre-owned/vr1.JPG", "assets/pre-owned/vr2.JPG", "assets/pre-owned/vr3.JPG", "assets/pre-owned/vr4.JPG"], desc: 'Antique VR-BOX, made for Tech Consumers', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'White', hex: '#ffffffff' }, sizes: ['Default'],
     specs: { 'Type': 'Virtual Reality Headset', 'Compatibility': 'Smartphones 4.7–6.0"', 'Lens': 'Adjustable focal & pupil distance', 'FOV': '100°', 'Material': 'ABS Plastic + Foam Padding', 'Condition': 'Excellent — Lightly Used' },
     shipping: 'Free island-wide delivery. Dispatched within 24hrs. Delivered in 2–4 business days via insured courier. Bubble-wrapped packaging for fragile items.',
     additionalInfo: 'Retro VR headset delivering immersive 360° experience. Compatible with most smartphones. Cleaned, sanitized, and quality-checked by AJ Vantage before listing.',
@@ -47,7 +47,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-02', name: 'Samsung Galaxy A15 (Used)', price: 40000, img: "assets/pre-owned/SA-1.jpg", gallery: ["assets/pre-owned/SA-1.jpg", "assets/pre-owned/SA-2.jpg", "assets/pre-owned/SA-3.jpg", "assets/pre-owned/SA-4.jpg", "assets/pre-owned/SA-5.jpg"], desc: 'Samsung Galaxy A15: 8GB RAM, 256GB Storage (Used). In perfect condition; In Blue Black Color.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Blue Black', hex: '#040720' }, sizes: ['256GB'],
+    id: 'po-02', name: 'Samsung Galaxy A15 (Used)', price: 40000, img: "assets/pre-owned/sa1.jpg", gallery: ["assets/pre-owned/sa1.jpg", "assets/pre-owned/sa2.jpg", "assets/pre-owned/sa3.jpg", "assets/pre-owned/sa4.jpg"], desc: 'Samsung Galaxy A15: 8GB RAM, 256GB Storage (Used). In perfect condition; In Blue Black Color.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Blue Black', hex: '#040720' }, sizes: ['256GB'],
     specs: { 'Brand': 'Samsung', 'Model': 'Galaxy A15', 'RAM': '8GB', 'Storage': '256GB', 'Display': '6.5" Super AMOLED', 'Battery': '5000mAh — 92% Health', 'OS': 'Android 18 / One UI 8', 'Condition': 'Excellent — No scratches' },
     shipping: 'Free island-wide delivery. Dispatched within 24hrs. Delivered in 2–3 business days. Device shipped in anti-static packaging with original box.',
     additionalInfo: 'Factory reset and fully updated to latest firmware. Battery health verified at 92%. All sensors and cameras tested. Comes with original charger and documentation.',
@@ -56,7 +56,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-03', name: 'Louis Vuitton Keepall 55', price: 185000, img: 'https://images.unsplash.com/photo-1547949003-9792a18a2601', desc: 'Monogram canvas. Classic travel staple. Light patina.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Monogram Brown', hex: '#6b4226' }, sizes: ['55cm'],
+    id: 'po-03', name: 'Louis Vuitton Keepall 55', price: 185000, img: "assets/pre-owned/lv1.jpg", gallery: ["assets/pre-owned/lv1.jpg", "assets/pre-owned/lv2.jpg"], desc: 'Monogram canvas. Classic travel staple. Light patina.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Monogram Brown', hex: '#6b4226' }, sizes: ['55cm'],
     specs: { 'Brand': 'Louis Vuitton', 'Model': 'Keepall Bandoulière 55', 'Material': 'Monogram Coated Canvas', 'Trim': 'Vachetta Leather — Light Patina', 'Hardware': 'Gold-Tone Brass', 'Dimensions': '55 × 31 × 25 cm', 'Made In': 'France', 'Condition': 'Very Good — Light patina on handles' },
     shipping: 'Free insured shipping island-wide. Dispatched within 24hrs in luxury dust bag. Delivered in 3–5 business days. Signature required on delivery.',
     additionalInfo: 'Authenticated by AJ Vantage luxury verification team. Light honey patina on vachetta leather adds vintage character. Canvas is clean with no cracks. Zipper operates smoothly. Includes detachable shoulder strap.',
@@ -66,7 +66,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-04', name: 'Cartier Love Bracelet', price: 315000, img: 'https://images.unsplash.com/photo-1515562141207-7a18b5ce7142', desc: '18K Yellow Gold. Includes screwdriver and certificate.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Yellow Gold', hex: '#d4af37' }, sizes: ['16', '17', '18', '19'],
+    id: 'po-04', name: 'Cartier Love Bracelet', price: 315000, img: "assets/pre-owned/cr1.jpg", gallery: ["assets/pre-owned/cr1.jpg", "assets/pre-owned/cr2.jpg"], desc: '18K Yellow Gold. Includes screwdriver and certificate.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Yellow Gold', hex: '#d4af37' }, sizes: ['16', '17', '18', '19'],
     specs: { 'Brand': 'Cartier', 'Model': 'Love Bracelet', 'Material': '18K Yellow Gold', 'Weight': '32g', 'Closure': 'Screw System', 'Includes': 'Screwdriver, Certificate, Box', 'Serial': 'Verified — Engraved', 'Condition': 'Excellent — Minimal wear' },
     shipping: 'Free insured express shipping. Dispatched in Cartier-style presentation box within 24hrs. Delivered in 1–3 business days. Signature and ID verification required.',
     additionalInfo: 'Independently authenticated with matching serial numbers. 18K gold tested and verified. Screw mechanism functions perfectly. Original screwdriver and Cartier certificate of authenticity included. Minor desk-wear on bottom — virtually invisible when worn.',
@@ -77,7 +77,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-05', name: 'Chanel Classic Flap Bag', price: 495000, img: 'https://images.unsplash.com/photo-1598532163257-ae3c6b2524b6', desc: 'Caviar leather. Silver-tone hardware. 2020 production.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Black', hex: '#111111' }, sizes: ['Medium'],
+    id: 'po-05', name: 'Chanel Classic Flap Bag', price: 495000, img: "assets/pre-owned/ch1.jpg", gallery: ["assets/pre-owned/ch1.jpg", "assets/pre-owned/ch2.jpg"], desc: 'Caviar leather. Silver-tone hardware. 2020 production.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Black', hex: '#111111' }, sizes: ['Medium'],
     specs: { 'Brand': 'Chanel', 'Model': 'Classic Flap Medium', 'Material': 'Caviar Calfskin', 'Hardware': 'Silver-Tone (Palladium)', 'Dimensions': '25.5 × 16 × 7 cm', 'Interior': 'Burgundy Lambskin Lining', 'Year': '2020', 'Condition': 'Excellent — Pristine' },
     shipping: 'Free insured express shipping. Double-boxed with dust bag. Delivered in 2–4 business days. Signature required. Discreet luxury packaging.',
     additionalInfo: 'Authenticated by AJ Vantage luxury team. 2020 production with matching hologram sticker and authenticity card. Caviar leather shows no wear. Turn-lock closure operates flawlessly. Interior is immaculate with no pen marks or stains.',
@@ -87,7 +87,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-06', name: 'Patek Philippe Nautilus', price: 950000, img: 'https://images.unsplash.com/photo-1524805444758-089113d48a6d', desc: 'Blue dial. Iconic design. Collector grade condition.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Blue', hex: '#1e3a5f' }, sizes: ['One Size'],
+    id: 'po-06', name: 'Patek Philippe Nautilus', price: 950000, img: "assets/pre-owned/pp1.jpg", gallery: ["assets/pre-owned/pp1.jpg", "assets/pre-owned/pp2.jpg"], desc: 'Blue dial. Iconic design. Collector grade condition.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Blue', hex: '#1e3a5f' }, sizes: ['One Size'],
     specs: { 'Brand': 'Patek Philippe', 'Model': 'Nautilus 5711/1A', 'Movement': 'Caliber 324 S C — Automatic', 'Case': '40mm Stainless Steel', 'Dial': 'Blue Sunburst', 'Water Resistance': '120m', 'Crystal': 'Sapphire', 'Condition': 'Collector Grade — Full Set' },
     shipping: 'Free insured express shipping via private courier. Dispatched within 24hrs in watch box with papers. Delivered in 1–2 business days. Signature and ID required.',
     additionalInfo: 'Full set with box, papers, and purchase receipt. Independently serviced and verified. Movement running within COSC specs. Crystal and case are scratch-free. One of the most coveted timepieces in the world.',
@@ -97,7 +97,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-07', name: 'Gucci Jackie 1961', price: 145000, img: 'https://images.unsplash.com/photo-1591561954557-26941169b49e', desc: 'Reinvigorated classic. Emerald green leather.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Emerald Green', hex: '#046307' }, sizes: ['Medium'],
+    id: 'po-07', name: 'Gucci Jackie 1961', price: 145000, img: "assets/pre-owned/gj1.jpg", gallery: ["assets/pre-owned/gj1.jpg", "assets/pre-owned/gj2.jpg"], desc: 'Reinvigorated classic. Emerald green leather.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Emerald Green', hex: '#046307' }, sizes: ['Medium'],
     specs: { 'Brand': 'Gucci', 'Model': 'Jackie 1961 Medium', 'Material': 'Smooth Calfskin', 'Color': 'Emerald Green', 'Hardware': 'Gold-Tone Piston Closure', 'Dimensions': '28 × 19 × 4.5 cm', 'Strap': 'Adjustable shoulder strap', 'Condition': 'Very Good — Minor marks' },
     shipping: 'Free insured shipping island-wide. Shipped in dust bag within 24hrs. Delivered in 3–5 business days. Signature required.',
     additionalInfo: 'The Jackie 1961 is a reinvention of a Gucci icon. Emerald green calfskin in excellent shape. Piston closure works smoothly. Interior clean with original suede lining. Authenticated with Gucci serial tag intact.',
@@ -107,7 +107,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-08', name: 'Dior Lady Dior Large', price: 225000, img: 'https://images.unsplash.com/photo-1566150905458-1bf1fd113961', desc: 'Lambskin Cannage. Gold charms. Excellent condition.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Black', hex: '#111111' }, sizes: ['Large'],
+    id: 'po-08', name: 'Dior Lady Dior Large', price: 225000, img: "assets/pre-owned/ld1.jpg", gallery: ["assets/pre-owned/ld1.jpg", "assets/pre-owned/ld2.jpg"], desc: 'Lambskin Cannage. Gold charms. Excellent condition.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Black', hex: '#111111' }, sizes: ['Large'],
     specs: { 'Brand': 'Dior', 'Model': 'Lady Dior Large', 'Material': 'Lambskin Cannage', 'Hardware': 'Gold-Tone Metal', 'Charms': 'D-I-O-R Letters — All intact', 'Dimensions': '32 × 25 × 11 cm', 'Interior': 'Suede Lining', 'Condition': 'Excellent — Pristine leather' },
     shipping: 'Free insured express delivery. Double-boxed with Dior dust bag. Delivered in 2–4 business days. Signature required on delivery.',
     additionalInfo: 'Lady Dior is the house\'s most iconic bag. Lambskin Cannage quilting is soft and structured. All four D-I-O-R charms present and polished. Zipper and magnetic closure work perfectly. Interior suede is clean with no discoloration.',
@@ -118,7 +118,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-09', name: 'Prada Re-Edition 2005', price: 95000, img: 'https://images.unsplash.com/photo-1590874103328-eac38a683ce7', desc: 'Nylon shoulder bag. Saffiano trim. Black.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Black', hex: '#111111' }, sizes: ['One Size'],
+    id: 'po-09', name: 'Prada Re-Edition 2005', price: 95000, img: "assets/pre-owned/pr1.jpg", gallery: ["assets/pre-owned/pr1.jpg", "assets/pre-owned/pr2.jpg"], desc: 'Nylon shoulder bag. Saffiano trim. Black.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Black', hex: '#111111' }, sizes: ['One Size'],
     specs: { 'Brand': 'Prada', 'Model': 'Re-Edition 2005', 'Material': 'Nylon + Saffiano Leather Trim', 'Hardware': 'Silver-Tone', 'Dimensions': '22 × 18 × 6 cm', 'Strap': 'Detachable chain + nylon strap', 'Closure': 'Zip Top', 'Condition': 'Very Good — Minimal strap wear' },
     shipping: 'Free island-wide shipping. Dispatched within 24hrs in dust bag. Delivered in 3–5 business days via insured courier.',
     additionalInfo: 'Prada\'s cult-favorite Re-Edition 2005 in pristine nylon. Saffiano leather trim shows no cracking. Triangle logo plate is clean and intact. Comes with both detachable straps. Authenticated with Prada authenticity cards.',
@@ -128,7 +128,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-10', name: 'Omega Speedmaster Pro', price: 275000, img: 'https://images.unsplash.com/photo-1522312346375-d1a52e2b99b3', desc: 'The Moonwatch. Hesalite crystal. Manual wind.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Steel Black', hex: '#2c2c2c' }, sizes: ['One Size'],
+    id: 'po-10', name: 'Omega Speedmaster Pro', price: 275000, img: "assets/pre-owned/om1.jpg", gallery: ["assets/pre-owned/om1.jpg", "assets/pre-owned/om2.jpg"], desc: 'The Moonwatch. Hesalite crystal. Manual wind.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Steel Black', hex: '#2c2c2c' }, sizes: ['One Size'],
     specs: { 'Brand': 'Omega', 'Model': 'Speedmaster Professional Moonwatch', 'Reference': '311.30.42.30.01.005', 'Movement': 'Caliber 1861 — Manual Wind', 'Case': '42mm Stainless Steel', 'Crystal': 'Hesalite', 'Water Resistance': '50m', 'Chronograph': 'Fully Functional', 'Condition': 'Very Good — Desk marks on bracelet' },
     shipping: 'Free insured express shipping. Dispatched in Omega presentation box within 24hrs. Delivered in 1–3 business days. Signature and ID required.',
     additionalInfo: 'The legendary Moonwatch — first watch worn on the moon. Manual wind movement serviced and running accurately. Hesalite crystal gives authentic vintage warmth. Chronograph pushers and crown operate flawlessly. Bracelet shows minor desk-diving marks. Full box and papers included.',
@@ -139,7 +139,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-11', name: 'Saint Laurent Loulou', price: 165000, img: 'https://images.unsplash.com/photo-1559563458-527698bf5295', desc: 'Quilted leather. YSL monogram. Dark grey.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Dark Grey', hex: '#4a4a4a' }, sizes: ['Medium'],
+    id: 'po-11', name: 'Saint Laurent Loulou', price: 165000, img: "assets/pre-owned/sl1.jpg", gallery: ["assets/pre-owned/sl1.jpg", "assets/pre-owned/sl2.jpg"], desc: 'Quilted leather. YSL monogram. Dark grey.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Dark Grey', hex: '#4a4a4a' }, sizes: ['Medium'],
     specs: { 'Brand': 'Saint Laurent', 'Model': 'Loulou Medium', 'Material': 'Quilted "Y" Leather', 'Hardware': 'Aged Gold YSL Monogram', 'Dimensions': '32 × 22 × 10 cm', 'Chain': 'Sliding chain + leather strap', 'Closure': 'Magnetic Snap', 'Condition': 'Excellent — Structured quilting' },
     shipping: 'Free insured shipping island-wide. Dispatched in dust bag within 24hrs. Delivered in 3–5 business days. Signature required.',
     additionalInfo: 'Saint Laurent Loulou in dark grey quilted leather. YSL monogram hardware is polished and scratch-free. Quilting retains its puffy structure. Magnetic snap closure is strong. Interior is clean with card slots intact.',
@@ -149,7 +149,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-12', name: 'Bottega Veneta Pouch', price: 135000, img: 'https://images.unsplash.com/photo-1594093515514-ed5e59aa65a1', desc: 'Intrecciato weave. Soft calfskin. Camel color.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Camel', hex: '#c19a6b' }, sizes: ['One Size'],
+    id: 'po-12', name: 'Bottega Veneta Pouch', price: 135000, img: "assets/pre-owned/bv1.jpg", gallery: ["assets/pre-owned/bv1.jpg", "assets/pre-owned/bv2.jpg"], desc: 'Intrecciato weave. Soft calfskin. Camel color.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Camel', hex: '#c19a6b' }, sizes: ['One Size'],
     specs: { 'Brand': 'Bottega Veneta', 'Model': 'The Pouch', 'Material': 'Butter Calfskin', 'Weave': 'Intrecciato', 'Dimensions': '40 × 18 × 9 cm', 'Closure': 'Magnetic Frame', 'Made In': 'Italy', 'Condition': 'Excellent — Pristine leather' },
     shipping: 'Free insured shipping island-wide. Dispatched in dust bag within 24hrs. Delivered in 3–5 business days via insured courier.',
     additionalInfo: 'Bottega Veneta\'s signature Pouch in camel calfskin with iconic Intrecciato weave. Leather is buttery soft with no scratches. Magnetic frame closure snaps securely. Interior suede lining is clean. Authenticated with Bottega serial stamp.',
@@ -159,7 +159,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-13', name: 'Fendi Peekaboo ISeeU', price: 245000, img: 'https://images.unsplash.com/photo-1548036328-c9fa89d128fa', desc: 'Leather handbag with twist lock. Grey.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Grey', hex: '#808080' }, sizes: ['Medium'],
+    id: 'po-13', name: 'Fendi Peekaboo ISeeU', price: 245000, img: "assets/pre-owned/fn1.jpg", gallery: ["assets/pre-owned/fn1.jpg", "assets/pre-owned/fn2.jpg"], desc: 'Leather handbag with twist lock. Grey.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Grey', hex: '#808080' }, sizes: ['Medium'],
     specs: { 'Brand': 'Fendi', 'Model': 'Peekaboo ISeeU Medium', 'Material': 'Grained Calfskin', 'Hardware': 'Palladium-Tone', 'Closure': 'Twist Lock', 'Dimensions': '33.5 × 25.5 × 12 cm', 'Interior': 'Dual compartment', 'Condition': 'Very Good — Clean interior' },
     shipping: 'Free insured express shipping. Double-boxed with Fendi dust bag. Delivered in 2–4 business days. Signature required.',
     additionalInfo: 'Fendi Peekaboo ISeeU with innovative twist-lock mechanism. Dual compartments for organized storage. Grey grained calfskin shows minimal wear. Palladium hardware is scratch-free. Authenticated with Fendi hologram and serial tag.',
@@ -170,7 +170,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-14', name: 'Balenciaga City Bag', price: 85000, img: 'https://images.unsplash.com/photo-1579609598065-79f8e5bcfb70', desc: 'Classic motor bag. Distressed leather. Black.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Black', hex: '#111111' }, sizes: ['Medium'],
+    id: 'po-14', name: 'Balenciaga City Bag', price: 85000, img: "assets/pre-owned/bc1.jpg", gallery: ["assets/pre-owned/bc1.jpg", "assets/pre-owned/bc2.jpg"], desc: 'Classic motor bag. Distressed leather. Black.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Black', hex: '#111111' }, sizes: ['Medium'],
     specs: { 'Brand': 'Balenciaga', 'Model': 'City Bag Medium', 'Material': 'Distressed Lambskin', 'Hardware': 'Aged Brass Studs', 'Dimensions': '38 × 24 × 10 cm', 'Strap': 'Detachable crossbody + handles', 'Mirror': 'Included', 'Condition': 'Good — Intentional distressing' },
     shipping: 'Free island-wide shipping. Dispatched within 24hrs in dust bag. Delivered in 3–5 business days. Signature required.',
     additionalInfo: 'Balenciaga City in black distressed lambskin. Intentional distressing is part of the design DNA. All zippers, buckles, and studs are functional. Detachable shoulder strap included. Mirror still attached. Authenticated with Balenciaga metal tag.',
@@ -180,7 +180,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-15', name: 'Celine Belt Bag Micro', price: 155000, img: 'https://images.unsplash.com/photo-1547005327-ef75a6961556', desc: 'Grained calfskin. Minimalist luxury. Light taupe.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Light Taupe', hex: '#b39b86' }, sizes: ['Micro'],
+    id: 'po-15', name: 'Celine Belt Bag Micro', price: 155000, img: "assets/pre-owned/cl1.jpg", gallery: ["assets/pre-owned/cl1.jpg", "assets/pre-owned/cl2.jpg"], desc: 'Grained calfskin. Minimalist luxury. Light taupe.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Light Taupe', hex: '#b39b86' }, sizes: ['Micro'],
     specs: { 'Brand': 'Celine', 'Model': 'Belt Bag Micro', 'Material': 'Grained Calfskin', 'Hardware': 'Gold-Tone Metal', 'Closure': 'Belt flap + magnetic snap', 'Dimensions': '24 × 20 × 10 cm', 'Interior': 'Suede-lined', 'Condition': 'Excellent — No visible wear' },
     shipping: 'Free insured shipping island-wide. Dispatched in dust bag within 24hrs. Delivered in 3–5 business days. Signature required.',
     additionalInfo: 'Celine Belt Bag Micro in light taupe grained calfskin. Belt closure flap mechanism works perfectly. Interior suede lining is clean with no pen marks. Gold-tone hardware shows no tarnishing. Authenticated with Celine Made in Italy stamp.',
@@ -190,7 +190,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-16', name: 'Goyard St. Louis GM', price: 195000, img: 'https://images.unsplash.com/photo-1566150905458-1bf1fd113961', desc: 'Goyardine canvas. Reversible tote. Green.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Green', hex: '#2d5a27' }, sizes: ['GM'],
+    id: 'po-16', name: 'Goyard St. Louis GM', price: 195000, img: "assets/pre-owned/gy1.jpg", gallery: ["assets/pre-owned/gy1.jpg", "assets/pre-owned/gy2.jpg"], desc: 'Goyardine canvas. Reversible tote. Green.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Green', hex: '#2d5a27' }, sizes: ['GM'],
     specs: { 'Brand': 'Goyard', 'Model': 'Saint Louis GM', 'Material': 'Goyardine Coated Canvas', 'Trim': 'Cowhide Leather Handles', 'Dimensions': '57 × 33 × 17 cm', 'Feature': 'Reversible', 'Pouch': 'Detachable pochette included', 'Condition': 'Very Good — Slight handle darkening' },
     shipping: 'Free insured shipping island-wide. Dispatched in protective wrapping within 24hrs. Delivered in 3–5 business days. Signature required.',
     additionalInfo: 'Goyard Saint Louis GM in rare green Goyardine canvas. Canvas is clean with no cracking. Reversible design allows two looks in one bag. Detachable pochette included. Cowhide handles show slight darkening from use — adds patina character. Authenticated by AJ Vantage.',
@@ -200,7 +200,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-17', name: 'Rimowa Classic Cabin', price: 115000, img: 'https://images.unsplash.com/photo-1527631746610-bca00a040d60', desc: 'Aluminum suitcase. TSA locks. Multiwheel system.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Silver', hex: '#c0c0c0' }, sizes: ['Cabin'],
+    id: 'po-17', name: 'Rimowa Classic Cabin', price: 115000, img: "assets/pre-owned/rm1.jpg", gallery: ["assets/pre-owned/rm1.jpg", "assets/pre-owned/rm2.jpg"], desc: 'Aluminum suitcase. TSA locks. Multiwheel system.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Silver', hex: '#c0c0c0' }, sizes: ['Cabin'],
     specs: { 'Brand': 'Rimowa', 'Model': 'Classic Cabin', 'Material': 'Anodized Aluminum', 'Wheels': 'Multiwheel® System (4 wheels)', 'Locks': 'TSA-Approved Combination', 'Capacity': '36L', 'Weight': '4.3kg', 'Dimensions': '55 × 40 × 20 cm', 'Condition': 'Very Good — Travel dents (character)' },
     shipping: 'Free insured shipping island-wide. Dispatched within 24hrs in protective carton. Delivered in 3–5 business days via heavy-item courier.',
     additionalInfo: 'Rimowa Classic Cabin in signature anodized aluminum. TSA-approved combination locks work flawlessly. Multiwheel system rolls smoothly in all directions. Interior dividers and straps are intact. Minor travel dents on shell add authentic character. Fits all major airline overhead bins.',
@@ -211,7 +211,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-18', name: 'Tiffany T Square Ring', price: 75000, img: 'https://images.unsplash.com/photo-1515562141207-7a18b5ce7142', desc: '18K White Gold. Sleek modern design.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'White Gold', hex: '#e8e8e0' }, sizes: ['5', '6', '7', '8'],
+    id: 'po-18', name: 'Tiffany T Square Ring', price: 75000, img: "assets/pre-owned/tf1.jpg", gallery: ["assets/pre-owned/tf1.jpg", "assets/pre-owned/tf2.jpg"], desc: '18K White Gold. Sleek modern design.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'White Gold', hex: '#e8e8e0' }, sizes: ['5', '6', '7', '8'],
     specs: { 'Brand': 'Tiffany & Co.', 'Model': 'Tiffany T Square Ring', 'Material': '18K White Gold', 'Width': '3.5mm', 'Setting': 'Polished Finish', 'Hallmark': 'T&Co. AU750', 'Includes': 'Tiffany pouch + box', 'Condition': 'Excellent — Polished' },
     shipping: 'Free insured express shipping. Dispatched in Tiffany blue presentation box within 24hrs. Delivered in 1–3 business days. Signature and ID required.',
     additionalInfo: 'Tiffany T Square ring in 18K white gold. Professionally polished to like-new condition. Hallmark engravings are clear and verified. Comes in original Tiffany blue box and suede pouch. Perfect for engagements or everyday luxury.',
@@ -221,7 +221,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-19', name: 'Audemars Piguet Royal Oak', price: 1250000, img: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49', desc: 'Rose gold. Selfwinding. Iconic octagonal bezel.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Rose Gold', hex: '#b76e79' }, sizes: ['One Size'],
+    id: 'po-19', name: 'Audemars Piguet Royal Oak', price: 1250000, img: "assets/pre-owned/ap1.jpg", gallery: ["assets/pre-owned/ap1.jpg", "assets/pre-owned/ap2.jpg"], desc: 'Rose gold. Selfwinding. Iconic octagonal bezel.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Rose Gold', hex: '#b76e79' }, sizes: ['One Size'],
     specs: { 'Brand': 'Audemars Piguet', 'Model': 'Royal Oak 15400OR', 'Material': '18K Rose Gold', 'Movement': 'Caliber 3120 — Automatic', 'Case': '41mm', 'Dial': 'Blue Grande Tapisserie', 'Water Resistance': '50m', 'Crystal': 'Sapphire', 'Condition': 'Excellent — Full Set' },
     shipping: 'Free insured express shipping via private courier. Dispatched within 24hrs in AP presentation box. Delivered in 1–2 business days. Signature, ID, and OTP verification required.',
     additionalInfo: 'Audemars Piguet Royal Oak in 18K rose gold. One of the most iconic luxury sports watches ever created. Octagonal bezel with exposed hex screws is signature AP. Movement serviced and running within COSC specs. Full set with box, papers, and AP warranty card. Extremely rare in this condition.',
@@ -232,7 +232,7 @@ const preOwnedProducts = [
     ]
   },
   {
-    id: 'po-20', name: 'Burberry Vintage Trench', price: 65000, img: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab', desc: 'Made in England. Heritage gabardine. Honey.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Honey', hex: '#c8a951' }, sizes: ['M'],
+    id: 'po-20', name: 'Burberry Vintage Trench', price: 65000, img: "assets/pre-owned/bb1.jpg", gallery: ["assets/pre-owned/bb1.jpg", "assets/pre-owned/bb2.jpg"], desc: 'Made in England. Heritage gabardine. Honey.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Honey', hex: '#c8a951' }, sizes: ['M'],
     specs: { 'Brand': 'Burberry', 'Model': 'Heritage Trench Coat', 'Material': 'Gabardine Cotton', 'Lining': 'Signature Check', 'Buttons': 'Horn-Look', 'Belt': 'D-Ring Buckle', 'Made In': 'England', 'Condition': 'Very Good — Slight vintage fading' },
     shipping: 'Free island-wide shipping. Dispatched in garment bag within 24hrs. Delivered in 3–5 business days. Signature required.',
     additionalInfo: 'Burberry Heritage trench coat in iconic honey gabardine. Made in England with signature check lining. D-ring belt buckle and horn buttons are all intact. Slight vintage fading adds authentic character. Professionally dry-cleaned and pressed before listing.',
