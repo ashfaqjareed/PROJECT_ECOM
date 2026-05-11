@@ -36,7 +36,7 @@ if (MAINTENANCE_MODE) {
 
 // ═══ PRE-OWNED PRODUCT EDITOR ═══
 const preOwnedProducts = [
-  { id: 'po-01', name: 'Vintage Hermès Birkin 35', price: 675000, img: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3', desc: 'Authentic 1998 production. Gold hardware. Pristine condition.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Gold', hex: '#b8860b' }, sizes: ['One Size'] },
+  { id: 'po-01', name: 'VR-BOX 360°', price: 2000, gallery: ["assets/pre-owned/VR-1.jpg", "assets/pre-owned/VR-2.jpg", "assets/pre-owned/VR-3.jpg", "assets/pre-owned/VR-4.jpg"], desc: 'Antique VR-BOX, made for Tech Consumers', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'White', hex: '#ffffffff' }, sizes: ['No-Size'] },
   { id: 'po-02', name: 'Rolex Submariner 16610', price: 425000, img: 'https://images.unsplash.com/photo-1523170335258-f5ed11844a49', desc: 'Full set with box and papers. Serviced 2024.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Steel', hex: '#71797E' }, sizes: ['One Size'] },
   { id: 'po-03', name: 'Louis Vuitton Keepall 55', price: 185000, img: 'https://images.unsplash.com/photo-1547949003-9792a18a2601', desc: 'Monogram canvas. Classic travel staple. Light patina.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Monogram Brown', hex: '#6b4226' }, sizes: ['55cm'] },
   { id: 'po-04', name: 'Cartier Love Bracelet', price: 315000, img: 'https://images.unsplash.com/photo-1515562141207-7a18b5ce7142', desc: '18K Yellow Gold. Includes screwdriver and certificate.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Yellow Gold', hex: '#d4af37' }, sizes: ['16', '17', '18', '19'] },
