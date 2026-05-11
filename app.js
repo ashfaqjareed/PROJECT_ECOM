@@ -2,7 +2,7 @@
 
 // ═══ MAINTENANCE MODE ═══
 // To activate: change false → true, save, push to GitHub
-const MAINTENANCE_MODE = false;
+const MAINTENANCE_MODE = true;
 
 if (MAINTENANCE_MODE) {
   document.addEventListener('DOMContentLoaded', () => {
