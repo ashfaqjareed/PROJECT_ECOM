@@ -1,20 +1,30 @@
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /users/{userId} {
-      allow read, write: if request.auth != null
-        && request.auth.uid == userId;
+    // Customers can only access their own profile
+    match /customers/{userId} {
+      allow read, write: if request.auth != null && request.auth.uid == userId;
     }
+    
+    // Public read for system status (maintenance check)
+    match /system/status {
+      allow read: if true;
+    }
+
+    // Product reading is public
     match /products/{productId} {
       allow read: if true;
-      allow write: if false;
     }
+
+    // Orders linked to users
     match /orders/{orderId} {
-      allow read: if request.auth != null
-        && request.auth.uid == resource.data.userId;
-      allow create: if request.auth != null
-        && request.auth.uid == request.resource.data.userId;
-      allow update, delete: if false;
+      allow read: if request.auth != null && request.auth.uid == resource.data.userId;
+      allow create: if request.auth != null && request.auth.uid == request.resource.data.userId;
+    }
+
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
     }
   }
 }

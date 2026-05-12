@@ -5,51 +5,34 @@
   <link rel="icon" type="image/png" href="assets/brand/AJ.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>AJ VANTAGE | Pre-Owned Collection</title>
+  <title>AJ VANTAGE | Pre-Owned Heritage</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    .preowned-hero {
-      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-      color: white;
-      padding: 100px 40px;
-      text-align: center;
-      border-radius: var(--radius-xl);
-      margin-bottom: 60px;
-      border: 1px solid rgba(255,109,46,0.2);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .preowned-hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle, rgba(255,109,46,0.1) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .preowned-grid {
+    .product-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 30px;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 28px;
       margin-bottom: 100px;
     }
 
-    .preowned-badge {
+    /* Premium Pre-owned Badge Highlight */
+    .pre-owned-card {
+      border-color: var(--primary) !important;
+    }
+
+    .pre-owned-card::after {
+      content: 'AUTHENTICATED';
       position: absolute;
-      top: 20px;
-      left: 20px;
+      top: 15px;
+      right: 15px;
       background: var(--primary);
       color: white;
-      padding: 6px 16px;
-      border-radius: 30px;
-      font-size: 11px;
-      font-weight: 800;
+      font-size: 9px;
+      font-weight: 900;
+      padding: 4px 10px;
+      border-radius: 4px;
       letter-spacing: 1px;
-      z-index: 2;
+      z-index: 10;
     }
   </style>
 </head>
@@ -64,71 +47,64 @@
       <a href="collections.html">Collections</a>
       <a href="support.html">Support</a>
     </nav>
-    <div class="search-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-        stroke-width="2">
-        <circle cx="11" cy="11" r="8" />
-        <path d="m21 21-4.3-4.3" />
-      </svg><input type="text" placeholder="Search..."></div>
     <div class="header-actions">
-      <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2">
-          <path
-            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-        </svg></a>
-      <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <path d="M16 10a4 4 0 0 1-8 0" />
-        </svg><span class="cart-badge" id="cartCount">0</span></a>
+      <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg></a>
+      <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg><span class="cart-badge" id="cartCount">0</span></a>
       <a href="profile.html" class="avatar">A</a>
     </div>
   </header>
 
   <div class="app-container">
-    <div class="preowned-hero reveal">
-      <h1 style="font-size: clamp(40px, 6vw, 72px); font-weight: 800; margin-bottom: 20px; letter-spacing: -2px;">Pre-Owned Heritage</h1>
-      <p style="font-size: 18px; opacity: 0.8; max-width: 600px; margin: 0 auto 40px;">Selectively curated masterpieces. Individually inspected, authenticated, and restored to pristine condition.</p>
-      <div style="display: flex; justify-content: center; gap: 40px;">
-        <div><div style="font-size: 32px; font-weight: 800; color: var(--primary);">20</div><div style="font-size: 12px; opacity: 0.6; text-transform: uppercase;">Unique Pieces</div></div>
-        <div style="width: 1px; background: rgba(255,255,255,0.1);"></div>
-        <div><div style="font-size: 32px; font-weight: 800; color: var(--primary);">100%</div><div style="font-size: 12px; opacity: 0.6; text-transform: uppercase;">Authenticated</div></div>
+    <div class="page-header reveal">
+      <div class="breadcrumb">
+        <a href="index.html">Home</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+        <a href="shop.html">Shop</a>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6" />
+        </svg>
+        <span>Pre-Owned</span>
       </div>
+      <h1 class="page-title">Pre-Owned Heritage</h1>
+      <p class="page-sub">Twenty masterpieces selected for their provenance, condition, and enduring soul.</p>
     </div>
 
-    <div class="preowned-grid" id="productGrid">
-      <!-- Injected by JS -->
+    <div class="category-row reveal">
+      <button class="cat-pill active" onclick="filterCat('all')">All</button>
+      <button class="cat-pill" onclick="filterCat('bags')">Bags</button>
+      <button class="cat-pill" onclick="filterCat('wallets')">Wallets</button>
+      <button class="cat-pill" onclick="filterCat('belts')">Belts</button>
+      <button class="cat-pill" onclick="filterCat('accessories')">Accessories</button>
     </div>
+
+    <div id="resultCount" class="reveal" style="font-size:13px;color:var(--text-light);margin-bottom:20px"></div>
+    <div class="product-grid" id="productGrid"></div>
   </div>
 
   <footer>
     <div class="f-grid">
       <div class="f-about">
         <div class="logo"><img src="assets/brand/AJ2.png" alt="AJ Vantage Logo" class="site-logo"></div>
-        <p>Premium leather goods crafted with passion since 2026. Our collection consists of 80% new and 20% selectively curated pre-owned pieces available across our Website, WhatsApp Catalog, and Facebook Marketplace.</p>
+        <p>Premium luxury portal. Redefining digital commerce with a 2026 futuristic design language.</p>
       </div>
       <div class="f-col">
-        <h4>Shopping</h4>
-        <a href="shop.html">Shop</a>
-        <a href="collections.html">Collections</a>
-        <a href="shop.html?new=true">New Collections</a>
-        <a href="shop.html">Products</a>
+        <h4>Navigation</h4>
+        <a href="shop.html">Atelier</a>
+        <a href="collections.html">Vault</a>
+        <a href="pre-owned.html">Pre-Owned</a>
       </div>
       <div class="f-col">
-        <h4>Support</h4>
-        <a href="support.html">FAQ</a>
-        <a href="support.html">Help Center</a>
-        <a href="payment.html">Payment Methods</a>
-      </div>
-      <div class="f-col">
-        <h4>Legal</h4>
-        <a href="about.html">About Us</a>
-        <a href="legal.html#privacy">Privacy Policy</a>
-        <a href="legal.html#terms">Terms of Service</a>
-        <a href="legal.html#shipping">Shipping Policy</a>
+        <h4>Privacy</h4>
+        <a href="legal.html">Terms</a>
+        <a href="legal.html">Privacy</a>
       </div>
     </div>
-    <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA 🇱🇰</span></div>
+    <div class="f-bottom">
+      <span>© 2026 AJ Vantage.</span>
+      <span class="sri-tag">CRAFTED IN SRI LANKA 🇱🇰</span>
+    </div>
   </footer>
 
   <!-- Firebase -->
@@ -145,11 +121,9 @@
       appId: "1:797206947976:web:ec58e49ce403741dd9d73d",
       measurementId: "G-WJCRWVWB6H"
     };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    window.isPreOwnedPage = true;
   </script>
-  <script>window.isPreOwnedPage = true;</script>
   <script src="app.js"></script>
 </body>
 

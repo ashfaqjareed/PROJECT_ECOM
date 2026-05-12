@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -571,7 +571,7 @@
           <div class="p-avatar-ring">AJ</div>
           <div class="p-name" id="userName">M.ASHFAQ JAREED</div>
           <div class="p-email" id="userEmailDisplay">ashfaqjareed@gmail.com</div>
-          <span class="p-badge">✦ Vantage Member</span>
+          <span class="p-badge">âœ¦ Vantage Member</span>
         </div>
         <nav class="p-nav">
           <div class="p-nav-item active" onclick="showTab('info',this)">
@@ -621,7 +621,7 @@
             <div class="info-grid">
               <div class="info-box">
                 <div class="info-label">Full Name</div><input type="text" id="editName" value="M.ASHFAQ JAREED" readonly
-                  class="info-value">
+                   class="info-value">
               </div>
               <div class="info-box">
                 <div class="info-label">Email Address</div><input type="email" id="editEmail"
@@ -637,16 +637,24 @@
               </div>
               <div class="info-box">
                 <div class="info-label">Country / Region</div><input type="text" id="editCountry"
-                  value="Sri Lanka 🇱🇰" readonly class="info-value">
+                  value="Sri Lanka ðŸ‡±ðŸ‡°" readonly class="info-value">
               </div>
               <div class="info-box">
                 <div class="info-label">Member Since</div>
-                <div class="info-value">January 2024</div>
+                <div class="info-value" id="dispMemberSince">January 2024</div>
+              </div>
+              <div class="info-box">
+                <div class="info-label">Points Balance</div>
+                <div class="info-value" id="dispPoints" style="color:#10b981;">0 PTS</div>
+              </div>
+              <div class="info-box">
+                <div class="info-label">Total Expenditure</div>
+                <div class="info-value" id="dispSpent">RS. 0</div>
               </div>
               <div class="info-box">
                 <div class="info-label">Account Tier</div>
-                <div class="info-value" style="color:var(--primary);">Vantage Gold ✦ Member</div>
-              </div>
+                <div class="info-value" id="dispTier" style="color:var(--primary);">Bronze</div>
+              </div>  </div>
               <div class="info-box" style="cursor: pointer;" onclick="handleChangePassword()">
                 <div class="info-label">Account Security</div>
                 <div class="info-value" style="display:flex; align-items:center; gap:8px;">
@@ -753,47 +761,40 @@
         <a href="legal.html#shipping">Shipping Policy</a>
       </div>
     </div>
-    <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA 🇱🇰</span></div>
+    <div class="f-bottom"><span>Â© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA ðŸ‡±ðŸ‡°</span></div>
   </footer>
 
   <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBy44sne8A7Ynm5GEgA7DBrEmeuJkRc890",
+      authDomain: "aj-vantage-ecom.firebaseapp.com",
+      projectId: "aj-vantage-ecom",
+      storageBucket: "aj-vantage-ecom.firebasestorage.app",
+      messagingSenderId: "797206947976",
+      appId: "1:797206947976:web:ec58e49ce403741dd9d73d"
+    };
+    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
     const db = firebase.firestore();
+
     let isEditing = false;
 
-    function toast(msg) {
-      const t = document.getElementById('toast');
-      const tm = document.getElementById('toastMsg');
-      if (!t || !tm) return;
-      tm.textContent = msg;
-      t.classList.add('show');
-      setTimeout(() => t.classList.remove('show'), 3000);
-    }
-
-    async function loadUserProfile() {
-      auth.onAuthStateChanged(async (user) => {
-        if (!user) {
-          location.href = 'login.html';
-          return;
-        }
-
-        try {
-          const doc = await db.collection('users').doc(user.uid).get();
-          if (doc.exists) {
-            const data = doc.data();
-            document.getElementById('userName').textContent = data.name || 'Member';
-            document.getElementById('userEmailDisplay').textContent = user.email;
-            document.getElementById('editName').value = data.name || '';
-            document.getElementById('editEmail').value = user.email;
-            document.getElementById('editPhone').value = data.phone || '';
-            document.getElementById('editAddress').value = data.address || '';
-            document.getElementById('editCountry').value = data.country || '';
-            document.querySelector('.p-avatar-ring').textContent = (data.name || 'U').charAt(0).toUpperCase();
-          }
-          loadOrderHistory(user.uid);
-        } catch (e) {
-          console.error("Profile Load Error:", e);
-        }
+    function listenToUserProfile(uid) {
+      return db.collection('customers').doc(uid).onSnapshot((doc) => {
+        if (!doc.exists) return;
+        const d = doc.data();
+        const name = d.name || 'Member';
+        if (document.getElementById('userName')) document.getElementById('userName').textContent = name;
+        const ring = document.querySelector('.p-avatar-ring');
+        if (ring) ring.textContent = name.charAt(0).toUpperCase();
+        if (document.getElementById('editName')) document.getElementById('editName').value = name;
+        if (document.getElementById('editPhone')) document.getElementById('editPhone').value = d.phone || '';
+        if (document.getElementById('editAddress')) document.getElementById('editAddress').value = d.address || '';
+        if (document.getElementById('editCountry')) document.getElementById('editCountry').value = d.country || 'Sri Lanka';
+        if (document.getElementById('dispMemberSince')) document.getElementById('dispMemberSince').textContent = d.memberSince || 'Recent';
+        if (document.getElementById('dispPoints')) document.getElementById('dispPoints').textContent = (d.points || 0) + ' PTS';
+        if (document.getElementById('dispSpent')) document.getElementById('dispSpent').textContent = 'RS. ' + (d.totalSpent || 0).toLocaleString();
+        if (document.getElementById('dispTier')) document.getElementById('dispTier').textContent = d.tier || 'Bronze';
       });
     }
 
@@ -801,42 +802,17 @@
       const container = document.getElementById('orderContainer');
       if (!container) return;
       try {
-        const snapshot = await db.collection('orders')
-          .where('userId', '==', uid)
-          .orderBy('timestamp', 'desc')
-          .get();
-
-        if (snapshot.empty) {
-          container.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-muted);">No orders found yet. <a href="shop.html" style="color:var(--primary);text-decoration:none;font-weight:700;">Start Shopping →</a></div>';
+        const snap = await db.collection('orders').where('userId','==',uid).orderBy('timestamp','desc').get();
+        if (snap.empty) {
+          container.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-muted);">No orders yet. <a href="shop.html" style="color:var(--primary);font-weight:700;">Start Shopping â†’</a></div>';
           return;
         }
-
-        container.innerHTML = snapshot.docs.map(doc => {
-          const order = doc.data();
-          const date = order.timestamp ? order.timestamp.toDate().toLocaleDateString() : 'Recent';
-          return `
-            <div class="order-card">
-              <div class="order-header">
-                <span class="order-id">#${doc.id.slice(-8).toUpperCase()}</span>
-                <span class="order-status">${order.status || 'Processing'}</span>
-              </div>
-              <div style="margin-bottom:8px;font-size:12px;color:var(--text-muted);">${date}</div>
-              <div class="order-items">
-                ${(order.items || []).map(item => `
-                  <div class="order-item">
-                    <span>${item.name} x ${item.qty}</span>
-                    <span>Rs. ${(item.price * item.qty).toLocaleString()}</span>
-                  </div>
-                `).join('')}
-              </div>
-              <div class="order-total">
-                <span>Total Amount</span>
-                <span>${typeof order.total === 'number' ? 'Rs. ' + order.total.toLocaleString() : order.total}</span>
-              </div>
-            </div>
-          `;
+        container.innerHTML = snap.docs.map(doc => {
+          const o = doc.data();
+          const date = o.timestamp ? o.timestamp.toDate().toLocaleDateString() : 'Recent';
+          return `<div class="order-card"><div class="order-header"><span class="order-id">#${doc.id.slice(-8).toUpperCase()}</span><span class="order-status">${o.status||'Processing'}</span></div><div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">${date}</div>${(o.items||[]).map(it=>`<div class="order-item"><span>${it.name} x${it.qty}</span><span>RS. ${(it.price*it.qty).toLocaleString()}</span></div>`).join('')}<div class="order-total"><span>Total</span><span>${typeof o.total==='number'?'RS. '+o.total.toLocaleString():o.total||''}</span></div></div>`;
         }).join('');
-      } catch (e) {
+      } catch(e) {
         container.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">Could not load history.</p>';
       }
     }
@@ -844,108 +820,58 @@
     async function toggleEdit() {
       const user = auth.currentUser;
       if (!user) return;
-
       isEditing = !isEditing;
       const btn = document.getElementById('editBtn');
-      const inputs = ['editName', 'editPhone', 'editCountry', 'editAddress'];
-      
-      inputs.forEach(id => {
+      ['editName','editPhone','editCountry','editAddress'].forEach(id => {
         const el = document.getElementById(id);
         if (!el) return;
         el.readOnly = !isEditing;
-        if (isEditing) {
-          el.style.background = 'rgba(255,149,0,0.05)';
-          el.style.borderBottom = '1px solid var(--primary)';
-        } else {
-          el.style.background = 'none';
-          el.style.borderBottom = 'none';
-        }
+        el.style.background = isEditing ? 'rgba(255,149,0,0.05)' : 'none';
+        el.style.borderBottom = isEditing ? '1px solid var(--primary)' : 'none';
       });
-
       if (btn) btn.textContent = isEditing ? 'Save Changes' : 'Edit Profile';
-
       if (!isEditing) {
-        toast('Syncing with AJ VANTAGE Cloud...');
+        toast('Syncing...');
         try {
-          await db.collection('users').doc(user.uid).update({
+          await db.collection('customers').doc(user.uid).update({
             name: document.getElementById('editName').value,
             phone: document.getElementById('editPhone').value,
             address: document.getElementById('editAddress').value,
             country: document.getElementById('editCountry').value
           });
-          toast('Profile Successfully Updated');
-          document.getElementById('userName').textContent = document.getElementById('editName').value;
-          document.querySelector('.p-avatar-ring').textContent = document.getElementById('editName').value.charAt(0).toUpperCase();
-        } catch (e) {
-          toast('Update Failed: ' + e.message);
-        }
+          toast('Profile Updated');
+        } catch(e) { toast('Update Failed: ' + e.message); }
       }
     }
 
     async function handleChangePassword() {
       const user = auth.currentUser;
       if (!user) return;
-      const newPass = prompt("Enter your NEW secure password (8-16 chars):");
-      if (!newPass) return;
-      if (newPass.length < 8 || newPass.length > 16) {
-        toast("Security: Password must be 8-16 characters.");
-        return;
-      }
-      try {
-        toast("Updating Security Shield...");
-        await user.updatePassword(newPass);
-        toast("Password Updated Instantly");
-      } catch (e) {
-        if (e.code === 'auth/requires-recent-login') {
-          toast("Security: Please Re-login to change password");
-          setTimeout(() => handleSignOut(), 2000);
-        } else {
-          toast("Update Failed: " + e.message);
-        }
-      }
-    }
-
-    async function handleSignOut() {
-      try {
-        await auth.signOut();
-        location.href = 'index.html';
-      } catch (e) {
-        toast("Sign Out Failed");
-      }
-    }
-
-    async function deleteAccount() {
-      if (!confirm("CRITICAL: This will PERMANENTLY delete your AJ VANTAGE account. Proceed?")) return;
-      const user = auth.currentUser;
-      if (!user) return;
-      try {
-        await db.collection('users').doc(user.uid).delete();
-        await user.delete();
-        toast("Account Terminated");
-        location.href = 'index.html';
-      } catch (e) {
-        if (e.code === 'auth/requires-recent-login') {
-          toast("Security: Re-login required to delete account.");
-        } else {
-          toast("Failed: " + e.message);
-        }
-      }
+      const p = prompt('Enter new password (8-16 chars):');
+      if (!p || p.length < 8 || p.length > 16) { toast('Password must be 8-16 characters.'); return; }
+      try { await user.updatePassword(p); toast('Password Updated'); }
+      catch(e) { if (e.code==='auth/requires-recent-login') { toast('Re-login required'); setTimeout(()=>handleSignOut(),2000); } else toast('Failed: '+e.message); }
     }
 
     function showTab(id, el) {
-      ['info', 'orders', 'payment'].forEach(t => {
-        const tab = document.getElementById('tab-' + t);
-        if (tab) tab.style.display = t === id ? 'block' : 'none';
+      ['info','orders','payment'].forEach(t => {
+        const tab = document.getElementById('tab-'+t);
+        if (tab) tab.style.display = t===id ? 'block' : 'none';
       });
       document.querySelectorAll('.p-nav-item').forEach(n => n.classList.remove('active'));
       if (el) el.classList.add('active');
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-      loadUserProfile();
+      auth.onAuthStateChanged(user => {
+        if (!user) { location.href = 'login.html'; return; }
+        if (document.getElementById('userEmailDisplay')) document.getElementById('userEmailDisplay').textContent = user.email;
+        if (document.getElementById('editEmail')) document.getElementById('editEmail').value = user.email;
+        listenToUserProfile(user.uid);
+        loadOrderHistory(user.uid);
+      });
       showTab('info', document.querySelector('.p-nav-item'));
     });
   </script>
 </body>
-
 </html>

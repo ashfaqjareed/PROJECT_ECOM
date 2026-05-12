@@ -1,260 +1,14 @@
-/* === AJ VANTAGE — Core Logic & Configuration === */
-
-// ═══ MAINTENANCE MODE ═══
-// To activate: change false → true, save, push to GitHub
+// MAINTENANCE MODE - Deactivated to ensure visibility
 const MAINTENANCE_MODE = false;
-
-if (MAINTENANCE_MODE) {
-  document.addEventListener('DOMContentLoaded', () => {
-    const overlay = document.createElement('div');
-    overlay.className = 'maintenance-overlay';
-    overlay.style.cssText = 'position:fixed;inset:0;background:var(--bg);z-index:2147483647;display:flex;align-items:center;justify-content:center;text-align:center;padding:40px;opacity:0;transition:opacity 0.8s ease;';
-    overlay.innerHTML = `
-      <div style="max-width:500px;background:var(--surface);border:1px solid var(--border);border-radius:32px;padding:60px 40px;box-shadow:var(--shadow-lg);">
-        <div style="width:80px;height:80px;margin:0 auto 30px;background:rgba(255,109,46,0.1);border-radius:24px;display:flex;align-items:center;justify-content:center;transform:rotate(-10deg);border:1px solid rgba(255,109,46,0.2);">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-        </div>
-        <h1 style="font-family:var(--font);font-size:22px;font-weight:800;color:var(--text);margin-bottom:20px;text-transform:uppercase;letter-spacing:2px;">AJ VANTAGE — EVOLVING</h1>
-        <p style="font-family:var(--font);font-size:16px;color:var(--text-muted);line-height:1.8;margin-bottom:32px;">We are currently refining the platform. Our digital atelier will reopen shortly.</p>
-        <div style="display:inline-flex;align-items:center;gap:12px;padding:12px 24px;background:var(--surface-dim);border-radius:100px;border:1px solid var(--border);">
-           <span style="width:8px;height:8px;background:#10b981;border-radius:50%;display:inline-block;animation:pulse 2s infinite;"></span>
-           <span style="font-family:var(--font);font-size:12px;color:var(--text);text-transform:uppercase;letter-spacing:1px;font-weight:600;">System Integrity Active</span>
-        </div>
-      </div>
-      <style>
-        @keyframes pulse { 0% { opacity: 0.4; } 50% { opacity: 1; transform: scale(1.2); } 100% { opacity: 0.4; } }
-        body { background: var(--bg) !important; }
-      </style>
-    `;
-    document.body.innerHTML = '';
-    document.body.appendChild(overlay);
-    setTimeout(() => overlay.style.opacity = '1', 100);
-    document.body.style.overflow = 'hidden';
-  });
-}
 // ════════════════════════
 
-// ═══ PRE-OWNED PRODUCT EDITOR ═══
-const preOwnedProducts = [
-  {
-    id: 'po-01', name: 'VR-BOX 360°', price: 2000, img: "assets/pre-owned/vr1.JPG", gallery: ["assets/pre-owned/vr1.JPG", "assets/pre-owned/vr2.JPG", "assets/pre-owned/vr3.JPG", "assets/pre-owned/vr4.JPG"], desc: 'Antique VR-BOX, made for Tech Consumers', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'White', hex: '#ffffffff' }, sizes: ['Default'],
-    specs: { 'Type': 'Virtual Reality Headset', 'Compatibility': 'Smartphones 4.7–6.0"', 'Lens': 'Adjustable focal & pupil distance', 'FOV': '100°', 'Material': 'ABS Plastic + Foam Padding', 'Condition': 'Excellent — Lightly Used' },
-    shipping: 'Free island-wide delivery. Dispatched within 24hrs. Delivered in 2–4 business days via insured courier. Bubble-wrapped packaging for fragile items.',
-    additionalInfo: 'Retro VR headset delivering immersive 360° experience. Compatible with most smartphones. Cleaned, sanitized, and quality-checked by AJ Vantage before listing.',
-    reviews: [
-      { user: "Kasun R.", rating: 4, comment: "Cool retro VR experience. Surprisingly immersive for the price." },
-      { user: "Nimal P.", rating: 5, comment: "Great collector item. Works perfectly and shipping was fast." }
-    ]
-  },
-  {
-    id: 'po-02', name: 'Samsung Galaxy A15 (Used)', price: 40000, img: "assets/pre-owned/sa1.jpg", gallery: ["assets/pre-owned/sa1.jpg", "assets/pre-owned/sa2.jpg", "assets/pre-owned/sa3.jpg", "assets/pre-owned/sa4.jpg"], desc: 'Samsung Galaxy A15: 8GB RAM, 256GB Storage (Used). In perfect condition; In Blue Black Color.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Blue Black', hex: '#040720' }, sizes: ['256GB'],
-    specs: { 'Brand': 'Samsung', 'Model': 'Galaxy A15', 'RAM': '8GB', 'Storage': '256GB', 'Display': '6.5" Super AMOLED', 'Battery': '5000mAh — 92% Health', 'OS': 'Android 18 / One UI 8', 'Condition': 'Excellent — No scratches' },
-    shipping: 'Free island-wide delivery. Dispatched within 24hrs. Delivered in 2–3 business days. Device shipped in anti-static packaging with original box.',
-    additionalInfo: 'Factory reset and fully updated to latest firmware. Battery health verified at 92%. All sensors and cameras tested. Comes with original charger and documentation.',
-    reviews: [
-      { user: "Moderator", rating: 0, comment: "No Reviews yet" },
-    ]
-  },
-  {
-    id: 'po-03', name: 'Louis Vuitton Keepall 55', price: 185000, img: "assets/pre-owned/lv1.jpg", gallery: ["assets/pre-owned/lv1.jpg", "assets/pre-owned/lv2.jpg"], desc: 'Monogram canvas. Classic travel staple. Light patina.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Monogram Brown', hex: '#6b4226' }, sizes: ['55cm'],
-    specs: { 'Brand': 'Louis Vuitton', 'Model': 'Keepall Bandoulière 55', 'Material': 'Monogram Coated Canvas', 'Trim': 'Vachetta Leather — Light Patina', 'Hardware': 'Gold-Tone Brass', 'Dimensions': '55 × 31 × 25 cm', 'Made In': 'France', 'Condition': 'Very Good — Light patina on handles' },
-    shipping: 'Free insured shipping island-wide. Dispatched within 24hrs in luxury dust bag. Delivered in 3–5 business days. Signature required on delivery.',
-    additionalInfo: 'Authenticated by AJ Vantage luxury verification team. Light honey patina on vachetta leather adds vintage character. Canvas is clean with no cracks. Zipper operates smoothly. Includes detachable shoulder strap.',
-    reviews: [
-      { user: "Rashmi F.", rating: 5, comment: "Authentic and beautiful. The patina adds character." },
-      { user: "Janith W.", rating: 5, comment: "Traveled with it twice already. Gets compliments everywhere." }
-    ]
-  },
-  {
-    id: 'po-04', name: 'Cartier Love Bracelet', price: 315000, img: "assets/pre-owned/cr1.jpg", gallery: ["assets/pre-owned/cr1.jpg", "assets/pre-owned/cr2.jpg"], desc: '18K Yellow Gold. Includes screwdriver and certificate.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Yellow Gold', hex: '#d4af37' }, sizes: ['16', '17', '18', '19'],
-    specs: { 'Brand': 'Cartier', 'Model': 'Love Bracelet', 'Material': '18K Yellow Gold', 'Weight': '32g', 'Closure': 'Screw System', 'Includes': 'Screwdriver, Certificate, Box', 'Serial': 'Verified — Engraved', 'Condition': 'Excellent — Minimal wear' },
-    shipping: 'Free insured express shipping. Dispatched in Cartier-style presentation box within 24hrs. Delivered in 1–3 business days. Signature and ID verification required.',
-    additionalInfo: 'Independently authenticated with matching serial numbers. 18K gold tested and verified. Screw mechanism functions perfectly. Original screwdriver and Cartier certificate of authenticity included. Minor desk-wear on bottom — virtually invisible when worn.',
-    reviews: [
-      { user: "Natasha M.", rating: 5, comment: "Came with original box, screwdriver, and certificate. Genuine." },
-      { user: "Ashan J.", rating: 5, comment: "Bought for my wife. She cried happy tears. Perfect condition." },
-      { user: "Priya S.", rating: 4, comment: "Stunning piece. Tiny wear on clasp but barely noticeable." }
-    ]
-  },
-  {
-    id: 'po-05', name: 'Chanel Classic Flap Bag', price: 495000, img: "assets/pre-owned/ch1.jpg", gallery: ["assets/pre-owned/ch1.jpg", "assets/pre-owned/ch2.jpg"], desc: 'Caviar leather. Silver-tone hardware. 2020 production.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Black', hex: '#111111' }, sizes: ['Medium'],
-    specs: { 'Brand': 'Chanel', 'Model': 'Classic Flap Medium', 'Material': 'Caviar Calfskin', 'Hardware': 'Silver-Tone (Palladium)', 'Dimensions': '25.5 × 16 × 7 cm', 'Interior': 'Burgundy Lambskin Lining', 'Year': '2020', 'Condition': 'Excellent — Pristine' },
-    shipping: 'Free insured express shipping. Double-boxed with dust bag. Delivered in 2–4 business days. Signature required. Discreet luxury packaging.',
-    additionalInfo: 'Authenticated by AJ Vantage luxury team. 2020 production with matching hologram sticker and authenticity card. Caviar leather shows no wear. Turn-lock closure operates flawlessly. Interior is immaculate with no pen marks or stains.',
-    reviews: [
-      { user: "Imasha L.", rating: 5, comment: "Dream bag acquired. Caviar leather is pristine." },
-      { user: "Sachini R.", rating: 5, comment: "Verified authentic. Hardware shines like new. Obsessed." }
-    ]
-  },
-  {
-    id: 'po-06', name: 'Patek Philippe Nautilus', price: 950000, img: "assets/pre-owned/pp1.jpg", gallery: ["assets/pre-owned/pp1.jpg", "assets/pre-owned/pp2.jpg"], desc: 'Blue dial. Iconic design. Collector grade condition.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Blue', hex: '#1e3a5f' }, sizes: ['One Size'],
-    specs: { 'Brand': 'Patek Philippe', 'Model': 'Nautilus 5711/1A', 'Movement': 'Caliber 324 S C — Automatic', 'Case': '40mm Stainless Steel', 'Dial': 'Blue Sunburst', 'Water Resistance': '120m', 'Crystal': 'Sapphire', 'Condition': 'Collector Grade — Full Set' },
-    shipping: 'Free insured express shipping via private courier. Dispatched within 24hrs in watch box with papers. Delivered in 1–2 business days. Signature and ID required.',
-    additionalInfo: 'Full set with box, papers, and purchase receipt. Independently serviced and verified. Movement running within COSC specs. Crystal and case are scratch-free. One of the most coveted timepieces in the world.',
-    reviews: [
-      { user: "Ravindu H.", rating: 5, comment: "Grail watch obtained. Collector grade is accurate." },
-      { user: "Malik A.", rating: 5, comment: "Blue dial in sunlight is mesmerizing. Full papers included." }
-    ]
-  },
-  {
-    id: 'po-07', name: 'Gucci Jackie 1961', price: 145000, img: "assets/pre-owned/gj1.jpg", gallery: ["assets/pre-owned/gj1.jpg", "assets/pre-owned/gj2.jpg"], desc: 'Reinvigorated classic. Emerald green leather.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Emerald Green', hex: '#046307' }, sizes: ['Medium'],
-    specs: { 'Brand': 'Gucci', 'Model': 'Jackie 1961 Medium', 'Material': 'Smooth Calfskin', 'Color': 'Emerald Green', 'Hardware': 'Gold-Tone Piston Closure', 'Dimensions': '28 × 19 × 4.5 cm', 'Strap': 'Adjustable shoulder strap', 'Condition': 'Very Good — Minor marks' },
-    shipping: 'Free insured shipping island-wide. Shipped in dust bag within 24hrs. Delivered in 3–5 business days. Signature required.',
-    additionalInfo: 'The Jackie 1961 is a reinvention of a Gucci icon. Emerald green calfskin in excellent shape. Piston closure works smoothly. Interior clean with original suede lining. Authenticated with Gucci serial tag intact.',
-    reviews: [
-      { user: "Sanduni T.", rating: 4, comment: "The green is gorgeous. Leather looks amazing." },
-      { user: "Kavisha N.", rating: 5, comment: "Iconic silhouette. Perfect for casual and formal outings." }
-    ]
-  },
-  {
-    id: 'po-08', name: 'Dior Lady Dior Large', price: 225000, img: "assets/pre-owned/ld1.jpg", gallery: ["assets/pre-owned/ld1.jpg", "assets/pre-owned/ld2.jpg"], desc: 'Lambskin Cannage. Gold charms. Excellent condition.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Black', hex: '#111111' }, sizes: ['Large'],
-    specs: { 'Brand': 'Dior', 'Model': 'Lady Dior Large', 'Material': 'Lambskin Cannage', 'Hardware': 'Gold-Tone Metal', 'Charms': 'D-I-O-R Letters — All intact', 'Dimensions': '32 × 25 × 11 cm', 'Interior': 'Suede Lining', 'Condition': 'Excellent — Pristine leather' },
-    shipping: 'Free insured express delivery. Double-boxed with Dior dust bag. Delivered in 2–4 business days. Signature required on delivery.',
-    additionalInfo: 'Lady Dior is the house\'s most iconic bag. Lambskin Cannage quilting is soft and structured. All four D-I-O-R charms present and polished. Zipper and magnetic closure work perfectly. Interior suede is clean with no discoloration.',
-    reviews: [
-      { user: "Hiruni V.", rating: 5, comment: "Lady Dior is timeless. Gold charms are intact and beautiful." },
-      { user: "Chamari B.", rating: 5, comment: "Lambskin is buttery soft. No scratches. Premium packaging." },
-      { user: "Anuki P.", rating: 4, comment: "Large size fits everything. Overall excellent condition." }
-    ]
-  },
-  {
-    id: 'po-09', name: 'Prada Re-Edition 2005', price: 95000, img: "assets/pre-owned/pr1.jpg", gallery: ["assets/pre-owned/pr1.jpg", "assets/pre-owned/pr2.jpg"], desc: 'Nylon shoulder bag. Saffiano trim. Black.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Black', hex: '#111111' }, sizes: ['One Size'],
-    specs: { 'Brand': 'Prada', 'Model': 'Re-Edition 2005', 'Material': 'Nylon + Saffiano Leather Trim', 'Hardware': 'Silver-Tone', 'Dimensions': '22 × 18 × 6 cm', 'Strap': 'Detachable chain + nylon strap', 'Closure': 'Zip Top', 'Condition': 'Very Good — Minimal strap wear' },
-    shipping: 'Free island-wide shipping. Dispatched within 24hrs in dust bag. Delivered in 3–5 business days via insured courier.',
-    additionalInfo: 'Prada\'s cult-favorite Re-Edition 2005 in pristine nylon. Saffiano leather trim shows no cracking. Triangle logo plate is clean and intact. Comes with both detachable straps. Authenticated with Prada authenticity cards.',
-    reviews: [
-      { user: "Thisara G.", rating: 5, comment: "Perfect everyday bag. Lightweight and the nylon is pristine." },
-      { user: "Nethmi K.", rating: 4, comment: "Trendy and practical. Strap shows minimal wear. Great deal." }
-    ]
-  },
-  {
-    id: 'po-10', name: 'Omega Speedmaster Pro', price: 275000, img: "assets/pre-owned/om1.jpg", gallery: ["assets/pre-owned/om1.jpg", "assets/pre-owned/om2.jpg"], desc: 'The Moonwatch. Hesalite crystal. Manual wind.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Steel Black', hex: '#2c2c2c' }, sizes: ['One Size'],
-    specs: { 'Brand': 'Omega', 'Model': 'Speedmaster Professional Moonwatch', 'Reference': '311.30.42.30.01.005', 'Movement': 'Caliber 1861 — Manual Wind', 'Case': '42mm Stainless Steel', 'Crystal': 'Hesalite', 'Water Resistance': '50m', 'Chronograph': 'Fully Functional', 'Condition': 'Very Good — Desk marks on bracelet' },
-    shipping: 'Free insured express shipping. Dispatched in Omega presentation box within 24hrs. Delivered in 1–3 business days. Signature and ID required.',
-    additionalInfo: 'The legendary Moonwatch — first watch worn on the moon. Manual wind movement serviced and running accurately. Hesalite crystal gives authentic vintage warmth. Chronograph pushers and crown operate flawlessly. Bracelet shows minor desk-diving marks. Full box and papers included.',
-    reviews: [
-      { user: "Dilan M.", rating: 5, comment: "The Moonwatch lives up to the legend. Keeping perfect time." },
-      { user: "Supun E.", rating: 5, comment: "Hesalite crystal gives it vintage warmth. Chrono works flawlessly." },
-      { user: "Chamath R.", rating: 4, comment: "Bracelet has desk-diving marks but dial is immaculate." }
-    ]
-  },
-  {
-    id: 'po-11', name: 'Saint Laurent Loulou', price: 165000, img: "assets/pre-owned/sl1.jpg", gallery: ["assets/pre-owned/sl1.jpg", "assets/pre-owned/sl2.jpg"], desc: 'Quilted leather. YSL monogram. Dark grey.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Dark Grey', hex: '#4a4a4a' }, sizes: ['Medium'],
-    specs: { 'Brand': 'Saint Laurent', 'Model': 'Loulou Medium', 'Material': 'Quilted "Y" Leather', 'Hardware': 'Aged Gold YSL Monogram', 'Dimensions': '32 × 22 × 10 cm', 'Chain': 'Sliding chain + leather strap', 'Closure': 'Magnetic Snap', 'Condition': 'Excellent — Structured quilting' },
-    shipping: 'Free insured shipping island-wide. Dispatched in dust bag within 24hrs. Delivered in 3–5 business days. Signature required.',
-    additionalInfo: 'Saint Laurent Loulou in dark grey quilted leather. YSL monogram hardware is polished and scratch-free. Quilting retains its puffy structure. Magnetic snap closure is strong. Interior is clean with card slots intact.',
-    reviews: [
-      { user: "Ishara D.", rating: 5, comment: "YSL monogram is flawless. Quilting is puffy and structured." },
-      { user: "Madushi S.", rating: 4, comment: "Dark grey goes with everything. Chain strap is luxurious." }
-    ]
-  },
-  {
-    id: 'po-12', name: 'Bottega Veneta Pouch', price: 135000, img: "assets/pre-owned/bv1.jpg", gallery: ["assets/pre-owned/bv1.jpg", "assets/pre-owned/bv2.jpg"], desc: 'Intrecciato weave. Soft calfskin. Camel color.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Camel', hex: '#c19a6b' }, sizes: ['One Size'],
-    specs: { 'Brand': 'Bottega Veneta', 'Model': 'The Pouch', 'Material': 'Butter Calfskin', 'Weave': 'Intrecciato', 'Dimensions': '40 × 18 × 9 cm', 'Closure': 'Magnetic Frame', 'Made In': 'Italy', 'Condition': 'Excellent — Pristine leather' },
-    shipping: 'Free insured shipping island-wide. Dispatched in dust bag within 24hrs. Delivered in 3–5 business days via insured courier.',
-    additionalInfo: 'Bottega Veneta\'s signature Pouch in camel calfskin with iconic Intrecciato weave. Leather is buttery soft with no scratches. Magnetic frame closure snaps securely. Interior suede lining is clean. Authenticated with Bottega serial stamp.',
-    reviews: [
-      { user: "Lakshika W.", rating: 5, comment: "Softest clutch I have ever held. Intrecciato weave is art." },
-      { user: "Ruvini A.", rating: 5, comment: "Camel color is stunning. Fits phone, cards, lipstick perfectly." }
-    ]
-  },
-  {
-    id: 'po-13', name: 'Fendi Peekaboo ISeeU', price: 245000, img: "assets/pre-owned/fn1.jpg", gallery: ["assets/pre-owned/fn1.jpg", "assets/pre-owned/fn2.jpg"], desc: 'Leather handbag with twist lock. Grey.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Grey', hex: '#808080' }, sizes: ['Medium'],
-    specs: { 'Brand': 'Fendi', 'Model': 'Peekaboo ISeeU Medium', 'Material': 'Grained Calfskin', 'Hardware': 'Palladium-Tone', 'Closure': 'Twist Lock', 'Dimensions': '33.5 × 25.5 × 12 cm', 'Interior': 'Dual compartment', 'Condition': 'Very Good — Clean interior' },
-    shipping: 'Free insured express shipping. Double-boxed with Fendi dust bag. Delivered in 2–4 business days. Signature required.',
-    additionalInfo: 'Fendi Peekaboo ISeeU with innovative twist-lock mechanism. Dual compartments for organized storage. Grey grained calfskin shows minimal wear. Palladium hardware is scratch-free. Authenticated with Fendi hologram and serial tag.',
-    reviews: [
-      { user: "Tharushi J.", rating: 5, comment: "Peekaboo design is so clever. Twist lock works smoothly." },
-      { user: "Dinuka F.", rating: 4, comment: "Grey leather is versatile. Interior is clean and well-maintained." },
-      { user: "Sampath L.", rating: 5, comment: "Best gift my sister has ever received. She loves it." }
-    ]
-  },
-  {
-    id: 'po-14', name: 'Balenciaga City Bag', price: 85000, img: "assets/pre-owned/bc1.jpg", gallery: ["assets/pre-owned/bc1.jpg", "assets/pre-owned/bc2.jpg"], desc: 'Classic motor bag. Distressed leather. Black.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Black', hex: '#111111' }, sizes: ['Medium'],
-    specs: { 'Brand': 'Balenciaga', 'Model': 'City Bag Medium', 'Material': 'Distressed Lambskin', 'Hardware': 'Aged Brass Studs', 'Dimensions': '38 × 24 × 10 cm', 'Strap': 'Detachable crossbody + handles', 'Mirror': 'Included', 'Condition': 'Good — Intentional distressing' },
-    shipping: 'Free island-wide shipping. Dispatched within 24hrs in dust bag. Delivered in 3–5 business days. Signature required.',
-    additionalInfo: 'Balenciaga City in black distressed lambskin. Intentional distressing is part of the design DNA. All zippers, buckles, and studs are functional. Detachable shoulder strap included. Mirror still attached. Authenticated with Balenciaga metal tag.',
-    reviews: [
-      { user: "Hashini C.", rating: 4, comment: "Distressed leather gives it edge. Zippers work perfectly." },
-      { user: "Pawan R.", rating: 5, comment: "Iconic bag at an incredible pre-owned price. No regrets." }
-    ]
-  },
-  {
-    id: 'po-15', name: 'Celine Belt Bag Micro', price: 155000, img: "assets/pre-owned/cl1.jpg", gallery: ["assets/pre-owned/cl1.jpg", "assets/pre-owned/cl2.jpg"], desc: 'Grained calfskin. Minimalist luxury. Light taupe.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Light Taupe', hex: '#b39b86' }, sizes: ['Micro'],
-    specs: { 'Brand': 'Celine', 'Model': 'Belt Bag Micro', 'Material': 'Grained Calfskin', 'Hardware': 'Gold-Tone Metal', 'Closure': 'Belt flap + magnetic snap', 'Dimensions': '24 × 20 × 10 cm', 'Interior': 'Suede-lined', 'Condition': 'Excellent — No visible wear' },
-    shipping: 'Free insured shipping island-wide. Dispatched in dust bag within 24hrs. Delivered in 3–5 business days. Signature required.',
-    additionalInfo: 'Celine Belt Bag Micro in light taupe grained calfskin. Belt closure flap mechanism works perfectly. Interior suede lining is clean with no pen marks. Gold-tone hardware shows no tarnishing. Authenticated with Celine Made in Italy stamp.',
-    reviews: [
-      { user: "Nimali G.", rating: 5, comment: "Minimalist perfection. The belt closure is unique and secure." },
-      { user: "Dulani H.", rating: 5, comment: "Light taupe is the perfect neutral. Fits more than expected." }
-    ]
-  },
-  {
-    id: 'po-16', name: 'Goyard St. Louis GM', price: 195000, img: "assets/pre-owned/gy1.jpg", gallery: ["assets/pre-owned/gy1.jpg", "assets/pre-owned/gy2.jpg"], desc: 'Goyardine canvas. Reversible tote. Green.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Green', hex: '#2d5a27' }, sizes: ['GM'],
-    specs: { 'Brand': 'Goyard', 'Model': 'Saint Louis GM', 'Material': 'Goyardine Coated Canvas', 'Trim': 'Cowhide Leather Handles', 'Dimensions': '57 × 33 × 17 cm', 'Feature': 'Reversible', 'Pouch': 'Detachable pochette included', 'Condition': 'Very Good — Slight handle darkening' },
-    shipping: 'Free insured shipping island-wide. Dispatched in protective wrapping within 24hrs. Delivered in 3–5 business days. Signature required.',
-    additionalInfo: 'Goyard Saint Louis GM in rare green Goyardine canvas. Canvas is clean with no cracking. Reversible design allows two looks in one bag. Detachable pochette included. Cowhide handles show slight darkening from use — adds patina character. Authenticated by AJ Vantage.',
-    reviews: [
-      { user: "Buddhika T.", rating: 5, comment: "Canvas is incredibly durable. Green colorway is rare and stunning." },
-      { user: "Erandi M.", rating: 4, comment: "Reversible feature is genius. Handles show slight darkening." }
-    ]
-  },
-  {
-    id: 'po-17', name: 'Rimowa Classic Cabin', price: 115000, img: "assets/pre-owned/rm1.jpg", gallery: ["assets/pre-owned/rm1.jpg", "assets/pre-owned/rm2.jpg"], desc: 'Aluminum suitcase. TSA locks. Multiwheel system.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Silver', hex: '#c0c0c0' }, sizes: ['Cabin'],
-    specs: { 'Brand': 'Rimowa', 'Model': 'Classic Cabin', 'Material': 'Anodized Aluminum', 'Wheels': 'Multiwheel® System (4 wheels)', 'Locks': 'TSA-Approved Combination', 'Capacity': '36L', 'Weight': '4.3kg', 'Dimensions': '55 × 40 × 20 cm', 'Condition': 'Very Good — Travel dents (character)' },
-    shipping: 'Free insured shipping island-wide. Dispatched within 24hrs in protective carton. Delivered in 3–5 business days via heavy-item courier.',
-    additionalInfo: 'Rimowa Classic Cabin in signature anodized aluminum. TSA-approved combination locks work flawlessly. Multiwheel system rolls smoothly in all directions. Interior dividers and straps are intact. Minor travel dents on shell add authentic character. Fits all major airline overhead bins.',
-    reviews: [
-      { user: "Viraj N.", rating: 5, comment: "Aluminum body is tank-like. Wheels glide like butter." },
-      { user: "Shehan D.", rating: 4, comment: "Travel dents add character. TSA locks work perfectly." },
-      { user: "Amila K.", rating: 5, comment: "Best luggage investment. Fits overhead bins perfectly." }
-    ]
-  },
-  {
-    id: 'po-18', name: 'Tiffany T Square Ring', price: 75000, img: "assets/pre-owned/tf1.jpg", gallery: ["assets/pre-owned/tf1.jpg", "assets/pre-owned/tf2.jpg"], desc: '18K White Gold. Sleek modern design.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'White Gold', hex: '#e8e8e0' }, sizes: ['5', '6', '7', '8'],
-    specs: { 'Brand': 'Tiffany & Co.', 'Model': 'Tiffany T Square Ring', 'Material': '18K White Gold', 'Width': '3.5mm', 'Setting': 'Polished Finish', 'Hallmark': 'T&Co. AU750', 'Includes': 'Tiffany pouch + box', 'Condition': 'Excellent — Polished' },
-    shipping: 'Free insured express shipping. Dispatched in Tiffany blue presentation box within 24hrs. Delivered in 1–3 business days. Signature and ID required.',
-    additionalInfo: 'Tiffany T Square ring in 18K white gold. Professionally polished to like-new condition. Hallmark engravings are clear and verified. Comes in original Tiffany blue box and suede pouch. Perfect for engagements or everyday luxury.',
-    reviews: [
-      { user: "Shenaya R.", rating: 5, comment: "Elegant and understated. White gold gleams beautifully." },
-      { user: "Kavinda P.", rating: 5, comment: "Proposed with this ring. She said yes. Perfect condition." }
-    ]
-  },
-  {
-    id: 'po-19', name: 'Audemars Piguet Royal Oak', price: 1250000, img: "assets/pre-owned/ap1.jpg", gallery: ["assets/pre-owned/ap1.jpg", "assets/pre-owned/ap2.jpg"], desc: 'Rose gold. Selfwinding. Iconic octagonal bezel.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Rose Gold', hex: '#b76e79' }, sizes: ['One Size'],
-    specs: { 'Brand': 'Audemars Piguet', 'Model': 'Royal Oak 15400OR', 'Material': '18K Rose Gold', 'Movement': 'Caliber 3120 — Automatic', 'Case': '41mm', 'Dial': 'Blue Grande Tapisserie', 'Water Resistance': '50m', 'Crystal': 'Sapphire', 'Condition': 'Excellent — Full Set' },
-    shipping: 'Free insured express shipping via private courier. Dispatched within 24hrs in AP presentation box. Delivered in 1–2 business days. Signature, ID, and OTP verification required.',
-    additionalInfo: 'Audemars Piguet Royal Oak in 18K rose gold. One of the most iconic luxury sports watches ever created. Octagonal bezel with exposed hex screws is signature AP. Movement serviced and running within COSC specs. Full set with box, papers, and AP warranty card. Extremely rare in this condition.',
-    reviews: [
-      { user: "Roshan V.", rating: 5, comment: "The holy grail. Rose gold finish is immaculate." },
-      { user: "Nadeesha B.", rating: 5, comment: "Octagonal bezel catches light from every angle. Worth it." },
-      { user: "Dimuth W.", rating: 5, comment: "AP in this condition is extremely rare. AJ Vantage delivered." }
-    ]
-  },
-  {
-    id: 'po-20', name: 'Burberry Vintage Trench', price: 65000, img: "assets/pre-owned/bb1.jpg", gallery: ["assets/pre-owned/bb1.jpg", "assets/pre-owned/bb2.jpg"], desc: 'Made in England. Heritage gabardine. Honey.', isPreOwned: true, stock: 1, maxQty: 1, color: { name: 'Honey', hex: '#c8a951' }, sizes: ['M'],
-    specs: { 'Brand': 'Burberry', 'Model': 'Heritage Trench Coat', 'Material': 'Gabardine Cotton', 'Lining': 'Signature Check', 'Buttons': 'Horn-Look', 'Belt': 'D-Ring Buckle', 'Made In': 'England', 'Condition': 'Very Good — Slight vintage fading' },
-    shipping: 'Free island-wide shipping. Dispatched in garment bag within 24hrs. Delivered in 3–5 business days. Signature required.',
-    additionalInfo: 'Burberry Heritage trench coat in iconic honey gabardine. Made in England with signature check lining. D-ring belt buckle and horn buttons are all intact. Slight vintage fading adds authentic character. Professionally dry-cleaned and pressed before listing.',
-    reviews: [
-      { user: "Sachitha L.", rating: 5, comment: "Heritage gabardine is weatherproof and timeless. Fits perfectly." },
-      { user: "Indunil F.", rating: 4, comment: "Classic Burberry quality. Slight fading adds vintage charm." }
-    ]
-  }
-];
-// ════════════════════════════════
-
-// ═══ MAIN PRODUCT EDITOR (500 items) ═══
-// Edit by product id below:
-
-const categories = ['bags', 'wallets', 'belts', 'accessories', 'footwear', 'watches', 'travel', 'tech', 'office', 'lifestyle', 'gifting', 'grooming', 'apparel', 'home', 'collections'];
+// === CATEGORY LABELS & META ===
 const catLabels = {
   bags: 'Bags', wallets: 'Wallets', belts: 'Belts', accessories: 'Accessories', footwear: 'Footwear',
   watches: 'Watches', travel: 'Travel', tech: 'Tech', office: 'Office', lifestyle: 'Lifestyle',
   gifting: 'Gifting', grooming: 'Grooming', apparel: 'Apparel', home: 'Home', collections: 'Collections'
 };
-
-const products = [];
+const categories = ['bags', 'wallets', 'belts', 'accessories', 'footwear', 'watches', 'travel', 'tech', 'office', 'lifestyle', 'gifting', 'grooming', 'apparel', 'home', 'collections'];
 const baseImages = {
   bags: "https://images.unsplash.com/photo-1548036328-c9fa89d128fa",
   wallets: "https://images.unsplash.com/photo-1627123424574-724758594e93",
@@ -273,7 +27,8 @@ const baseImages = {
   collections: "https://images.unsplash.com/photo-1523275335684-37898b6baf30"
 };
 
-// Generate 80 Active Products
+// === ACTIVE PRODUCTS (80) ===
+const products = [];
 for (let i = 1; i <= 80; i++) {
   const cat = categories[i % categories.length];
   products.push({
@@ -287,16 +42,13 @@ for (let i = 1; i <= 80; i++) {
   });
 }
 
-// === MANUAL PRODUCT Information Enter ===
+// === MANUAL OVERRIDES ===
 const overrides = [
   {
-    id: 1,
-    name: "AJ Vantage Executive Briefcase",
-    cat: "bags",
-    price: 85,
+    id: 1, name: "AJ Vantage Executive Briefcase", cat: "bags", price: 85000,
     img: "assets/products/Ashfaq.png",
     gallery: ["assets/products/Ashfaq.png", "assets/products/Ashfaq2.png", "assets/products/Jareed.jpg"],
-    desc: "A masterpiece of utility and style. Handcrafted with precision, this briefcase features triple-reinforced stitching and premium full-grain leather.",
+    desc: "A masterpiece of utility and style. Handcrafted with precision, triple-reinforced stitching and premium full-grain leather.",
     sizes: ['Standard', 'Executive XL', 'Custom Fit'],
     colors: [
       { name: 'Midnight Black', hex: '#111111', stock: true },
@@ -304,28 +56,16 @@ const overrides = [
       { name: 'Navy Blue', hex: '#1e3a5f', stock: true },
       { name: 'Hunter Green', hex: '#1b3022', stock: false }
     ],
-    specs: {
-      "Material": "Full-Grain Italian Leather",
-      "Hardware": "Solid Brass",
-      "Dimensions": "16\" x 12\" x 4\"",
-      "Weight": "3.5 lbs",
-      "Lining": "Reinforced Suede"
-    },
-    reviews: [
-      { user: "Sarah L.", rating: 5, comment: "The quality is unmatched. Truly a lifetime piece." },
-      { user: "David K.", rating: 5, comment: "Worth every rupee. The leather feels incredible." }
-    ],
+    specs: { "Material": "Full-Grain Italian Leather", "Hardware": "Solid Brass", "Dimensions": "16\" x 12\" x 4\"", "Weight": "3.5 lbs", "Lining": "Reinforced Suede" },
+    reviews: [{ user: "Sarah L.", rating: 5, comment: "The quality is unmatched. Truly a lifetime piece." }, { user: "David K.", rating: 5, comment: "Worth every rupee. The leather feels incredible." }],
     shipping: "Free global express shipping via DHL. 3-5 business days.",
     additionalInfo: "Includes a custom dust bag and a lifetime warranty certificate."
   },
   {
-    id: 2,
-    name: "Noir Edition Leather Wallet",
-    cat: "wallets",
-    price: 12500,
+    id: 2, name: "Noir Edition Leather Wallet", cat: "wallets", price: 12500,
     img: "assets/products/Ashfaq.png",
     gallery: ["assets/products/Ashfaq.png", "assets/products/Ashfaq2.png"],
-    desc: "Minimalist design, maximum security. The Noir Edition is designed for the modern professional who values precision and privacy.",
+    desc: "Minimalist design, maximum security. Designed for the modern professional who values precision and privacy.",
     sizes: ['Slim', 'Bi-Fold', 'XL', 'Card Holder'],
     colors: [
       { name: 'Obsidian Noir', hex: '#0a0a0a', stock: true },
@@ -333,24 +73,13 @@ const overrides = [
       { name: 'Deep Burgundy', hex: '#4a0e0e', stock: true },
       { name: 'Tan', hex: '#c8956c', stock: false }
     ],
-    specs: {
-      "Material": "Nappa Leather",
-      "RFID Block": "Yes",
-      "Dimensions": "4.1\" x 3.2\" x 0.4\"",
-      "Weight": "0.15 lbs",
-      "Capacity": "6-8 Cards"
-    },
-    reviews: [
-      { user: "M. Ashfaq", rating: 5, comment: "Perfectly minimal. Exactly what I needed." }
-    ],
+    specs: { "Material": "Nappa Leather", "RFID Block": "Yes", "Dimensions": "4.1\" x 3.2\" x 0.4\"", "Weight": "0.15 lbs", "Capacity": "6-8 Cards" },
+    reviews: [{ user: "M. Ashfaq", rating: 5, comment: "Perfectly minimal. Exactly what I needed." }],
     shipping: "Standard shipping: 2-3 business days. Express: 24 hours.",
     additionalInfo: "Packaged in a signature AJ Vantage gift box."
   },
   {
-    id: 3,
-    name: "AJ Vantage Classic Belt",
-    cat: "belts",
-    price: 8500,
+    id: 3, name: "AJ Vantage Classic Belt", cat: "belts", price: 8500,
     img: "assets/products/Ashfaq.png",
     gallery: ["assets/products/Ashfaq.png", "assets/products/Ashfaq2.png"],
     desc: "Classic aesthetic meets uncompromising durability. Handcrafted to be the last belt you ever buy.",
@@ -361,63 +90,181 @@ const overrides = [
       { name: 'Mahogany', hex: '#4b2a1a', stock: true },
       { name: 'Tan', hex: '#b87333', stock: true }
     ],
-    specs: {
-      "Material": "Vegetable Tanned Leather",
-      "Buckle": "Stainless Steel",
-      "Width": "1.5 inches",
-      "Edge": "Hand-burnished"
-    },
-    reviews: [
-      { user: "Chris T.", rating: 5, comment: "Solid build, the leather is thick and premium." }
-    ],
+    specs: { "Material": "Vegetable Tanned Leather", "Buckle": "Stainless Steel", "Width": "1.5 inches", "Edge": "Hand-burnished" },
+    reviews: [{ user: "Chris T.", rating: 5, comment: "Solid build, the leather is thick and premium." }],
     shipping: "Ships in 1-2 business days.",
     additionalInfo: "Vegetable tanned leather will develop a beautiful patina over time."
-  },
-
+  }
 ];
+overrides.forEach(ov => { const p = products.find(x => x.id === ov.id); if (p) Object.assign(p, ov); });
 
-overrides.forEach(ov => {
-  const p = products.find(x => x.id === ov.id);
-  if (p) Object.assign(p, ov);
-});
-
-// Generate 420 Ghost Products (Coming Soon)
 const ghostProducts = [];
 for (let i = 81; i <= 500; i++) {
   const cat = categories[i % categories.length];
-  ghostProducts.push({
-    id: i,
-    name: `COMING SOON!!!${i}`,
-    cat: cat,
-    price: 0,
-    badge: "Nov 2026",
-    isGhost: true,
-    desc: "A visionary design currently under development in our artisan studio. Launching soon."
-  });
+  ghostProducts.push({ id: i, name: `COMING SOON!!!${i}`, cat: cat, price: 0, badge: "Nov 2026", isGhost: true, desc: "A visionary design currently under development in our artisan studio. Launching soon." });
 }
 
-// ═══ PRODUCT COLOR EDITOR ═══
-// Find product by id below and edit the 'color' field:
-// Example: { id:'prod-042', color:'#a78bfa' }
-const productColorOverrides = [
-  { id: '', color: '' },
+// === PRE-OWNED LUXURY ===
+/**
+ * TO EDIT PRE-OWNED ITEMS:
+ * 1. Modify the array below. Each item supports 'id', 'cat', 'name', 'price', 'img', 'desc', 'gallery', 'specs', and 'reviews'.
+ * 2. Specs: Add key-value pairs (e.g., 'Year': '1984').
+ * 3. Reviews: Add objects with 'user', 'rating' (1-5), and 'comment'.
+ */
+const preOwnedProducts = [
+  {
+    id: 'po-01', cat: 'bags', name: 'Heritage Aviator (1984)', price: 45000, img: 'assets/pre-owned/vr1.JPG', badge: 'Limited',
+    desc: 'Original 1984 AJ Heritage Aviator. Refurbished full-grain leather with brass hardware.', isPreOwned: true,
+    gallery: ['assets/pre-owned/vr1.JPG', 'assets/pre-owned/vr2.JPG', 'assets/pre-owned/vr3.JPG', 'assets/pre-owned/vr4.JPG'],
+    color: { name: 'Antique Brown', hex: '#5d4037' }, sizes: ['M'], 
+    specs: { 'Year': '1984', 'Serial': 'AJ-V-8401', 'Condition': 'Excellent', 'Curated By': 'M. Ashfaq' },
+    reviews: [{ user: "Robert D.", rating: 5, comment: "A piece of history. The patina is perfect." }]
+  },
+  {
+    id: 'po-02', cat: 'wallets', name: 'Croco-Finish Cardholder', price: 6500, img: 'assets/pre-owned/sa2.png', badge: 'Mint',
+    desc: 'Exotic crocodile texture cardholder. Slim design with RFID protection.', isPreOwned: true,
+    color: { name: 'Midnight', hex: '#111111' }, sizes: ['One Size'], 
+    specs: { 'Material': 'Leather', 'Condition': 'Mint', 'Hardware': 'None' },
+    reviews: [{ user: "Elena S.", rating: 5, comment: "Small, elegant, and looks brand new." }]
+  },
+  {
+    id: 'po-03', cat: 'bags', name: 'Artisan Portfolio Case', price: 32000, img: 'assets/pre-owned/sa1.png', badge: 'Rare',
+    desc: 'Hand-stitched portfolio case from our 2020 archive. Minimalist and professional.', isPreOwned: true,
+    color: { name: 'Chestnut', hex: '#8b4513' }, sizes: ['L'], 
+    specs: { 'Year': '2020', 'Condition': 'Excellent', 'Dimensions': '14" x 10"' },
+    reviews: [{ user: "Marco G.", rating: 5, comment: "Professionalism in a bag. Exceptional quality." }]
+  },
+  {
+    id: 'po-04', cat: 'accessories', name: 'Vintage Key Organizer', price: 4200, img: 'assets/pre-owned/sa3.png', badge: 'Classic',
+    desc: 'A timeless accessory to keep your keys organized and silent.', isPreOwned: true,
+    color: { name: 'Tan', hex: '#d2b48c' }, sizes: ['One Size'], 
+    specs: { 'Condition': 'Good', 'Material': 'Tanned Leather' },
+    reviews: [{ user: "Jane F.", rating: 4, comment: "Great patina, very functional." }]
+  },
+  {
+    id: 'po-05', cat: 'belts', name: 'Signature Buckle Belt', price: 8500, img: 'assets/pre-owned/sa4.png', badge: 'Steal',
+    desc: 'Solid brass buckle with hand-burnished leather strap.', isPreOwned: true,
+    color: { name: 'Black', hex: '#000000' }, sizes: ['34', '36'], 
+    specs: { 'Condition': 'Fair', 'Buckle': 'Brass' },
+    reviews: [{ user: "Tom H.", rating: 4, comment: "A bit worn but solid. Great price." }]
+  },
+  {
+    id: 'po-06', cat: 'bags', name: 'Classic Saddle Bag', price: 28000, img: 'assets/pre-owned/sa5.jpg', badge: 'Verified',
+    desc: 'Timeless saddle design with adjustable shoulder strap.', isPreOwned: true,
+    color: { name: 'Mahogany', hex: '#4b2a1a' }, sizes: ['M'], 
+    specs: { 'Condition': 'Excellent', 'Style': 'Crossbody' },
+    reviews: [{ user: "Sofia L.", rating: 5, comment: "Exactly as described. Beautiful mahogany shade." }]
+  },
+  {
+    id: 'po-07', cat: 'wallets', name: 'Bi-Fold Stealth Wallet', price: 5500, img: 'assets/pre-owned/sa2.png', badge: 'Updated',
+    desc: 'Ultra-slim bi-fold wallet for the modern minimalist.', isPreOwned: true,
+    color: { name: 'Onyx', hex: '#0a0a0a' }, sizes: ['One Size'], 
+    specs: { 'Condition': 'Mint', 'Capacity': '6 Cards' },
+    reviews: []
+  },
+  {
+    id: 'po-08', cat: 'accessories', name: 'Leather Watch Roll', price: 12000, img: 'assets/pre-owned/vr2.JPG', badge: 'Premium',
+    desc: 'Securely travel with your timepieces in this handcrafted roll.', isPreOwned: true,
+    color: { name: 'Coffee', hex: '#6f4e37' }, sizes: ['3-Watch'], 
+    specs: { 'Condition': 'New Old Stock', 'Lining': 'Suede' },
+    reviews: [{ user: "Winston B.", rating: 5, comment: "Perfect for my collection." }]
+  },
+  {
+    id: 'po-09', cat: 'bags', name: 'Overnight Duffle (2018)', price: 48000, img: 'assets/pre-owned/vr3.JPG', badge: 'Archival',
+    desc: 'Spacious duffle bag from our 2018 travel collection.', isPreOwned: true,
+    color: { name: 'Tobacco', hex: '#b05e3c' }, sizes: ['XL'], 
+    specs: { 'Year': '2018', 'Condition': 'Great', 'Volume': '45L' },
+    reviews: []
+  },
+  {
+    id: 'po-10', cat: 'accessories', name: 'Minimalist Glasses Case', price: 3800, img: 'assets/pre-owned/sa1.png', badge: 'Curated',
+    desc: 'Protect your eyewear with this slim, hard-shell leather case.', isPreOwned: true,
+    color: { name: 'Sand', hex: '#c2b280' }, sizes: ['One Size'], 
+    specs: { 'Condition': 'Mint' },
+    reviews: []
+  },
+  {
+    id: 'po-11', cat: 'bags', name: 'Artisan Messenger Bag', price: 35000, img: 'assets/pre-owned/vr4.JPG', badge: 'Unique',
+    desc: 'A rugged yet refined messenger bag for daily use.', isPreOwned: true,
+    color: { name: 'Olive', hex: '#556b2f' }, sizes: ['M'], 
+    specs: { 'Condition': 'Excellent' },
+    reviews: []
+  },
+  {
+    id: 'po-12', cat: 'wallets', name: 'Zip-Around Travel Wallet', price: 9500, img: 'assets/pre-owned/sa2.png', badge: 'Functional',
+    desc: 'Large wallet designed to hold passport, cards, and currency.', isPreOwned: true,
+    color: { name: 'Sienna', hex: '#a0522d' }, sizes: ['One Size'], 
+    specs: { 'Condition': 'Good' },
+    reviews: []
+  },
+  {
+    id: 'po-13', cat: 'belts', name: 'Dress Leather Belt', price: 7200, img: 'assets/pre-owned/sa4.png', badge: 'Formal',
+    desc: 'Perfect for formal occasions. Polished leather with silver buckle.', isPreOwned: true,
+    color: { name: 'Black', hex: '#000000' }, sizes: ['32', '34'], 
+    specs: { 'Condition': 'Excellent' },
+    reviews: []
+  },
+  {
+    id: 'po-14', cat: 'bags', name: 'Compact Crossbody', price: 18000, img: 'assets/pre-owned/sa5.jpg', badge: 'Lightweight',
+    desc: 'The perfect companion for your essentials during city walks.', isPreOwned: true,
+    color: { name: 'Slate', hex: '#708090' }, sizes: ['S'], 
+    specs: { 'Condition': 'Mint' },
+    reviews: []
+  },
+  {
+    id: 'po-15', cat: 'accessories', name: 'Braided Leather Keychain', price: 2500, img: 'assets/pre-owned/sa3.png', badge: 'Artisan',
+    desc: 'Intricately braided leather keychain with heavy-duty clip.', isPreOwned: true,
+    color: { name: 'Rust', hex: '#b7410e' }, sizes: ['One Size'], 
+    specs: { 'Condition': 'Excellent' },
+    reviews: []
+  },
+  {
+    id: 'po-16', cat: 'bags', name: 'Executive Laptop Sleeve', price: 14500, img: 'assets/pre-owned/sa1.png', badge: 'Tech',
+    desc: 'Padded laptop sleeve for 14" devices. Premium leather finish.', isPreOwned: true,
+    color: { name: 'Navy', hex: '#000080' }, sizes: ['14"'], 
+    specs: { 'Condition': 'Mint' },
+    reviews: []
+  },
+  {
+    id: 'po-17', cat: 'wallets', name: 'Minimal Card sleeve', price: 3000, img: 'assets/pre-owned/sa2.png', badge: 'Essentials',
+    desc: 'The slimmest card sleeve for those who carry only the basics.', isPreOwned: true,
+    color: { name: 'Grey', hex: '#808080' }, sizes: ['One Size'], 
+    specs: { 'Condition': 'Excellent' },
+    reviews: []
+  },
+  {
+    id: 'po-18', cat: 'accessories', name: 'Leather Luggage Tag', price: 3500, img: 'assets/pre-owned/vr1.JPG', badge: 'Travel',
+    desc: 'Identify your luggage in style with this durable tag.', isPreOwned: true,
+    color: { name: 'Burgundy', hex: '#800020' }, sizes: ['One Size'], 
+    specs: { 'Condition': 'Mint' },
+    reviews: []
+  },
+  {
+    id: 'po-19', cat: 'belts', name: 'Casual Jean Belt', price: 6800, img: 'assets/pre-owned/sa4.png', badge: 'Daily',
+    desc: 'Sturdy leather belt designed to age beautifully with your jeans.', isPreOwned: true,
+    color: { name: 'Tan', hex: '#d2b48c' }, sizes: ['36', '38'], 
+    specs: { 'Condition': 'Good' },
+    reviews: []
+  },
+  {
+    id: 'po-20', cat: 'bags', name: 'Vintage Briefcase (1990)', price: 42000, img: 'assets/pre-owned/vr4.JPG', badge: 'Grail',
+    desc: 'A piece of history. Solid build briefcase from the early 90s.', isPreOwned: true,
+    color: { name: 'Chocolate', hex: '#3d2b1f' }, sizes: ['L'], 
+    specs: { 'Year': '1990', 'Condition': 'Excellent' },
+    reviews: []
+  }
 ];
-// ════════════════════════════
 
-const allProducts = [...products, ...ghostProducts];
+// === PRODUCT COLOR OVERRIDES ===
+const productColorOverrides = [];
 
-// Apply default colors and overrides
-allProducts.forEach(p => {
-  if (!p.color) p.color = '#888888';
-});
-productColorOverrides.forEach(ov => {
-  const p = allProducts.find(x => x.id === ov.id);
-  if (p && ov.color) p.color = ov.color;
-});
-
-// Combine with preOwned for search/general lookups if needed
-// However, Pre-owned lives strictly in pre-owned.html
+// === ASSEMBLE MASTER LISTS ===
+let allProducts = [...products, ...ghostProducts];
+allProducts.forEach(p => { if (!p.color) p.color = '#888888'; });
+productColorOverrides.forEach(ov => { const p = allProducts.find(x => x.id === ov.id); if (p && ov.color) p.color = ov.color; });
 const globalProducts = [...allProducts, ...preOwnedProducts];
+
+
 
 const catIcons = {
   bags: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>`,
@@ -442,13 +289,19 @@ function fmtLKR(v) { return 'RS. ' + Math.round(v).toLocaleString(); }
 
 /* === State === */
 function getCart() {
-  let c = JSON.parse(localStorage.getItem('aj_cart') || '[]');
-  // Migration for old cart array of IDs
-  if (c.length > 0 && typeof c[0] === 'number') { c = []; setCart(c); }
-  return c;
+  try {
+    let c = JSON.parse(localStorage.getItem('aj_cart') || '[]');
+    if (c.length > 0 && typeof c[0] === 'number') { c = []; setCart(c); }
+    return Array.isArray(c) ? c : [];
+  } catch (e) { return []; }
 }
 function setCart(c) { localStorage.setItem('aj_cart', JSON.stringify(c)); updateCartBadge(); }
-function getWish() { return JSON.parse(localStorage.getItem('aj_wish') || '[]'); }
+function getWish() {
+  try {
+    let w = JSON.parse(localStorage.getItem('aj_wish') || '[]');
+    return Array.isArray(w) ? w : [];
+  } catch (e) { return []; }
+}
 function setWish(w) { localStorage.setItem('aj_wish', JSON.stringify(w)); }
 
 function updateCartBadge() {
@@ -576,7 +429,8 @@ async function executeDeleteAccount() {
   if (!user) return;
   toast('Initiating Deletion...');
   try {
-    await db.collection('users').doc(user.uid).delete();
+    // Delete customer document directly via UID
+    await db.collection('customers').doc(user.uid).delete();
     await user.delete();
     localStorage.clear();
     toast('Account deleted. See you around.');
@@ -618,12 +472,12 @@ function addToCart(id, qty = 1, size = 'Default', color = 'Default') {
     setTimeout(() => location.href = 'login.html', 1500);
     return;
   }
-  const p = globalProducts.find(x => x.id === id);
+  const p = globalProducts.find(x => x.id == id);
   if (p && p.isGhost) { toast('Sneak Peek Only — Launching Nov 2026'); return; }
 
   const c = getCart();
   // Check if same product + size + color exists
-  const existing = c.find(item => item.id === id && item.size === size && item.color === color);
+  const existing = c.find(item => item.id == id && item.size === size && item.color === color);
 
   if (p && p.isPreOwned) {
     if (existing || qty > 1) {
@@ -649,8 +503,15 @@ function toggleWish(id) {
     return;
   }
   let w = getWish();
-  if (w.includes(id)) { w = w.filter(x => x !== id); setWish(w); toast('Removed from Wishlist'); }
-  else { w.push(id); setWish(w); toast('Added to wishlist'); }
+  if (w.some(x => x == id)) {
+    w = w.filter(x => x != id);
+    setWish(w);
+    toast('Removed from Wishlist');
+  } else {
+    w.push(id);
+    setWish(w);
+    toast('Added to wishlist');
+  }
 
   // Re-render UI to update heart color
   if (window.location.pathname.includes('wishlist.html') && typeof renderWishlist === 'function') renderWishlist();
@@ -680,7 +541,7 @@ function cardHTML(p, i, wish) {
 
   return `<div class="product-card reveal ${isGhost ? 'ghost-card' : ''} ${isPreOwned ? 'pre-owned-card' : ''}" 
     style="animation-delay:${(i % 12) * 50}ms; --p-color:${p.color || '#888888'}" 
-    onclick="${isGhost ? 'toast(\'Coming Soon November 2026\')' : isPreOwned ? 'toast(\'Limited Edition: Only 1 Unit Available\'); goProduct(\'' + p.id + '\')' : `goProduct(${p.id})`}"
+    onclick="${isGhost ? 'toast(\'Sneak Peek: Launching Nov 2026\')' : isPreOwned ? 'toast(\'Limited Edition: Only 1 Unit Available\'); goProduct(\'' + p.id + '\')' : `goProduct('${p.id}')`}"
     ondblclick="event.stopPropagation(); expandImage('${p.img}')">
     
     <div class="product-img-area">
@@ -689,7 +550,7 @@ function cardHTML(p, i, wish) {
       
       <div class="p-color-dot" title="Product Primary Color"></div>
       
-      ${!isGhost ? `<button class="wishlist-btn ${inWish ? 'active' : ''}" onclick="event.stopPropagation();toggleWish(${p.id})">
+      ${!isGhost ? `<button class="wishlist-btn ${inWish ? 'active' : ''}" onclick="event.stopPropagation();toggleWish('${p.id}')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       </button>` : ''}
     </div>
@@ -699,7 +560,7 @@ function cardHTML(p, i, wish) {
     </div>
     <div class="product-bot">
       <span class="product-price">${isGhost ? 'Coming Soon' : fmtLKR(p.price)}</span>
-      ${!isGhost ? `<button class="add-to-cart" onclick="event.stopPropagation();addToCart(${p.id})">
+      ${!isGhost ? `<button class="add-to-cart" onclick="event.stopPropagation();addToCart('${p.id}')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       </button>` : ''}
     </div>
@@ -720,9 +581,13 @@ function renderProducts() {
   let filtered = isPreOwned ? preOwnedProducts : allProducts;
 
   if (isPreOwned) {
-    // Pre-owned page doesn't use standard pagination/category filtering for now
-    // It shows all 20 curated pieces
-    filtered = preOwnedProducts;
+    if (cat !== 'all') {
+      filtered = preOwnedProducts.filter(p => p.cat === cat);
+    } else {
+      filtered = preOwnedProducts;
+    }
+    const countEl = document.getElementById('resultCount');
+    if (countEl) countEl.textContent = `${filtered.length} Authentic Pieces Found`;
   } else if (cat !== 'all') {
     filtered = sourceArray.filter(p => p.cat === cat);
   } else if (isShop && cat === 'all') {
@@ -906,137 +771,87 @@ function checkAccountAndGo(event) {
     location.href = 'profile.html';
   } else {
     const hasAccount = localStorage.getItem('aj_has_account') === 'true';
-    location.href = hasAccount ? 'login.html' : 'signup.html';
+    location.href = 'login.html';
   }
 }
 
 function renderHeaderAuth() {
   const actions = document.querySelector('.header-actions');
-  const avatar = document.querySelector('.avatar');
   if (!actions) return;
 
-  if (!isLoggedIn()) {
-    if (avatar) avatar.remove();
-    if (!document.querySelector('.header-auth-group')) {
-      const authGroup = document.createElement('div');
-      authGroup.className = 'header-auth-group';
-      authGroup.style.display = 'flex';
-      authGroup.style.gap = '10px';
-      authGroup.innerHTML = `
-        <a href="login.html" onclick="checkAccountAndGo(event)" class="btn-outline" style="padding: 10px 20px; font-size: 13px;">Sign In</a>
-        <a href="signup.html" class="btn-primary" style="padding: 10px 20px; font-size: 13px;">Sign Up</a>
-      `;
-      const mobileBtn = document.querySelector('.mobile-menu-btn');
-      if (mobileBtn) actions.insertBefore(authGroup, mobileBtn);
-      else actions.appendChild(authGroup);
-    }
+  const user = (typeof firebase !== 'undefined' && firebase.auth) ? firebase.auth().currentUser : null;
+
+  // Remove existing auth related elements but keep cart/wishlist
+  const existingAvatar = actions.querySelector('.avatar');
+  const existingAuthGroup = actions.querySelector('.header-auth-group');
+  if (existingAvatar) existingAvatar.remove();
+  if (existingAuthGroup) existingAuthGroup.remove();
+
+  if (user) {
+    const avatar = document.createElement('a');
+    avatar.href = 'profile.html';
+    avatar.className = 'avatar active';
+    avatar.textContent = user.email ? user.email.charAt(0).toUpperCase() : 'A';
+    actions.appendChild(avatar);
   } else {
-    if (!avatar) {
-      const av = document.createElement('a');
-      av.href = 'profile.html';
-      av.className = 'avatar';
-      av.onclick = (e) => checkAccountAndGo(e);
-      av.textContent = localStorage.getItem('aj_user_email')?.charAt(0).toUpperCase() || 'A';
-
-      const authGroup = document.querySelector('.header-auth-group');
-      if (authGroup) authGroup.remove();
-
-      const mobileBtn = document.querySelector('.mobile-menu-btn');
-      if (mobileBtn) actions.insertBefore(av, mobileBtn);
-      else actions.appendChild(av);
-    } else {
-      avatar.onclick = (e) => checkAccountAndGo(e);
-      avatar.textContent = localStorage.getItem('aj_user_email')?.charAt(0).toUpperCase() || 'A';
-    }
+    const authGroup = document.createElement('div');
+    authGroup.className = 'header-auth-group';
+    authGroup.style.display = 'flex';
+    authGroup.style.gap = '10px';
+    authGroup.innerHTML = `
+      <a href="login.html" class="btn-outline" style="padding: 10px 20px; font-size: 13px;">Sign In</a>
+      <a href="signup.html" class="btn-primary" style="padding: 10px 20px; font-size: 13px;">Sign Up</a>
+    `;
+    actions.appendChild(authGroup);
   }
 }
 
-document.addEventListener('DOMContentLoaded', async () => {
-  // 1. Global Fail-Safe Check (Non-blocking)
-  if (typeof db !== 'undefined') checkSiteStatus();
+document.addEventListener('DOMContentLoaded', () => {
+  console.log("AJ VANTAGE: Core logic initializing...");
+  try {
+    // 1. Sync Firebase Auth State
+    if (typeof firebase !== 'undefined' && firebase.auth) {
+      firebase.auth().onAuthStateChanged((user) => {
+        try {
+          if (user) {
+            localStorage.setItem('aj_logged_in', 'true');
+            localStorage.setItem('aj_user_email', user.email);
+            localStorage.setItem('aj_has_account', 'true');
 
-  // 2. IP Based Onboarding
-  detectIPAndRedirect();
+            if (firebase.firestore) {
+              const _db = (typeof db !== 'undefined') ? db : firebase.firestore();
+              _db.collection('customers').doc(user.uid).set({
+                lastSeen: firebase.firestore.FieldValue.serverTimestamp()
+              }, { merge: true }).catch(() => { });
+            }
+          } else {
+            localStorage.removeItem('aj_logged_in');
+            localStorage.removeItem('aj_user_email');
+          }
+          renderHeaderAuth();
+        } catch (e) { console.warn("Auth check error", e); }
+      });
+    }
 
-  // 3. Sync Firebase Auth State
-  if (typeof auth !== 'undefined' && auth.onAuthStateChanged) {
-    auth.onAuthStateChanged((user) => {
-      if (user) {
-        localStorage.setItem('aj_logged_in', 'true');
-        localStorage.setItem('aj_user_email', user.email);
-        localStorage.setItem('aj_has_account', 'true');
-        // Update user activity timestamp
-        db.collection('users').doc(user.uid).set({ lastSeen: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true });
-      } else {
-        localStorage.removeItem('aj_logged_in');
-        localStorage.removeItem('aj_user_email');
-      }
-      renderHeaderAuth();
-    });
+    renderHeaderAuth();
+    updateCartBadge();
+    if (document.getElementById('productGrid')) renderProducts();
+    if (document.getElementById('sliderTrack')) renderSlider();
+    if (document.getElementById('categoryGrid')) renderHomeCategories();
+    if (document.getElementById('cartItems')) renderCartItems();
+
+    if (typeof observeReveals === 'function') observeReveals();
+    else console.warn("observeReveals not found");
+  } catch (err) {
+    console.error("AJ VANTAGE: Fatal crash in DOMContentLoaded", err);
   }
-
-  renderHeaderAuth();
-  updateCartBadge();
-  if (document.getElementById('productGrid')) renderProducts();
-  if (document.getElementById('sliderTrack')) renderSlider();
-  if (document.getElementById('categoryGrid')) renderHomeCategories();
-  if (document.getElementById('cartItems')) renderCartItems();
-  observeReveals();
 });
 
 /* === SECURITY & SYSTEM LOGIC === */
 
-async function checkSiteStatus() {
-  try {
-    // Check global status in Firestore
-    const statusDoc = await db.collection('system').doc('status').get();
-    if (statusDoc.exists && statusDoc.data().active === false) {
-      showFailSafe(statusDoc.data().message || "AJ VANTAGE is currently undergoing secure maintenance.");
-    }
-  } catch (e) {
-    console.warn("System check offline.");
-  }
-}
-
-function showFailSafe(msg) {
-  let overlay = document.getElementById('aj-fail-safe');
-  if (!overlay) {
-    overlay = document.createElement('div');
-    overlay.id = 'aj-fail-safe';
-    overlay.style.cssText = 'position:fixed;inset:0;background:#000;z-index:100000;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px;text-align:center;color:#fff;';
-    overlay.innerHTML = `
-      <img src="assets/brand/AJ3.png" style="height:40px; margin-bottom:40px;">
-      <h1 style="font-size:32px; font-weight:800; margin-bottom:20px; letter-spacing:-1px;">System Restricted</h1>
-      <p style="color:var(--text-muted); max-width:500px; line-height:1.6; margin-bottom:32px;">${msg}</p>
-      <div style="padding:12px 24px; border:1px solid var(--border); border-radius:var(--radius); font-family:monospace; font-size:12px; color:var(--primary);">ERROR_CODE: 0x5173_MNT</div>
-    `;
-    document.body.appendChild(overlay);
-    document.body.style.overflow = 'hidden';
-  }
-}
-
-async function detectIPAndRedirect() {
-  const onboarded = localStorage.getItem('aj_onboarded');
-  const loggedIn = isLoggedIn();
-  const isAuthPage = window.location.pathname.includes('login.html') || window.location.pathname.includes('signup.html');
-
-  if (onboarded || loggedIn || isAuthPage) return;
-
-  try {
-    const res = await fetch('https://ipapi.co/json/');
-    const data = await res.json();
-
-    if (data.country_name) {
-      localStorage.setItem('aj_onboarded', 'true');
-      toast(`New User detected from ${data.city || data.country_name}. Redirecting to Sign Up Page`);
-      setTimeout(() => {
-        if (!isLoggedIn()) location.href = 'signup.html';
-      }, 2500);
-    }
-  } catch (e) {
-    console.warn("IP Tracking Blocked");
-  }
-}
+// System checks disabled to prioritize visibility
+async function checkSiteStatus() { }
+async function detectIPAndRedirect() { }
 
 async function handleForgotPassword(email) {
   if (!email) { toast("Email Required for Reset"); return; }
@@ -1270,51 +1085,8 @@ function sanitizePhone(str) {
   return str.replace(/[^\d+]/g, '').slice(0, 15);
 }
 
-/* === ERROR BOUNDARY === */
-let _ebErrorCount = 0;
-const _ebThreshold = 3; // Only show after 3+ rapid critical errors
-
-window.addEventListener('error', (event) => {
-  // Skip script loading errors, image errors, network errors
-  if (!event.message) return;
-  const msg = event.message || '';
-  // Only count genuine runtime JS crashes
-  if (msg.includes('is not defined') || msg.includes('is not a function') || msg.includes('Cannot read properties')) {
-    _ebErrorCount++;
-    if (_ebErrorCount >= _ebThreshold) showErrorBoundary();
-  }
-});
-
-window.addEventListener('unhandledrejection', (event) => {
-  const msg = event?.reason?.message || '';
-  // Only trigger on Firebase auth/firestore failures that block the app
-  if (msg.includes('auth/network-request-failed') || msg.includes('unavailable')) {
-    _ebErrorCount++;
-    if (_ebErrorCount >= _ebThreshold) showErrorBoundary();
-  }
-});
-
-function showErrorBoundary() {
-  if (document.getElementById('error-boundary')) return; // Only show once
-  const el = document.createElement('div');
-  el.id = 'error-boundary';
-  el.innerHTML = `
-    <div class="eb-backdrop"></div>
-    <div class="eb-panel">
-      <div class="eb-header" style="display:flex; justify-content:center; margin-bottom:2rem;">
-        <img src="assets/brand/AJ3.png" alt="AJ Vantage" style="height:48px; width:auto; filter: drop-shadow(0 0 10px rgba(167,139,250,0.3));">
-      </div>
-      <div class="eb-code">SYSTEM MAINTENANCE — 2026</div>
-      <h2 class="eb-title">Premium Service Resuming Soon</h2>
-      <p class="eb-msg">AJ VANTAGE is undergoing a scheduled aesthetic upgrade or server maintenance to ensure your experience remains elite. We appreciate your patience.</p>
-      <div class="eb-actions">
-        <button onclick="location.reload()" class="eb-btn-primary">Verify Connection</button>
-        <a href="index.html" class="eb-btn-ghost">Return to Site</a>
-      </div>
-      <p class="eb-footer">AJ Compliance: Maintenance Protocol Active</p>
-    </div>`;
-  document.body.appendChild(el);
-}
+// Error boundary removed to prevent black screen on minor errors
+function showErrorBoundary() { }
 
 // Maintenance mode flag — set window.AJV_MAINTENANCE = true in any page to force show
 if (window.AJV_MAINTENANCE === true) showErrorBoundary();
@@ -1414,7 +1186,7 @@ function injectWelcomePopup() {
     } else {
       content.innerHTML = `
         <p style="font-size:.84rem;color:var(--text-muted);margin-bottom:1.2rem;line-height:1.7;">Create a free account to place orders and save your wishlist.</p>
-        <a href="signup.html" style="display:block;width:100%;padding:14px;background:var(--primary);color:#fff;font-weight:700;font-size:14px;border-radius:var(--radius-full);text-align:center;margin-bottom:10px;text-decoration:none;">Create Account</a>
+        <a href="login.html" style="display:block;width:100%;padding:14px;background:var(--primary);color:#fff;font-weight:700;font-size:14px;border-radius:var(--radius-full);text-align:center;margin-bottom:10px;text-decoration:none;">Create Account</a>
         <a href="login.html" style="display:block;width:100%;padding:14px;border-radius:var(--radius-full);border:1.5px solid var(--border);font-size:14px;font-weight:700;text-align:center;color:var(--text);text-decoration:none;margin-bottom:16px;">Log In</a>
         <p style="font-size:.75rem;color:var(--text-light);">Just browsing? <a href="#" onclick="closeWelcomePopup();return false" style="color:var(--primary);font-weight:700;text-decoration:none;">Continue as guest →</a></p>`;
     }
@@ -1448,10 +1220,130 @@ window.closeWelcomePopup = function () {
 
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof firebase !== 'undefined' && firebase.auth) {
-    firebase.auth().onAuthStateChanged(() => {
-      injectWelcomePopup();
+    firebase.auth().onAuthStateChanged(async (user) => {
+      if (user) {
+        // Logged in — skip popup entirely
+        try {
+          const doc = await firebase.firestore().collection('customers').doc(user.uid).get();
+          if (doc.exists) {
+            const data = doc.data();
+            localStorage.setItem('aj_user_phone', data.phone);
+            if (data.profileComplete === false && !window.location.href.includes('profile.html')) {
+              window.location.href = 'profile.html';
+              return;
+            }
+          }
+        } catch (e) { console.error("Global Profile Check Failed", e); }
+        // Do NOT call injectWelcomePopup for logged-in users
+      } else {
+        // Not logged in — show welcome popup
+        // injectWelcomePopup();
+      }
     });
   } else {
-    injectWelcomePopup();
+    // Firebase not available — show popup (guest mode)
+    // injectWelcomePopup();
   }
 });
+
+// ═══ SMART AUTH CORE ═══
+window.checkUserStatus = async function (email) {
+  if (!email || !email.includes('@')) return null;
+  try {
+    const methods = await firebase.auth().fetchSignInMethodsForEmail(email);
+    return methods.length > 0; // true = exists (login), false = new (signup)
+  } catch (error) {
+    console.error("Auth Check Error:", error);
+    return null;
+  }
+};
+
+window.handleSmartAuth = async function () {
+  const email = document.getElementById('loginEmail').value;
+  const pass = document.getElementById('loginPass').value;
+  const btn = document.querySelector('.auth-btn');
+
+  if (!email.includes('@')) { toast('Enter a valid email'); return; }
+  if (pass.length < 6) { toast('Password must be 6+ chars'); return; }
+
+  const originalBtnText = btn.innerText;
+  btn.innerText = "Processing...";
+  btn.disabled = true;
+
+  try {
+    const exists = await window.checkUserStatus(email);
+
+    if (exists === true) {
+      // LOGIN
+      const cred = await firebase.auth().signInWithEmailAndPassword(email, pass);
+      await syncUserToFirestore(cred.user, false);
+      toast('Welcome back!');
+    } else {
+      // SIGNUP (REDIRECT TO SIGNUP PAGE FOR COMPLETE DATA)
+      toast('Redirecting to Registration...');
+      setTimeout(() => location.href = 'signup.html', 1000);
+      return;
+    }
+
+    // Check profile completion status
+    const doc = await firebase.firestore().collection('customers').doc(firebase.auth().currentUser.uid).get();
+
+    setTimeout(() => {
+      if (doc.exists && doc.data().profileComplete === true) {
+        location.href = 'index.html';
+      } else {
+        location.href = 'profile.html';
+      }
+    }, 1500);
+
+  } catch (error) {
+    console.error("SmartAuth Error:", error);
+    toast(error.message);
+    btn.innerText = originalBtnText;
+    btn.disabled = false;
+  }
+};
+
+async function syncUserToFirestore(user, isNew) {
+  const now = firebase.firestore.FieldValue.serverTimestamp();
+
+  if (isNew) {
+    // Note: Standard signup handles this in signup.html
+    // This is a fallback for other creation methods
+    const phone = prompt("Enter Phone Number for Registration:");
+    if (!phone) return;
+
+    await firebase.firestore().collection('customers').doc(user.uid).set({
+      uid: user.uid,
+      email: user.email,
+      phone: phone,
+      memberSince: new Date().toISOString().split('T')[0],
+      homeBranch: "katugastota",
+      tier: "Bronze",
+      points: 0,
+      totalSpent: 0,
+      profileComplete: false,
+      createdAt: now
+    });
+  } else {
+    // Direct update via UID
+    await firebase.firestore().collection('customers').doc(user.uid).update({
+      lastLogin: now
+    }).catch(e => console.log("New user sync pending..."));
+  }
+}
+
+window.handleForgotPassword = async function (email) {
+  if (!email || !email.includes('@')) {
+    toast('Please enter a valid email address first.');
+    return;
+  }
+
+  try {
+    await firebase.auth().sendPasswordResetEmail(email);
+    toast('Password reset link sent to your email.');
+  } catch (error) {
+    console.error("Password Reset Error:", error);
+    toast('Error sending reset link. Please try again.');
+  }
+};
