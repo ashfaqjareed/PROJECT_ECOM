@@ -332,6 +332,9 @@
       document.getElementById('sizeRow').innerHTML = activeSizes.map((s, i) => {
         const isAvail = s.stock !== false;
         const isSel = s.label === selectedSize;
+        if (isPreOwnedItem && p.sizes && p.sizes.length === 1) {
+          return `<div class="prod-size active" style="cursor:default;">${s.label}</div>`;
+        }
         return `<div class="prod-size ${isSel ? 'active' : ''} ${!isAvail ? 'out-of-stock' : ''}" onclick="if(${!isAvail}) return; document.querySelectorAll('.prod-size').forEach(x=>x.classList.remove('active'));this.classList.add('active');selectedSize='${s.label}';">${s.label}</div>`;
       }).join('');
 

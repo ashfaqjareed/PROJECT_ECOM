@@ -113,143 +113,144 @@ for (let i = 81; i <= 500; i++) {
  */
 const preOwnedProducts = [
   {
-    id: 'po-01', cat: 'bags', name: 'Heritage Aviator (1984)', price: 45000, img: 'assets/pre-owned/vr1.JPG', badge: 'Limited',
-    desc: 'Original 1984 AJ Heritage Aviator. Refurbished full-grain leather with brass hardware.', isPreOwned: true,
+    id: 'po-01', cat: 'electronics', name: 'VR BOX 360 Degree', price: 2000, img: 'assets/pre-owned/vr1.JPG', badge: 'PRE-OWNED',
+    desc: 'Original 1984 AJ Heritage Aviator. Refurbished full-grain leather with brass hardware.', isPreOwned: false,
     gallery: ['assets/pre-owned/vr1.JPG', 'assets/pre-owned/vr2.JPG', 'assets/pre-owned/vr3.JPG', 'assets/pre-owned/vr4.JPG'],
-    color: { name: 'Antique Brown', hex: '#5d4037' }, sizes: ['M'], 
-    specs: { 'Year': '1984', 'Serial': 'AJ-V-8401', 'Condition': 'Excellent', 'Curated By': 'M. Ashfaq' },
-    reviews: [{ user: "Robert D.", rating: 5, comment: "A piece of history. The patina is perfect." }]
+    color: { name: 'White', hex: '#ffffffff' }, sizes: ['Free Size'],
+    specs: { 'Year': '2013', 'Serial': '#PO | AJ#1', 'Condition': 'Excellent Condition', 'Curated By': 'M. Ashfaq' },
+    reviews: [{ user: "MOD", rating: 0, comment: "No Reviews Yet" }]
   },
   {
-    id: 'po-02', cat: 'wallets', name: 'Croco-Finish Cardholder', price: 6500, img: 'assets/pre-owned/sa2.png', badge: 'Mint',
-    desc: 'Exotic crocodile texture cardholder. Slim design with RFID protection.', isPreOwned: true,
-    color: { name: 'Midnight', hex: '#111111' }, sizes: ['One Size'], 
-    specs: { 'Material': 'Leather', 'Condition': 'Mint', 'Hardware': 'None' },
-    reviews: [{ user: "Elena S.", rating: 5, comment: "Small, elegant, and looks brand new." }]
+    id: 'po-02', cat: 'electronics', name: 'Samsung Galaxy A15 (Used)', price: 38000, img: 'assets/pre-owned/sa2.png', badge: 'PRE-OWNED',
+    desc: 'Samsung Galaxy A15 (Used); with 265GB and with the color of Blue Black', isPreOwned: false,
+    color: { name: 'Black Blue', hex: '#111111' }, sizes: ['256GB'],
+    gallery: ['assets/pre-owned/sa1.png', 'assets/pre-owned/sa2.png', 'assets/pre-owned/sa3.png', 'assets/pre-owned/sa4.png', 'assets/pre-owned/sa5.jpg'],
+    specs: { 'Year': '2023', 'RAM': '8GB + Expandable RAM', 'Condition': 'Used', 'Internal Storage': '256GB', 'Battery': '5000mah', 'Processor': 'Mediatek Helio G99', 'OS': 'Android 16 | One UI 8' },
+    reviews: [{ user: "MOD", rating: 0, comment: "No Reviews Yet" }]
   },
   {
     id: 'po-03', cat: 'bags', name: 'Artisan Portfolio Case', price: 32000, img: 'assets/pre-owned/sa1.png', badge: 'Rare',
-    desc: 'Hand-stitched portfolio case from our 2020 archive. Minimalist and professional.', isPreOwned: true,
-    color: { name: 'Chestnut', hex: '#8b4513' }, sizes: ['L'], 
+    desc: 'Hand-stitched portfolio case from our 2020 archive. Minimalist and professional.', isPreOwned: false,
+    color: { name: 'Chestnut', hex: '#8b4513' }, sizes: ['L'],
     specs: { 'Year': '2020', 'Condition': 'Excellent', 'Dimensions': '14" x 10"' },
     reviews: [{ user: "Marco G.", rating: 5, comment: "Professionalism in a bag. Exceptional quality." }]
   },
   {
     id: 'po-04', cat: 'accessories', name: 'Vintage Key Organizer', price: 4200, img: 'assets/pre-owned/sa3.png', badge: 'Classic',
     desc: 'A timeless accessory to keep your keys organized and silent.', isPreOwned: true,
-    color: { name: 'Tan', hex: '#d2b48c' }, sizes: ['One Size'], 
+    color: { name: 'Tan', hex: '#d2b48c' }, sizes: ['One Size'],
     specs: { 'Condition': 'Good', 'Material': 'Tanned Leather' },
     reviews: [{ user: "Jane F.", rating: 4, comment: "Great patina, very functional." }]
   },
   {
     id: 'po-05', cat: 'belts', name: 'Signature Buckle Belt', price: 8500, img: 'assets/pre-owned/sa4.png', badge: 'Steal',
     desc: 'Solid brass buckle with hand-burnished leather strap.', isPreOwned: true,
-    color: { name: 'Black', hex: '#000000' }, sizes: ['34', '36'], 
+    color: { name: 'Black', hex: '#000000' }, sizes: ['34', '36'],
     specs: { 'Condition': 'Fair', 'Buckle': 'Brass' },
     reviews: [{ user: "Tom H.", rating: 4, comment: "A bit worn but solid. Great price." }]
   },
   {
     id: 'po-06', cat: 'bags', name: 'Classic Saddle Bag', price: 28000, img: 'assets/pre-owned/sa5.jpg', badge: 'Verified',
     desc: 'Timeless saddle design with adjustable shoulder strap.', isPreOwned: true,
-    color: { name: 'Mahogany', hex: '#4b2a1a' }, sizes: ['M'], 
+    color: { name: 'Mahogany', hex: '#4b2a1a' }, sizes: ['M'],
     specs: { 'Condition': 'Excellent', 'Style': 'Crossbody' },
     reviews: [{ user: "Sofia L.", rating: 5, comment: "Exactly as described. Beautiful mahogany shade." }]
   },
   {
     id: 'po-07', cat: 'wallets', name: 'Bi-Fold Stealth Wallet', price: 5500, img: 'assets/pre-owned/sa2.png', badge: 'Updated',
     desc: 'Ultra-slim bi-fold wallet for the modern minimalist.', isPreOwned: true,
-    color: { name: 'Onyx', hex: '#0a0a0a' }, sizes: ['One Size'], 
+    color: { name: 'Onyx', hex: '#0a0a0a' }, sizes: ['One Size'],
     specs: { 'Condition': 'Mint', 'Capacity': '6 Cards' },
     reviews: []
   },
   {
     id: 'po-08', cat: 'accessories', name: 'Leather Watch Roll', price: 12000, img: 'assets/pre-owned/vr2.JPG', badge: 'Premium',
     desc: 'Securely travel with your timepieces in this handcrafted roll.', isPreOwned: true,
-    color: { name: 'Coffee', hex: '#6f4e37' }, sizes: ['3-Watch'], 
+    color: { name: 'Coffee', hex: '#6f4e37' }, sizes: ['3-Watch'],
     specs: { 'Condition': 'New Old Stock', 'Lining': 'Suede' },
     reviews: [{ user: "Winston B.", rating: 5, comment: "Perfect for my collection." }]
   },
   {
     id: 'po-09', cat: 'bags', name: 'Overnight Duffle (2018)', price: 48000, img: 'assets/pre-owned/vr3.JPG', badge: 'Archival',
     desc: 'Spacious duffle bag from our 2018 travel collection.', isPreOwned: true,
-    color: { name: 'Tobacco', hex: '#b05e3c' }, sizes: ['XL'], 
+    color: { name: 'Tobacco', hex: '#b05e3c' }, sizes: ['XL'],
     specs: { 'Year': '2018', 'Condition': 'Great', 'Volume': '45L' },
     reviews: []
   },
   {
     id: 'po-10', cat: 'accessories', name: 'Minimalist Glasses Case', price: 3800, img: 'assets/pre-owned/sa1.png', badge: 'Curated',
     desc: 'Protect your eyewear with this slim, hard-shell leather case.', isPreOwned: true,
-    color: { name: 'Sand', hex: '#c2b280' }, sizes: ['One Size'], 
+    color: { name: 'Sand', hex: '#c2b280' }, sizes: ['One Size'],
     specs: { 'Condition': 'Mint' },
     reviews: []
   },
   {
     id: 'po-11', cat: 'bags', name: 'Artisan Messenger Bag', price: 35000, img: 'assets/pre-owned/vr4.JPG', badge: 'Unique',
     desc: 'A rugged yet refined messenger bag for daily use.', isPreOwned: true,
-    color: { name: 'Olive', hex: '#556b2f' }, sizes: ['M'], 
+    color: { name: 'Olive', hex: '#556b2f' }, sizes: ['M'],
     specs: { 'Condition': 'Excellent' },
     reviews: []
   },
   {
     id: 'po-12', cat: 'wallets', name: 'Zip-Around Travel Wallet', price: 9500, img: 'assets/pre-owned/sa2.png', badge: 'Functional',
     desc: 'Large wallet designed to hold passport, cards, and currency.', isPreOwned: true,
-    color: { name: 'Sienna', hex: '#a0522d' }, sizes: ['One Size'], 
+    color: { name: 'Sienna', hex: '#a0522d' }, sizes: ['One Size'],
     specs: { 'Condition': 'Good' },
     reviews: []
   },
   {
     id: 'po-13', cat: 'belts', name: 'Dress Leather Belt', price: 7200, img: 'assets/pre-owned/sa4.png', badge: 'Formal',
     desc: 'Perfect for formal occasions. Polished leather with silver buckle.', isPreOwned: true,
-    color: { name: 'Black', hex: '#000000' }, sizes: ['32', '34'], 
+    color: { name: 'Black', hex: '#000000' }, sizes: ['32', '34'],
     specs: { 'Condition': 'Excellent' },
     reviews: []
   },
   {
     id: 'po-14', cat: 'bags', name: 'Compact Crossbody', price: 18000, img: 'assets/pre-owned/sa5.jpg', badge: 'Lightweight',
     desc: 'The perfect companion for your essentials during city walks.', isPreOwned: true,
-    color: { name: 'Slate', hex: '#708090' }, sizes: ['S'], 
+    color: { name: 'Slate', hex: '#708090' }, sizes: ['S'],
     specs: { 'Condition': 'Mint' },
     reviews: []
   },
   {
     id: 'po-15', cat: 'accessories', name: 'Braided Leather Keychain', price: 2500, img: 'assets/pre-owned/sa3.png', badge: 'Artisan',
     desc: 'Intricately braided leather keychain with heavy-duty clip.', isPreOwned: true,
-    color: { name: 'Rust', hex: '#b7410e' }, sizes: ['One Size'], 
+    color: { name: 'Rust', hex: '#b7410e' }, sizes: ['One Size'],
     specs: { 'Condition': 'Excellent' },
     reviews: []
   },
   {
     id: 'po-16', cat: 'bags', name: 'Executive Laptop Sleeve', price: 14500, img: 'assets/pre-owned/sa1.png', badge: 'Tech',
     desc: 'Padded laptop sleeve for 14" devices. Premium leather finish.', isPreOwned: true,
-    color: { name: 'Navy', hex: '#000080' }, sizes: ['14"'], 
+    color: { name: 'Navy', hex: '#000080' }, sizes: ['14"'],
     specs: { 'Condition': 'Mint' },
     reviews: []
   },
   {
     id: 'po-17', cat: 'wallets', name: 'Minimal Card sleeve', price: 3000, img: 'assets/pre-owned/sa2.png', badge: 'Essentials',
     desc: 'The slimmest card sleeve for those who carry only the basics.', isPreOwned: true,
-    color: { name: 'Grey', hex: '#808080' }, sizes: ['One Size'], 
+    color: { name: 'Grey', hex: '#808080' }, sizes: ['One Size'],
     specs: { 'Condition': 'Excellent' },
     reviews: []
   },
   {
     id: 'po-18', cat: 'accessories', name: 'Leather Luggage Tag', price: 3500, img: 'assets/pre-owned/vr1.JPG', badge: 'Travel',
     desc: 'Identify your luggage in style with this durable tag.', isPreOwned: true,
-    color: { name: 'Burgundy', hex: '#800020' }, sizes: ['One Size'], 
+    color: { name: 'Burgundy', hex: '#800020' }, sizes: ['One Size'],
     specs: { 'Condition': 'Mint' },
     reviews: []
   },
   {
     id: 'po-19', cat: 'belts', name: 'Casual Jean Belt', price: 6800, img: 'assets/pre-owned/sa4.png', badge: 'Daily',
     desc: 'Sturdy leather belt designed to age beautifully with your jeans.', isPreOwned: true,
-    color: { name: 'Tan', hex: '#d2b48c' }, sizes: ['36', '38'], 
+    color: { name: 'Tan', hex: '#d2b48c' }, sizes: ['36', '38'],
     specs: { 'Condition': 'Good' },
     reviews: []
   },
   {
     id: 'po-20', cat: 'bags', name: 'Vintage Briefcase (1990)', price: 42000, img: 'assets/pre-owned/vr4.JPG', badge: 'Grail',
     desc: 'A piece of history. Solid build briefcase from the early 90s.', isPreOwned: true,
-    color: { name: 'Chocolate', hex: '#3d2b1f' }, sizes: ['L'], 
+    color: { name: 'Chocolate', hex: '#3d2b1f' }, sizes: ['L'],
     specs: { 'Year': '1990', 'Condition': 'Excellent' },
     reviews: []
   }
@@ -262,6 +263,7 @@ const productColorOverrides = [];
 let allProducts = [...products, ...ghostProducts];
 allProducts.forEach(p => { if (!p.color) p.color = '#888888'; });
 productColorOverrides.forEach(ov => { const p = allProducts.find(x => x.id === ov.id); if (p && ov.color) p.color = ov.color; });
+preOwnedProducts.forEach(p => { p.isPreOwned = true; if (!p.sizes) p.sizes = ['One Size']; });
 const globalProducts = [...allProducts, ...preOwnedProducts];
 
 
@@ -1110,7 +1112,7 @@ async function submitEnquiry() {
   const message = document.getElementById('enqMessage').value.trim();
 
   if (!name || !email || !subject || !message) {
-    toast('Please fill all fields.');
+    toast('Please Fill in All Fields');
     return;
   }
 
@@ -1141,15 +1143,15 @@ async function submitEnquiry() {
 
 /* === WELCOME POPUP === */
 function injectWelcomePopup() {
-  if (sessionStorage.getItem('aj_welcomed') === '1') return;
+  if (sessionStorage.getItem('aj_welcomed_session') === '1') return;
 
   const pathname = window.location.pathname;
   const isIndex = pathname === '/' || pathname.endsWith('index.html') || pathname.endsWith('/PROJECT_ECOM/') || pathname === '';
   const delay = isIndex ? 3000 : 0; // Reduced to 3s for better UX
 
   setTimeout(() => {
-    if (sessionStorage.getItem('aj_welcomed') === '1') return;
-    sessionStorage.setItem('aj_welcomed', '1');
+    if (sessionStorage.getItem('aj_welcomed_session') === '1') return;
+    sessionStorage.setItem('aj_welcomed_session', '1');
 
     if (document.getElementById('ajvPopup')) return;
 
@@ -1233,16 +1235,16 @@ document.addEventListener('DOMContentLoaded', () => {
               return;
             }
           }
-        } catch (e) { console.error("Global Profile Check Failed", e); }
+        } catch (e) { console.error("Profile Check Failed", e); }
         // Do NOT call injectWelcomePopup for logged-in users
       } else {
         // Not logged in — show welcome popup
-        // injectWelcomePopup();
+        injectWelcomePopup();
       }
     });
   } else {
     // Firebase not available — show popup (guest mode)
-    // injectWelcomePopup();
+    injectWelcomePopup();
   }
 });
 
@@ -1253,7 +1255,7 @@ window.checkUserStatus = async function (email) {
     const methods = await firebase.auth().fetchSignInMethodsForEmail(email);
     return methods.length > 0; // true = exists (login), false = new (signup)
   } catch (error) {
-    console.error("Auth Check Error:", error);
+    console.error("User Account Status Failed", error);
     return null;
   }
 };
@@ -1263,8 +1265,8 @@ window.handleSmartAuth = async function () {
   const pass = document.getElementById('loginPass').value;
   const btn = document.querySelector('.auth-btn');
 
-  if (!email.includes('@')) { toast('Enter a valid email'); return; }
-  if (pass.length < 6) { toast('Password must be 6+ chars'); return; }
+  if (!email.includes('@')) { toast('Enter a Valid Email Address'); return; }
+  if (pass.length < 6) { toast('Password must be 6+ Characters'); return; }
 
   const originalBtnText = btn.innerText;
   btn.innerText = "Processing...";
@@ -1277,10 +1279,10 @@ window.handleSmartAuth = async function () {
       // LOGIN
       const cred = await firebase.auth().signInWithEmailAndPassword(email, pass);
       await syncUserToFirestore(cred.user, false);
-      toast('Welcome back!');
+      toast('Welcome Back!');
     } else {
       // SIGNUP (REDIRECT TO SIGNUP PAGE FOR COMPLETE DATA)
-      toast('Redirecting to Registration...');
+      toast('Redirecting to Signup');
       setTimeout(() => location.href = 'signup.html', 1000);
       return;
     }
@@ -1310,7 +1312,7 @@ async function syncUserToFirestore(user, isNew) {
   if (isNew) {
     // Note: Standard signup handles this in signup.html
     // This is a fallback for other creation methods
-    const phone = prompt("Enter Phone Number for Registration:");
+    const phone = prompt("Enter Phone Number for Signup");
     if (!phone) return;
 
     await firebase.firestore().collection('customers').doc(user.uid).set({
@@ -1335,7 +1337,7 @@ async function syncUserToFirestore(user, isNew) {
 
 window.handleForgotPassword = async function (email) {
   if (!email || !email.includes('@')) {
-    toast('Please enter a valid email address first.');
+    toast('Please Enter a Valid Email Address');
     return;
   }
 
@@ -1344,6 +1346,6 @@ window.handleForgotPassword = async function (email) {
     toast('Password reset link sent to your email.');
   } catch (error) {
     console.error("Password Reset Error:", error);
-    toast('Error sending reset link. Please try again.');
+    toast('Error sending reset link. Please Try Again.');
   }
 };
