@@ -2,75 +2,21 @@ const fs = require('fs');
 const path = require('path');
 
 const dir = __dirname;
-const files = fs.readdirSync(dir).filter(f => f.endsWith('.html') && !f.includes('login') && !f.includes('signup'));
+const files = fs.readdirSync(dir).filter(f => f.endsWith('.html'));
 
-const desktopNavTemplate = (active) => `    <nav class="desktop-nav">
-      <a href="index.html"${active === 'index' ? ' class="active"' : ''}>Home</a>
-      <a href="shop.html"${active === 'shop' || active === 'product' ? ' class="active"' : ''}>Shop</a>
-      <a href="collections.html"${active === 'collections' ? ' class="active"' : ''}>Collections</a>
-      <a href="support.html"${active === 'support' || active === 'contact' ? ' class="active"' : ''}>Support</a>
-    </nav>`;
-
-const mobileNavTemplate = (active) => `  <nav class="mobile-nav" id="mobileNav">
-    <a href="index.html"${active === 'index' ? ' class="active"' : ''}>Home</a>
-    <a href="shop.html"${active === 'shop' || active === 'product' ? ' class="active"' : ''}>Shop</a>
-    <a href="collections.html"${active === 'collections' ? ' class="active"' : ''}>Collections</a>
-    <a href="support.html"${active === 'support' || active === 'contact' ? ' class="active"' : ''}>Support</a>
-  </nav>`;
-
-const footerTemplate = `  <footer>
-    <div class="f-grid">
-      <div class="f-about">
-        <div class="logo"><img src="assets/brand/AJ2.png" alt="AJ Vantage Logo" class="site-logo"></div>
-        <p>Premium leather goods crafted with passion since 2026. Our collection consists of 80% new and 20% selectively curated pre-owned pieces available across our Website, WhatsApp Catalog, and Facebook Marketplace.</p>
-      </div>
-      <div class="f-col">
-        <h4>Shopping</h4>
-        <a href="shop.html">Shop</a>
-        <a href="collections.html">Collections</a>
-        <a href="shop.html?new=true">New Collections</a>
-        <a href="shop.html">Products</a>
-      </div>
-      <div class="f-col">
-        <h4>Support</h4>
-        <a href="support.html">FAQ</a>
-        <a href="support.html">Help Center</a>
-        <a href="payment.html">Payment Methods</a>
-      </div>
-      <div class="f-col">
-        <h4>Legal</h4>
-        <a href="about.html">About Us</a>
-        <a href="legal.html#privacy">Privacy Policy</a>
-        <a href="legal.html#terms">Terms of Service</a>
-        <a href="legal.html#shipping">Shipping Policy</a>
+const headerTopBar = `
+  <div id="ajv-top-banner" style="background:#ff6d2e; padding:12px 0; position:relative; z-index:1100; overflow:hidden; box-shadow:0 4px 15px rgba(255,109,46,0.3);">
+    <div style="position:absolute; inset:0; opacity:0.15; background-image:url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30c0-1.105.895-2 2-2s2 .895 2 2-.895 2-2 2-2-.895-2-2z' fill='%23ffffff' fill-opacity='1'/%3E%3C/svg%3E&quot;); pointer-events:none;"></div>
+    <div style="max-width:1300px; margin:0 auto; padding:0 40px; display:flex; justify-content:center; align-items:center; position:relative; z-index:2;">
+      <div style="display:flex; align-items:center; gap:12px;">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z"/></svg>
+        <span style="font-size:13px; font-weight:900; color:#fff; text-transform:uppercase; letter-spacing:2.5px;">WELCOME TO AJ VANTAGE — LAUNCHING ON JULY 1ST</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z"/></svg>
       </div>
     </div>
-    <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA 🇱🇰</span></div>
-  </footer>`;
+  </div>
+`;
 
-files.forEach(file => {
-  let content = fs.readFileSync(path.join(dir, file), 'utf8');
-  let active = file.replace('.html', '');
-  
-  // Replace desktop nav
-  content = content.replace(/<nav class="desktop-nav">[\s\S]*?<\/nav>/, desktopNavTemplate(active));
-  
-  // Replace mobile nav
-  content = content.replace(/<nav class="mobile-nav" id="mobileNav">[\s\S]*?<\/nav>/, mobileNavTemplate(active));
-  
-  // Replace footer
-  content = content.replace(/<footer[\s\S]*?<\/footer>/, footerTemplate);
-  
-  // GLOBAL ASSET PATH CORRECTIONS
-  content = content.replace(/src=["']AJ2\.png["']/g, 'src="assets/brand/AJ2.png"');
-  content = content.replace(/href=["']AJ\.png["']/g, 'href="assets/brand/AJ.png"');
-  content = content.replace(/src=["']AJ\.png["']/g, 'src="assets/brand/AJ.png"');
-  content = content.replace(/src=["']Ashfaq\.png["']/g, 'src="assets/products/Ashfaq.png"');
-  content = content.replace(/src=["']Ashfaq2\.png["']/g, 'src="assets/products/Ashfaq2.png"');
-  content = content.replace(/src=["']Jareed\.jpg["']/g, 'src="assets/products/Jareed.jpg"');
-  content = content.replace(/src=["']Jareed2\.png["']/g, 'src="assets/products/Jareed2.png"');
-
-  fs.writeFileSync(path.join(dir, file), content);
-});
-
-console.log('Headers and Footers updated in ' + files.length + ' files.');
+// This script is now deactivated to prevent duplicate injections. 
+// Use it only for global design updates if needed, but carefully.
+console.log('Automated header/footer injection deactivated to prevent duplication. Manual cleanup performed.');

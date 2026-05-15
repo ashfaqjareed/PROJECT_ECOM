@@ -114,23 +114,27 @@ for (let i = 81; i <= 500; i++) {
 const preOwnedProducts = [
   {
     id: 'po-01', cat: 'electronics', name: 'VR BOX 360 Degree', price: 2000, img: 'assets/pre-owned/vr1.JPG', badge: 'PRE-OWNED',
-    desc: 'Original 1984 AJ Heritage Aviator. Refurbished full-grain leather with brass hardware.', isPreOwned: false,
+    desc: 'Original 1984 AJ Heritage Aviator. Refurbished full-grain leather with brass hardware.', isPreOwned: true,
+    waLink: "https://wa.me/p/26829750430017600/94704800058",
+    fbLink: "https://wa.me/p/27409471035327754/94704800058",
     gallery: ['assets/pre-owned/vr1.JPG', 'assets/pre-owned/vr2.JPG', 'assets/pre-owned/vr3.JPG', 'assets/pre-owned/vr4.JPG'],
     color: { name: 'White', hex: '#ffffffff' }, sizes: ['Free Size'],
-    specs: { 'Year': '2013', 'Serial': '#PO | AJ#1', 'Condition': 'Excellent Condition', 'Curated By': 'M. Ashfaq' },
+    specs: { 'Year': '2013', 'Condition': 'Excellent Condition', 'Curated By': 'M. Ashfaq' },
     reviews: [{ user: "MOD", rating: 0, comment: "No Reviews Yet" }]
   },
   {
     id: 'po-02', cat: 'electronics', name: 'Samsung Galaxy A15 (Used)', price: 38000, img: 'assets/pre-owned/sa2.png', badge: 'PRE-OWNED',
-    desc: 'Samsung Galaxy A15 (Used); with 265GB and with the color of Blue Black', isPreOwned: false,
-    color: { name: 'Black Blue', hex: '#111111' }, sizes: ['256GB'],
-    gallery: ['assets/pre-owned/sa1.png', 'assets/pre-owned/sa2.png', 'assets/pre-owned/sa3.png', 'assets/pre-owned/sa4.png', 'assets/pre-owned/sa5.jpg'],
+    desc: 'Samsung Galaxy A15 (Used); with 265GB and with the color of Blue Black', isPreOwned: true,
+    waLink: "https://wa.me/p/7890123456/94704800058",
+    fbLink: "https://www.facebook.com/marketplace/item/987654321/",
+    color: { name: 'Black Blue', hex: '#040720', name: 'White', hex: '#ffffffff' }, sizes: ['256GB'],
+    gallery: ['assets/pre-owned/sa1.png', 'assets/pre-owned/sa2.png', 'assets/preo-owned/sa3.png', 'assets/pre-owned/sa4.png', 'assets/pre-owned/sa5.jpg'],
     specs: { 'Year': '2023', 'RAM': '8GB + Expandable RAM', 'Condition': 'Used', 'Internal Storage': '256GB', 'Battery': '5000mah', 'Processor': 'Mediatek Helio G99', 'OS': 'Android 16 | One UI 8' },
     reviews: [{ user: "MOD", rating: 0, comment: "No Reviews Yet" }]
   },
   {
     id: 'po-03', cat: 'bags', name: 'Artisan Portfolio Case', price: 32000, img: 'assets/pre-owned/sa1.png', badge: 'Rare',
-    desc: 'Hand-stitched portfolio case from our 2020 archive. Minimalist and professional.', isPreOwned: false,
+    desc: 'Hand-stitched portfolio case from our 2020 archive. Minimalist and professional.', isPreOwned: true,
     color: { name: 'Chestnut', hex: '#8b4513' }, sizes: ['L'],
     specs: { 'Year': '2020', 'Condition': 'Excellent', 'Dimensions': '14" x 10"' },
     reviews: [{ user: "Marco G.", rating: 5, comment: "Professionalism in a bag. Exceptional quality." }]
@@ -535,6 +539,30 @@ function filterCat(cat) {
   });
 }
 
+function openSocial(channel, pid) {
+  if (!firebase.auth().currentUser) {
+    toast('Account Required | Redirecting to Login');
+    setTimeout(() => location.href = 'login.html', 1500);
+    return;
+  }
+
+  const p = allProducts.find(x => x.id === pid) || preOwnedProducts.find(x => x.id === pid);
+  if (p) {
+    if (channel === 'wa' && p.waLink) {
+      window.open(p.waLink, '_blank');
+      return;
+    }
+    if (channel === 'fb' && p.fbLink) {
+      window.open(p.fbLink, '_blank');
+      return;
+    }
+  }
+
+  // Fallbacks
+  const url = channel === 'wa' ? 'https://wa.me/c/94704800058' : 'https://www.facebook.com/marketplace/profile/61587322066412';
+  window.open(url, '_blank');
+}
+
 /* === Master Rendering === */
 function cardHTML(p, i, wish) {
   const isGhost = p.isGhost;
@@ -550,7 +578,16 @@ function cardHTML(p, i, wish) {
       ${isGhost ? `<div class="ghost-placeholder">${getIcon(p.cat)}</div>` : `<img src="${p.img}" alt="${p.name}" class="p-img-main">`}
       ${p.badge ? `<span class="badge-status ${isGhost ? 'coming-soon' : ''}">${p.badge}</span>` : (isPreOwned ? '<span class="badge-status" style="background:var(--grad3);color:#000;font-weight:900;">PRE-OWNED</span>' : '')}
       
-      <div class="p-color-dot" title="Product Primary Color"></div>
+      ${!isGhost ? `
+      <div class="p-social-overlay">
+        <button class="p-social-btn wa" onclick="event.stopPropagation(); openSocial('wa', '${p.id}')" title="WhatsApp Catalog">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.029c0 2.119.549 4.187 1.59 6.037L0 24l6.105-1.602a11.834 11.834 0 005.937 1.587h.005c6.637 0 12.032-5.391 12.036-12.028.003-3.218-1.252-6.242-3.541-8.53z"/></svg>
+        </button>
+        <button class="p-social-btn fb" onclick="event.stopPropagation(); openSocial('fb', '${p.id}')" title="Facebook Marketplace">
+          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </button>
+      </div>
+      ` : ''}
       
       ${!isGhost ? `<button class="wishlist-btn ${inWish ? 'active' : ''}" onclick="event.stopPropagation();toggleWish('${p.id}')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
@@ -561,7 +598,10 @@ function cardHTML(p, i, wish) {
       <div class="product-name">${p.name}</div>
     </div>
     <div class="product-bot">
-      <span class="product-price">${isGhost ? 'Coming Soon' : fmtLKR(p.price)}</span>
+      <div style="display:flex; flex-direction:column; gap:4px;">
+        <span class="product-price">${isGhost ? 'Coming Soon' : fmtLKR(p.price)}</span>
+        <span style="font-size:9px; font-weight:800; color:var(--primary); opacity:0.8; letter-spacing:1px;">AJ-#${String(p.id).toUpperCase()}</span>
+      </div>
       ${!isGhost ? `<button class="add-to-cart" onclick="event.stopPropagation();addToCart('${p.id}')">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
       </button>` : ''}
@@ -597,12 +637,12 @@ function renderProducts() {
     else if (page === 2) filtered = products.slice(40, 80);
     else if (page === 3) filtered = ghostProducts.slice(0, 8);
   } else if (!isShop) {
-    filtered = products.slice(0, 8);
+    filtered = products.slice(0, 9);
   }
 
   let html = '';
   if (isShop && page === 3 && cat === 'all') {
-    html = `<div class="coming-soon-poster reveal" style="grid-column:1/-1; background: var(--text); border-radius: var(--radius-xl); padding: 80px 40px; text-align: center; color: #fff; margin-bottom: 40px; position:relative; overflow:hidden">
+    html = `<div class="coming-soon-poster reveal" style = "grid-column:1/-1; background: var(--text); border-radius: var(--radius-xl); padding: 80px 40px; text-align: center; color: #fff; margin-bottom: 40px; position:relative; overflow:hidden" >
       <div style="position:absolute; top:0; left:0; width:100%; height:100%; opacity:0.1; background-image: radial-gradient(circle at 50% 50%, var(--primary), transparent)"></div>
       <div style="position:relative; z-index:1">
         <div style="font-size: 14px; font-weight: 800; letter-spacing: 4px; color: var(--primary); margin-bottom: 24px;">AJ VANTAGE EXPANSION</div>
@@ -614,8 +654,8 @@ function renderProducts() {
           <div style="text-align: left;"><div style="font-size: 32px; font-weight: 800; color: var(--primary);">Nov 24</div><div style="font-size: 11px; color: rgba(255,255,255,0.4); text-transform: uppercase; letter-spacing: 1px;">Official Launch</div></div>
         </div>
       </div>
-    </div>`;
-    html += `<div style="grid-column:1/-1; margin:40px 0 20px; text-align:center;"><h3 style="font-size:24px; font-weight:700">Sneak Peek of the Future</h3></div>`;
+    </div> `;
+    html += `<div style = "grid-column:1/-1; margin:40px 0 20px; text-align:center;" > <h3 style="font-size:24px; font-weight:700">Sneak Peek of the Future</h3></div> `;
     html += filtered.map((p, i) => cardHTML(p, i, wish)).join('');
   } else {
     html = filtered.map((p, i) => cardHTML(p, i, wish)).join('');
@@ -695,7 +735,6 @@ function renderCartItems() {
       </div>
     `;
   }).join('');
-
   const tax = subtotal * 0.08;
   const total = subtotal + tax;
 
@@ -811,9 +850,9 @@ function renderHeaderAuth() {
 document.addEventListener('DOMContentLoaded', () => {
   console.log("AJ VANTAGE: Core logic initializing...");
   try {
-    // 1. Sync Firebase Auth State
+    // 1. Sync Firebase Auth State (Unified Global Listener)
     if (typeof firebase !== 'undefined' && firebase.auth) {
-      firebase.auth().onAuthStateChanged((user) => {
+      firebase.auth().onAuthStateChanged(async (user) => {
         try {
           if (user) {
             localStorage.setItem('aj_logged_in', 'true');
@@ -822,16 +861,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (firebase.firestore) {
               const _db = (typeof db !== 'undefined') ? db : firebase.firestore();
+
+              // Record last seen
               _db.collection('customers').doc(user.uid).set({
                 lastSeen: firebase.firestore.FieldValue.serverTimestamp()
               }, { merge: true }).catch(() => { });
+
+              // Handle Profile Redirection Logic
+              const doc = await _db.collection('customers').doc(user.uid).get();
+              if (doc.exists) {
+                const data = doc.data();
+                localStorage.setItem('aj_user_phone', data.phone || '');
+
+                // Profile redirection removed to prevent refresh loops.
+              }
             }
           } else {
             localStorage.removeItem('aj_logged_in');
             localStorage.removeItem('aj_user_email');
+
+            // Only show welcome popup if we are on index.html or root
+            if (pathname === '/' || pathname.endsWith('index.html') || pathname.endsWith('/PROJECT_ECOM/') || pathname === '') {
+              setTimeout(injectWelcomePopup, 3000); // 3-second delay for better impact
+            }
           }
           renderHeaderAuth();
-        } catch (e) { console.warn("Auth check error", e); }
+        } catch (e) {
+          console.warn("Auth check error", e);
+          renderHeaderAuth();
+        }
       });
     }
 
@@ -875,99 +933,12 @@ async function handleSignOut() {
     localStorage.removeItem('ajv_popup_shown');
     localStorage.removeItem('aj_cart');
     localStorage.removeItem('aj_wish');
+    sessionStorage.removeItem('aj_welcomed'); // Clear so popup shows again on next visit
     toast("Signing out securely...");
     setTimeout(() => location.href = 'index.html', 1000);
   } catch (e) {
     location.href = 'index.html';
   }
-}
-
-/* === CHATBOT LOGIC === */
-function toggleChat() {
-  const w = document.getElementById('chatWindow');
-  if (w) w.classList.toggle('open');
-}
-
-let chatState = { step: 'init', lastQuery: '' };
-
-async function sendChatMessage() {
-  const input = document.getElementById('chatInput');
-  const body = document.getElementById('chatBody');
-  const text = input.value.trim();
-  if (!text) return;
-
-  // User Message
-  const uMsg = document.createElement('div');
-  uMsg.className = 'chat-msg user';
-  uMsg.textContent = text;
-  body.appendChild(uMsg);
-  input.value = '';
-  body.scrollTop = body.scrollHeight;
-
-  // Bot Logic
-  setTimeout(async () => {
-    const bMsg = document.createElement('div');
-    bMsg.className = 'chat-msg bot';
-    let reply = "";
-    const t = text.toLowerCase();
-
-    if (chatState.step === 'await_order') {
-      reply = `Order ${text.toUpperCase()} is currently en route via DHL.`;
-      chatState.step = 'await_feedback';
-    } else if (chatState.step === 'await_feedback') {
-      if (t === 'yes' || t === 'y') {
-        reply = "Excellent. Let me know if you need anything else.";
-      } else {
-        reply = "I apologize. Please use the Direct Transmission form for further assistance.";
-      }
-      chatState.step = 'init';
-    } else {
-      if (t.includes('hi') || t.includes('hello')) {
-        reply = "Welcome to AJ VANTAGE. How may I assist you?";
-      } else if (t.includes('order')) {
-        reply = "Please provide your Order Number.";
-        chatState.step = 'await_order';
-      } else if (t.includes('shipping') || t.includes('track')) {
-        reply = "We ship globally via DHL Express (7-14 days).";
-        chatState.step = 'await_feedback';
-      } else if (t.includes('return') || t.includes('refund')) {
-        reply = "Returns are accepted within 30 days of delivery.";
-        chatState.step = 'await_feedback';
-      } else if (t.includes('price') || t.includes('cost')) {
-        reply = "All prices are listed in LKR.";
-        chatState.step = 'await_feedback';
-      } else if (t.includes('material') || t.includes('leather')) {
-        reply = "We exclusively use full-grain leather.";
-        chatState.step = 'await_feedback';
-      } else if (t.includes('contact') || t.includes('support')) {
-        reply = "You may use the Direct Transmission form on this page.";
-        chatState.step = 'await_feedback';
-      } else {
-        reply = "I don't have an answer for that yet. I have forwarded your query to our team.";
-        try {
-          await db.collection('chatbot_unknowns').add({
-            query: text,
-            timestamp: firebase.firestore.FieldValue.serverTimestamp()
-          });
-        } catch (e) { console.error(e); }
-      }
-    }
-
-    bMsg.textContent = reply;
-    body.appendChild(bMsg);
-
-    if (chatState.step === 'await_feedback') {
-      setTimeout(() => {
-        const fMsg = document.createElement('div');
-        fMsg.className = 'chat-msg bot';
-        fMsg.textContent = "Did this resolve your query? (Yes / No)";
-        body.appendChild(fMsg);
-        body.scrollTop = body.scrollHeight;
-      }, 800);
-    }
-
-    body.scrollTop = body.scrollHeight;
-  }, 600);
 }
 
 /* === SEARCH LOGIC === */
@@ -1032,14 +1003,16 @@ function filterSearch(query) {
     resultsList.innerHTML = '<div style="padding:20px;text-align:center;font-size:13px;color:var(--text-light); font-weight: 500;">No results found for "' + q + '"</div>';
   } else {
     resultsList.innerHTML = filtered.map(p => `
-      <div class="search-result-item" onclick="location.href='product.html?id=${p.id}'">
-        <div class="search-result-img-wrap">
-          <img src="${p.img}" class="search-result-img" alt="${p.name}">
-        </div>
-        <div class="search-result-info">
-          <div class="search-result-name">${p.name}</div>
-          <div class="search-result-cat">${catLabels[p.cat] || p.cat}</div>
-          <div class="search-result-price">${p.isGhost ? 'Coming Soon' : fmtLKR(p.price)}</div>
+      <div class="search-result-item" onclick="location.href='product.html?id=${p.id}'" style="display: flex; flex-direction: column; gap: 8px; padding: 12px; border-bottom: 1px solid var(--border);">
+        <div style="display: flex; align-items: center; gap: 12px;">
+          <div class="search-result-img-wrap" style="width: 50px; height: 50px;">
+            <img src="${p.img}" class="search-result-img" style="width: 100%; height: 100%; object-fit: cover; border-radius: 4px;">
+          </div>
+          <div class="search-result-info">
+            <div class="search-result-name" style="font-weight: 600; font-size: 14px;">${p.name}</div>
+            <div class="search-result-cat" style="font-size: 11px; color: var(--text-light); text-transform: uppercase;">${catLabels[p.cat] || p.cat}</div>
+            <div class="search-result-price" style="font-size: 13px; font-weight: 700;">${p.isGhost ? 'Coming Soon' : fmtLKR(p.price)}</div>
+          </div>
         </div>
       </div>
     `).join('');
@@ -1087,21 +1060,33 @@ function sanitizePhone(str) {
   return str.replace(/[^\d+]/g, '').slice(0, 15);
 }
 
-// Error boundary removed to prevent black screen on minor errors
-function showErrorBoundary() { }
+// Premium Cinematic Maintenance Screen
+function showErrorBoundary() {
+  document.body.innerHTML = `
+    <div style="height:100vh; width:100vw; background:#000; display:flex; align-items:center; justify-content:center; color:#fff; font-family:'Plus Jakarta Sans', sans-serif; text-align:center; padding:20px; position:relative; overflow:hidden;">
+      <!-- Cinematic Background Effect -->
+      <div style="position:absolute; inset:0; background: radial-gradient(circle at 50% 50%, rgba(255,109,46,0.1), transparent 70%); opacity:0.8;"></div>
+      <div style="position:absolute; inset:0; background: url('https://www.transparenttextures.com/patterns/carbon-fibre.png'); opacity:0.1;"></div>
+      
+      <div class="reveal active" style="max-width:600px; position:relative; z-index:2;">
+        <div style="display:inline-block; padding:12px 24px; background:rgba(255,109,46,0.1); border:1px solid rgba(255,109,46,0.3); border-radius:99px; color:#ff6d2e; font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:3px; margin-bottom:30px;">System Refinement</div>
+        <img src="assets/brand/AJ3.png" style="width:140px; margin:0 auto 40px; filter:brightness(10); display:block;">
+        <h1 style="font-size:clamp(32px, 5vw, 48px); font-weight:900; margin-bottom:24px; letter-spacing:-1.5px; line-height:1.1;">Perfecting the <span style="color:#ff6d2e;">Standard</span></h1>
+        <p style="font-size:18px; color:rgba(255,255,255,0.6); line-height:1.8; margin-bottom:48px;">Our digital flagship is undergoing a cinematic transformation. We are refining every pixel to bring you an uncompromising luxury experience. </p>
+        <div style="display:flex; justify-content:center; gap:20px;">
+          <a href="https://wa.me/94721226766" style="text-decoration:none; background:#ff6d2e; color:white; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:2px; padding:18px 36px; border-radius:99px; transition:all 0.4s cubic-bezier(0.16,1,0.3,1); box-shadow:0 10px 30px rgba(255,109,46,0.3);">Contact Concierge</a>
+          <a href="mailto:support@ajvantage.com" style="text-decoration:none; background:rgba(255,255,255,0.05); color:white; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:2px; padding:18px 36px; border-radius:99px; border:1px solid rgba(255,255,255,0.1); transition:all 0.4s;">Inquire via Email</a>
+        </div>
+      </div>
+    </div>
+  `;
+  document.body.style.overflow = 'hidden';
+}
 
 // Maintenance mode flag — set window.AJV_MAINTENANCE = true in any page to force show
-if (window.AJV_MAINTENANCE === true) showErrorBoundary();
+// window.AJV_MAINTENANCE check removed to keep pages visible
 
-/* === OFFLINE DETECTION === */
-window.addEventListener('offline', () => {
-  if (document.getElementById('offline-banner')) return;
-  const b = document.createElement('div');
-  b.id = 'offline-banner';
-  b.textContent = 'YOU ARE OFFLINE — Check your connection';
-  document.body.prepend(b);
-});
-window.addEventListener('online', () => document.getElementById('offline-banner')?.remove());
+/* === OFFLINE DETECTION REMOVED BY USER REQUEST === */
 
 /* === DIRECT TRANSMISSION / ENQUIRY === */
 async function submitEnquiry() {
@@ -1143,71 +1128,38 @@ async function submitEnquiry() {
 
 /* === WELCOME POPUP === */
 function injectWelcomePopup() {
-  if (sessionStorage.getItem('aj_welcomed_session') === '1') return;
+  // Show only if not seen this session
+  if (sessionStorage.getItem('aj_welcomed') === '1') return;
+  sessionStorage.setItem('aj_welcomed', '1');
 
-  const pathname = window.location.pathname;
-  const isIndex = pathname === '/' || pathname.endsWith('index.html') || pathname.endsWith('/PROJECT_ECOM/') || pathname === '';
-  const delay = isIndex ? 3000 : 0; // Reduced to 3s for better UX
+  if (document.getElementById('ajvPopup')) return;
 
-  setTimeout(() => {
-    if (sessionStorage.getItem('aj_welcomed_session') === '1') return;
-    sessionStorage.setItem('aj_welcomed_session', '1');
-
-    if (document.getElementById('ajvPopup')) return;
-
-    const popup = document.createElement('div');
-    popup.id = 'ajvPopup';
-    popup.style.cssText = 'position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.75);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);opacity:0;transition:opacity .4s ease;';
-
-    popup.innerHTML = `
-      <div id="ajvPopupPanel" style="max-width:420px;width:90%;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:2.5rem;text-align:center;transform:scale(.92);opacity:0;transition:transform .45s ease,opacity .45s ease;position:relative;">
-        <button onclick="closeWelcomePopup()" style="position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:var(--surface-dim);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-muted);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-        </button>
-        <div style="width:48px;height:48px;border-radius:12px;background:var(--primary);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 00-8 0v2"/></svg>
-        </div>
-        <div style="font-size:1.1rem;font-weight:800;letter-spacing:-.5px;margin-bottom:8px;color:var(--primary);">AJ VANTAGE</div>
-        <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:8px;letter-spacing:-.5px;color:var(--text);">Welcome to AJ VANTAGE</h2>
-        <p style="font-size:.84rem;color:var(--text-muted);line-height:1.7;margin-bottom:1.5rem;">Sri Lanka's curated marketplace for premium pre-owned and new products.</p>
-        <div id="popupAuthContent"></div>
+  const popup = document.createElement('div');
+  popup.id = 'ajvPopup';
+  popup.style.cssText = 'position:fixed;inset:0;z-index:8000;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,.65);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);opacity:0;transition:opacity .4s ease;';
+  popup.innerHTML = `
+    <div id="ajvPopupPanel" style="max-width:420px;width:90%;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:2.5rem;text-align:center;transform:scale(.92);opacity:0;transition:transform .45s ease,opacity .45s ease;position:relative;">
+      <button onclick="closeWelcomePopup()" style="position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:var(--surface-dim,#f5f5f5);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-muted);">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div style="width:48px;height:48px;border-radius:12px;background:var(--primary);display:flex;align-items:center;justify-content:center;margin:0 auto 12px;">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 00-8 0v2"/></svg>
       </div>
-    `;
-    document.body.appendChild(popup);
-
+      <div style="font-size:11px;font-weight:800;letter-spacing:3px;color:var(--primary);margin-bottom:6px;text-transform:uppercase;">AJ VANTAGE</div>
+      <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:8px;letter-spacing:-.5px;color:var(--text);">Welcome to AJ VANTAGE</h2>
+      <p style="font-size:.84rem;color:var(--text-muted);line-height:1.7;margin-bottom:1.5rem;">Sri Lanka's curated marketplace for premium pre-owned and brand new goods.</p>
+      <a href="signup.html" style="display:block;width:100%;padding:14px;background:var(--primary);color:#fff;font-weight:700;font-size:14px;border-radius:99px;text-align:center;margin-bottom:10px;text-decoration:none;">Create Account</a>
+      <a href="login.html" style="display:block;width:100%;padding:14px;border-radius:99px;border:1.5px solid var(--border);font-size:14px;font-weight:700;text-align:center;color:var(--text);text-decoration:none;margin-bottom:16px;">Log In</a>
+      <p style="font-size:.75rem;color:var(--text-light);">Just browsing? <a href="#" onclick="closeWelcomePopup();return false" style="color:var(--primary);font-weight:700;text-decoration:none;">Continue as guest →</a></p>
+    </div>
+  `;
+  document.body.appendChild(popup);
+  popup.addEventListener('click', e => { if (e.target.id === 'ajvPopup') closeWelcomePopup(); });
+  requestAnimationFrame(() => {
+    popup.style.opacity = '1';
     const panel = document.getElementById('ajvPopupPanel');
-    const content = document.getElementById('popupAuthContent');
-    const user = (typeof firebase !== 'undefined' && firebase.auth && firebase.auth().currentUser) ? firebase.auth().currentUser : null;
-
-    if (user) {
-      const firstName = (user.displayName || 'Member').split(' ')[0];
-      content.innerHTML = `
-        <p style="font-size:.9rem;color:var(--text-muted);margin-bottom:1.2rem;">Welcome back, <strong>${firstName}</strong>! Ready to shop?</p>
-        <a href="profile.html" style="display:block;width:100%;padding:14px;background:var(--primary);color:#fff;font-weight:700;font-size:14px;border-radius:var(--radius-full);text-align:center;margin-bottom:10px;text-decoration:none;transition:transform .2s;">Go to Dashboard →</a>
-        <button onclick="closeWelcomePopup()" style="width:100%;padding:14px;border-radius:var(--radius-full);border:1.5px solid var(--border);font-size:14px;font-weight:700;cursor:pointer;background:none;font-family:var(--font);color:var(--text);">Continue Shopping →</button>`;
-    } else {
-      content.innerHTML = `
-        <p style="font-size:.84rem;color:var(--text-muted);margin-bottom:1.2rem;line-height:1.7;">Create a free account to place orders and save your wishlist.</p>
-        <a href="login.html" style="display:block;width:100%;padding:14px;background:var(--primary);color:#fff;font-weight:700;font-size:14px;border-radius:var(--radius-full);text-align:center;margin-bottom:10px;text-decoration:none;">Create Account</a>
-        <a href="login.html" style="display:block;width:100%;padding:14px;border-radius:var(--radius-full);border:1.5px solid var(--border);font-size:14px;font-weight:700;text-align:center;color:var(--text);text-decoration:none;margin-bottom:16px;">Log In</a>
-        <p style="font-size:.75rem;color:var(--text-light);">Just browsing? <a href="#" onclick="closeWelcomePopup();return false" style="color:var(--primary);font-weight:700;text-decoration:none;">Continue as guest →</a></p>`;
-    }
-
-    requestAnimationFrame(() => {
-      popup.style.opacity = '1';
-      panel.style.transform = 'scale(1)';
-      panel.style.opacity = '1';
-    });
-
-    const dismissHandler = (e) => {
-      if (e.target.id === 'ajvPopup') closeWelcomePopup();
-    };
-    popup.addEventListener('click', dismissHandler);
-
-    // Removed scroll listener that closed popup immediately
-    // window.addEventListener('scroll', closeWelcomePopup, { once: true, passive: true });
-
-  }, delay);
+    if (panel) { panel.style.transform = 'scale(1)'; panel.style.opacity = '1'; }
+  });
 }
 
 window.closeWelcomePopup = function () {
@@ -1220,33 +1172,21 @@ window.closeWelcomePopup = function () {
   setTimeout(() => popup.remove(), 400);
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-  if (typeof firebase !== 'undefined' && firebase.auth) {
-    firebase.auth().onAuthStateChanged(async (user) => {
-      if (user) {
-        // Logged in — skip popup entirely
-        try {
-          const doc = await firebase.firestore().collection('customers').doc(user.uid).get();
-          if (doc.exists) {
-            const data = doc.data();
-            localStorage.setItem('aj_user_phone', data.phone);
-            if (data.profileComplete === false && !window.location.href.includes('profile.html')) {
-              window.location.href = 'profile.html';
-              return;
-            }
-          }
-        } catch (e) { console.error("Profile Check Failed", e); }
-        // Do NOT call injectWelcomePopup for logged-in users
-      } else {
-        // Not logged in — show welcome popup
-        injectWelcomePopup();
-      }
-    });
-  } else {
-    // Firebase not available — show popup (guest mode)
-    injectWelcomePopup();
+// Global Auth Initializer removed as it is now merged into the main DOMContentLoaded listener at the top of the file.
+
+// === DATABASE INTEGRITY MONITOR (Offline Alerts Removed) ===
+(function () {
+  if (typeof firebase !== 'undefined' && firebase.firestore) {
+    firebase.firestore().enableNetwork().catch(() => { });
+
+    // Periodically ping Firestore for integrity without showing UI alerts
+    setInterval(async () => {
+      try {
+        await firebase.firestore().collection('_integrity').doc('ping').set({ t: Date.now() }, { merge: true });
+      } catch (e) { }
+    }, 60000); // Every 60s
   }
-});
+})();
 
 // ═══ SMART AUTH CORE ═══
 window.checkUserStatus = async function (email) {
@@ -1261,43 +1201,45 @@ window.checkUserStatus = async function (email) {
 };
 
 window.handleSmartAuth = async function () {
-  const email = document.getElementById('loginEmail').value;
+  const email = document.getElementById('loginEmail').value.trim();
   const pass = document.getElementById('loginPass').value;
   const btn = document.querySelector('.auth-btn');
 
-  if (!email.includes('@')) { toast('Enter a Valid Email Address'); return; }
+  if (!email || !email.includes('@')) { toast('Enter a Valid Email Address'); return; }
   if (pass.length < 6) { toast('Password must be 6+ Characters'); return; }
 
   const originalBtnText = btn.innerText;
-  btn.innerText = "Processing...";
+  btn.innerText = "Verifying Account...";
   btn.disabled = true;
 
   try {
-    const exists = await window.checkUserStatus(email);
-
-    if (exists === true) {
-      // LOGIN
+    // Attempt direct login first
+    try {
       const cred = await firebase.auth().signInWithEmailAndPassword(email, pass);
       await syncUserToFirestore(cred.user, false);
       toast('Welcome Back!');
-    } else {
-      // SIGNUP (REDIRECT TO SIGNUP PAGE FOR COMPLETE DATA)
-      toast('Redirecting to Signup');
-      setTimeout(() => location.href = 'signup.html', 1000);
+
+      // Redirect based on current page
+      setTimeout(() => {
+        if (window.location.href.includes('login.html')) {
+          location.href = 'index.html';
+        }
+      }, 1000);
       return;
-    }
-
-    // Check profile completion status
-    const doc = await firebase.firestore().collection('customers').doc(firebase.auth().currentUser.uid).get();
-
-    setTimeout(() => {
-      if (doc.exists && doc.data().profileComplete === true) {
-        location.href = 'index.html';
+    } catch (loginErr) {
+      if (loginErr.code === 'auth/user-not-found') {
+        toast('Account Not Found. Redirecting to Signup...');
+        setTimeout(() => location.href = 'signup.html', 1500);
+        return;
+      } else if (loginErr.code === 'auth/wrong-password') {
+        toast('Incorrect Password. Please try again.');
+        btn.innerText = originalBtnText;
+        btn.disabled = false;
+        return;
       } else {
-        location.href = 'profile.html';
+        throw loginErr; // Throw other errors to the main catch block
       }
-    }, 1500);
-
+    }
   } catch (error) {
     console.error("SmartAuth Error:", error);
     toast(error.message);
@@ -1349,3 +1291,147 @@ window.handleForgotPassword = async function (email) {
     toast('Error sending reset link. Please Try Again.');
   }
 };
+
+/* ============================================================
+   === PREMIUM CHATBOT LOGIC ===
+   ============================================================ */
+let chatState = { step: 'init', lastQuery: '' };
+
+window.toggleChat = function () {
+  const w = document.getElementById('chatWrapper');
+  if (w) w.classList.toggle('active');
+};
+
+window.sendChatMessage = async function () {
+  const input = document.getElementById('chatInput');
+  const body = document.getElementById('chatMessages');
+  const text = input.value.trim();
+  if (!text || !body) return;
+
+  // Add User Message
+  const uMsg = document.createElement('div');
+  uMsg.className = 'chat-bubble user';
+  uMsg.textContent = text;
+  body.appendChild(uMsg);
+  input.value = '';
+  body.scrollTop = body.scrollHeight;
+
+  // Bot response delay
+  setTimeout(async () => {
+    const bMsg = document.createElement('div');
+    bMsg.className = 'chat-bubble bot';
+    let reply = "";
+    const t = text.toLowerCase();
+
+    if (chatState.step === 'await_order') {
+      reply = `Order ${text.toUpperCase()} is currently being processed and will be dispatched via DHL Express shortly.`;
+      chatState.step = 'await_feedback';
+    } else if (chatState.step === 'await_feedback') {
+      if (t.includes('yes') || t.includes('y')) {
+        reply = "Excellent. AJ VANTAGE is at your service. Anything else?";
+      } else {
+        reply = "I apologize for the inconvenience. Our executive support team has been notified.";
+      }
+      chatState.step = 'init';
+    } else {
+      if (t.includes('hi') || t.includes('hello')) {
+        reply = "Welcome to the AJ VANTAGE Private Suite. How can I assist you today?";
+      } else if (t.includes('order')) {
+        reply = "Please provide your Order ID for real-time tracking.";
+        chatState.step = 'await_order';
+      } else if (t.includes('shipping') || t.includes('track')) {
+        reply = "We offer global insured shipping via DHL Express. Deliveries typically arrive within 7-14 business days.";
+        chatState.step = 'await_feedback';
+      } else if (t.includes('return') || t.includes('refund')) {
+        reply = "Our policy allows for returns within 30 days of delivery for a full refund or exchange.";
+        chatState.step = 'await_feedback';
+      } else if (t.includes('material') || t.includes('leather')) {
+        reply = "AJ VANTAGE exclusively uses premium full-grain leather, hand-finished for an elite patina over time.";
+        chatState.step = 'await_feedback';
+      } else if (t.includes('price') || t.includes('cost')) {
+        reply = "All prices are listed in LKR. We accept all major cards and local bank transfers.";
+        chatState.step = 'await_feedback';
+      } else {
+        reply = "I've logged your request. Our assistant will provide a more detailed response shortly.";
+        // Log to Firebase
+        if (typeof db !== 'undefined') {
+          try {
+            await db.collection('chatbot_queries').add({
+              query: text,
+              timestamp: firebase.firestore.FieldValue.serverTimestamp()
+            });
+          } catch (e) { console.error("Chat Log Error:", e); }
+        }
+      }
+    }
+
+    bMsg.textContent = reply;
+    body.appendChild(bMsg);
+
+    if (chatState.step === 'await_feedback') {
+      setTimeout(() => {
+        const fMsg = document.createElement('div');
+        fMsg.className = 'chat-bubble bot';
+        fMsg.textContent = "Did this assist you adequately? (Yes / No)";
+        body.appendChild(fMsg);
+        body.scrollTop = body.scrollHeight;
+      }, 800);
+    }
+    body.scrollTop = body.scrollHeight;
+  }, 800);
+};
+
+/* ============================================================
+   === GLOBAL HEADER AUTH STATE + WHATSAPP FLOAT BUTTON ===
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof firebase !== 'undefined' && firebase.auth) {
+    firebase.auth().onAuthStateChanged(user => {
+      const avatar = document.querySelector('a.avatar');
+      if (!avatar) return;
+
+      if (user) {
+        avatar.style.display = 'flex';
+        firebase.firestore().collection('customers').doc(user.uid).get().then(doc => {
+          const initial = (doc.exists && doc.data().name)
+            ? doc.data().name.charAt(0).toUpperCase()
+            : user.email.charAt(0).toUpperCase();
+          avatar.textContent = initial;
+        }).catch(() => {
+          avatar.textContent = user.email.charAt(0).toUpperCase();
+        });
+      } else {
+        avatar.style.display = 'none';
+      }
+    });
+  }
+
+  if (!document.getElementById('wa-float-btn')) {
+    const waBtn = document.createElement('a');
+    waBtn.id = 'wa-float-btn';
+    waBtn.href = 'https://wa.me/94721226766?text=Hi%20AJ%20VANTAGE!%20I%20have%20a%20question%20about%20your%20products.';
+    waBtn.target = '_blank';
+    waBtn.rel = 'noopener noreferrer';
+    waBtn.setAttribute('aria-label', 'Chat on WhatsApp');
+    waBtn.style.cssText = 'position:fixed;bottom:28px;right:28px;width:60px;height:60px;border-radius:50%;background:#25D366;color:white;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 30px rgba(37,211,102,0.4);z-index:9999;transition:transform .3s cubic-bezier(0.16,1,0.3,1),box-shadow .3s;text-decoration:none;';
+    waBtn.innerHTML = `<svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.029c0 2.119.549 4.187 1.59 6.037L0 24l6.105-1.602a11.834 11.834 0 005.937 1.587h.005c6.637 0 12.032-5.391 12.036-12.028.003-3.218-1.252-6.242-3.541-8.53z"/></svg>`;
+    waBtn.onmouseenter = () => { waBtn.style.transform = 'scale(1.12)'; waBtn.style.boxShadow = '0 12px 40px rgba(37,211,102,0.55)'; };
+    waBtn.onmouseleave = () => { waBtn.style.transform = 'scale(1)'; waBtn.style.boxShadow = '0 8px 30px rgba(37,211,102,0.4)'; };
+    document.body.appendChild(waBtn);
+  }
+
+  observeReveals();
+});
+
+function observeReveals() {
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        e.target.classList.add('active');
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.01, rootMargin: '0px 0px -50px 0px' });
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el => obs.observe(el));
+}

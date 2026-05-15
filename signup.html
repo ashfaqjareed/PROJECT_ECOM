@@ -273,8 +273,7 @@
       if (/[0-9]/.test(pass)) cNum.classList.add('met'); else cNum.classList.remove('met');
       if (/[^A-Za-z0-9]/.test(pass)) cSym.classList.add('met'); else cSym.classList.remove('met');
     }
-
-    async function handleSignup() {
+    async function handleSignup() {
       const name = document.getElementById('signupName').value.trim();
       const email = document.getElementById('signupEmail').value.trim();
       const phone = document.getElementById('signupPhone').value.trim();
@@ -296,47 +295,56 @@
 
       const btn = document.querySelector('.auth-btn');
       const originalText = btn.innerText;
-      btn.innerText = "Creating Account...";
+      btn.innerText = "Synchronizing...";
       btn.disabled = true;
 
       try {
+        btn.innerText = "Creating Secure Account...";
+
         const userCredential = await auth.createUserWithEmailAndPassword(email, pass);
         const user = userCredential.user;
         
         const today = new Date().toISOString().split('T')[0];
 
-        // Create document in 'customers' collection with UID as ID (Most stable)
+        // Create document in 'customers' collection
         await db.collection('customers').doc(user.uid).set({
           uid: user.uid,
           email: email,
           homeBranch: "katugastota",
           memberSince: today,
           name: name,
-          password: pass, // SECURITY NOTE: Storing plaintext passwords is NOT recommended.
+          password: pass, 
           phone: phone,
-          pin: pass.slice(0, 6), // Using first 6 of pass as pin for demo
+          pin: pass.slice(0, 6),
           points: 0,
           tier: "Bronze",
           totalSpent: 0,
           transactions: [],
           profileComplete: false,
+          address: "",
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
 
         localStorage.setItem('aj_has_account', 'true');
-        localStorage.setItem('aj_user_phone', phone); // Store phone for lookups
+        localStorage.setItem('aj_logged_in', 'true');
+        localStorage.setItem('aj_user_phone', phone);
         
         toast('Account Created! Welcome to AJ VANTAGE.');
         setTimeout(() => location.href = 'profile.html', 1500);
       } catch (error) {
         console.error("Signup Error:", error);
-        toast(error.message);
-        btn.innerText = originalText;
-        btn.disabled = false;
+        if (error.code === 'auth/email-already-in-use') {
+          toast('Email already in use. Try Logging in.');
+          setTimeout(() => location.href = 'login.html', 1500);
+        } else {
+          toast(error.message);
+          btn.innerText = originalText;
+          btn.disabled = false;
+        }
       }
     }
     document.addEventListener('DOMContentLoaded', observeReveals);
   </script>
 </body>
-
 </html>
+>

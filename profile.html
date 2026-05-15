@@ -1,769 +1,266 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
-
 <head>
   <link rel="icon" type="image/png" href="assets/brand/AJ.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>AJ VANTAGE | Profile Page</title>
+  <title>Elite Dashboard — AJ VANTAGE</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    .profile-wrap {
+    :root {
+      --accent: #ff6d2e;
+      --accent-dim: rgba(255, 109, 46, 0.05);
+      --glass: rgba(255, 255, 255, 0.7);
+      --glass-border: rgba(24, 24, 27, 0.06);
+      --stitch: 1.5px dashed rgba(255, 109, 46, 0.3);
+    }
+
+    body { 
+      background: var(--bg); 
+      font-family: var(--font); 
+      margin: 0; 
+      color: var(--text); 
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    .profile-container {
+      max-width: 1300px;
+      margin: 140px auto 80px;
+      padding: 0 40px;
       display: grid;
-      grid-template-columns: 280px 1fr;
-      gap: 32px;
-      padding: 40px 0 100px;
-      align-items: start
+      grid-template-columns: 320px 1fr;
+      gap: 40px;
+      align-items: start;
     }
 
-    .p-sidebar {
+    /* SIDEBAR */
+    .profile-sidebar {
       background: var(--surface);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      overflow: hidden;
+      border-radius: 32px;
+      padding: 40px;
       position: sticky;
-      top: 100px
-    }
-
-    .p-avatar-zone {
-      padding: 40px 24px 32px;
+      top: 140px;
       text-align: center;
-      background: var(--surface-dim);
-      border-bottom: 1px solid var(--border)
+      box-shadow: var(--shadow-lg);
     }
 
-    .p-avatar-ring {
-      width: 88px;
-      height: 88px;
+    .avatar-wrap {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 24px;
+      border-radius: 50%;
+      border: var(--stitch);
+      padding: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
       border-radius: 50%;
       background: var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      font-weight: 900;
       color: #fff;
-      font-size: 30px;
-      font-weight: 800;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      box-shadow: 0 0 0 4px rgba(255, 149, 0, 0.2)
+      box-shadow: 0 10px 30px rgba(255, 109, 46, 0.3);
     }
 
-    .p-name {
-      font-size: 18px;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 4px
-    }
+    .user-name { font-size: 22px; font-weight: 800; margin-bottom: 6px; color: var(--text); }
+    .user-email { font-size: 13px; color: var(--text-muted); margin-bottom: 32px; }
 
-    .p-email {
-      font-size: 13px;
-      color: var(--text-muted)
+    .sidebar-nav { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
+    .nav-link {
+      padding: 12px 20px; border-radius: 12px; font-size: 13px; font-weight: 700; color: var(--text-muted);
+      text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 12px;
     }
+    .nav-link:hover { background: var(--surface-dim); color: var(--text); }
+    .nav-link.active { background: var(--primary-glow); color: var(--primary); }
 
-    .p-badge {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 5px 14px;
-      background: rgba(255, 149, 0, 0.1);
-      color: var(--primary);
-      border-radius: var(--radius-full);
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px
+    .sidebar-actions { display: flex; flex-direction: column; gap: 12px; }
+
+    .btn-side {
+      width: 100%; padding: 14px; border-radius: 16px; font-size: 12px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; transition: all 0.3s;
+      border: 1.5px solid var(--border); background: var(--surface-dim); color: var(--text);
+      display: flex; align-items: center; justify-content: center; gap: 10px;
     }
+    .btn-side:hover { background: var(--surface-high); transform: translateY(-2px); }
+    .btn-side.danger { color: #ef4444; border-color: rgba(239, 68, 68, 0.1); }
+    .btn-side.danger:hover { background: #fee2e2; border-color: #ef4444; }
 
-    .p-nav {
-      padding: 12px 0
-    }
-
-    .p-nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 24px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all .3s var(--ease);
-      border-left: 3px solid transparent
-    }
-
-    .p-nav-item:hover {
-      background: var(--surface-dim);
-      color: var(--text);
-      border-left-color: var(--border)
-    }
-
-    .p-nav-item.active {
-      background: rgba(255, 149, 0, 0.06);
-      color: var(--primary);
-      border-left-color: var(--primary)
-    }
-
-    .p-nav-item svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0
-    }
-
-    .p-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 8px 16px
-    }
-
-    .p-nav-item.danger {
-      color: #ef4444
-    }
-
-    .p-nav-item.danger:hover {
-      background: rgba(239, 68, 68, 0.06);
-      border-left-color: #ef4444;
-      color: #ef4444
-    }
-
-    .p-main {
-      display: flex;
-      flex-direction: column;
-      gap: 28px
-    }
-
-    .p-card {
+    /* MAIN CONTENT */
+    .profile-main {
       background: var(--surface);
+      backdrop-filter: blur(20px);
       border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 36px;
-      transition: border-color .3s var(--ease)
+      border-radius: 32px;
+      padding: 48px;
+      min-height: 600px;
+      box-shadow: var(--shadow-lg);
     }
 
-    .p-card:hover {
-      border-color: rgba(255, 149, 0, 0.25)
+    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .form-group { display: flex; flex-direction: column; gap: 8px; }
+    .form-label { font-size: 11px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
+    .form-input {
+      padding: 16px 20px; background: var(--surface-dim); border: 1.5px solid var(--border);
+      border-radius: 16px; color: var(--text); font-size: 14px; font-weight: 600; transition: 0.3s;
     }
+    .form-input:focus { outline: none; border-color: var(--primary); background: #fff; }
 
-    .p-card-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px
+    .btn-action {
+      padding: 16px 32px; background: var(--primary); color: #fff; border: none; border-radius: 16px;
+      font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer;
+      box-shadow: 0 8px 24px rgba(255, 109, 46, 0.25); transition: 0.3s;
     }
+    .btn-action:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255, 109, 46, 0.4); }
 
-    .p-card-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text)
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px
-    }
-
-    .info-box {
-      background: var(--surface-dim);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 22px 24px;
-      transition: border-color .3s var(--ease)
-    }
-
-    .info-box:hover {
-      border-color: var(--primary)
-    }
-
-    .info-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--text-muted);
-      margin-bottom: 8px
-    }
-
-    .info-value {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text);
-      width: 100%;
-      background: none;
-      border: none;
-      outline: none;
-      font-family: inherit
-    }
-
-    .pay-method {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 24px;
-      background: var(--surface-dim);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      transition: all .3s var(--ease);
-      margin-bottom: 16px
-    }
-
-    .pay-method:last-child {
-      margin-bottom: 0
-    }
-
-    .pay-method:hover {
-      border-color: var(--primary);
-      transform: translateX(4px)
-    }
-
-    .pay-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: var(--radius-lg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0
-    }
-
-    .pay-icon svg {
-      width: 26px;
-      height: 26px
-    }
-
-    .pay-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 4px
-    }
-
-    .pay-sub {
-      font-size: 13px;
-      color: var(--text-muted)
-    }
-
-    .coming-pill {
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      background: rgba(255, 149, 0, 0.1);
-      color: var(--primary);
-      font-size: 11px;
-      font-weight: 800;
-    }
-
-    .p-email {
-      font-size: 13px;
-      color: var(--text-muted)
-    }
-
-    .p-badge {
-      display: inline-block;
-      margin-top: 12px;
-      padding: 5px 14px;
-      background: rgba(255, 149, 0, 0.1);
-      color: var(--primary);
-      border-radius: var(--radius-full);
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px
-    }
-
-    .p-nav {
-      padding: 12px 0
-    }
-
-    .p-nav-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 24px;
-      font-size: 14px;
-      font-weight: 600;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: all .3s var(--ease);
-      border-left: 3px solid transparent
-    }
-
-    .p-nav-item:hover {
-      background: var(--surface-dim);
-      color: var(--text);
-      border-left-color: var(--border)
-    }
-
-    .p-nav-item.active {
-      background: rgba(255, 149, 0, 0.06);
-      color: var(--primary);
-      border-left-color: var(--primary)
-    }
-
-    .p-nav-item svg {
-      width: 18px;
-      height: 18px;
-      flex-shrink: 0
-    }
-
-    .p-divider {
-      height: 1px;
-      background: var(--border);
-      margin: 8px 16px
-    }
-
-    .p-nav-item.danger {
-      color: #ef4444
-    }
-
-    .p-nav-item.danger:hover {
-      background: rgba(239, 68, 68, 0.06);
-      border-left-color: #ef4444;
-      color: #ef4444
-    }
-
-    .p-main {
-      display: flex;
-      flex-direction: column;
-      gap: 28px
-    }
-
-    .p-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 36px;
-      transition: border-color .3s var(--ease)
-    }
-
-    .p-card:hover {
-      border-color: rgba(255, 149, 0, 0.25)
-    }
-
-    .p-card-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 28px
-    }
-
-    .p-card-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: var(--text)
-    }
-
-    .info-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px
-    }
-
-    .info-box {
-      background: var(--surface-dim);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 22px 24px;
-      transition: border-color .3s var(--ease)
-    }
-
-    .info-box:hover {
-      border-color: var(--primary)
-    }
-
-    .info-label {
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      color: var(--text-muted);
-      margin-bottom: 8px
-    }
-
-    .info-value {
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--text);
-      width: 100%;
-      background: none;
-      border: none;
-      outline: none;
-      font-family: inherit
-    }
-
-    .pay-method {
-      display: flex;
-      align-items: center;
-      gap: 20px;
-      padding: 24px;
-      background: var(--surface-dim);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      transition: all .3s var(--ease);
-      margin-bottom: 16px
-    }
-
-    .pay-method:last-child {
-      margin-bottom: 0
-    }
-
-    .pay-method:hover {
-      border-color: var(--primary);
-      transform: translateX(4px)
-    }
-
-    .pay-icon {
-      width: 52px;
-      height: 52px;
-      border-radius: var(--radius-lg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0
-    }
-
-    .pay-icon svg {
-      width: 26px;
-      height: 26px
-    }
-
-    .pay-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--text);
-      margin-bottom: 4px
-    }
-
-    .pay-sub {
-      font-size: 13px;
-      color: var(--text-muted)
-    }
-
-    .coming-pill {
-      padding: 6px 14px;
-      border-radius: var(--radius-full);
-      background: rgba(255, 149, 0, 0.1);
-      color: var(--primary);
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      border: 1px solid rgba(255, 149, 0, 0.2)
-    }
-
-    .order-card {
-      background: var(--surface-dim);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 20px;
-      margin-bottom: 16px;
-      transition: all 0.3s var(--ease);
-    }
-    .order-card:hover { border-color: var(--primary); transform: translateY(-2px); }
-    .order-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 12px;
-      padding-bottom: 12px;
-      border-bottom: 1px solid var(--border);
-    }
-    .order-id { font-weight: 800; color: var(--primary); font-size: 14px; }
-    .order-status {
-      font-size: 11px;
-      font-weight: 800;
-      text-transform: uppercase;
-      padding: 4px 10px;
-      border-radius: var(--radius-full);
-      background: rgba(255, 149, 0, 0.1);
-      color: var(--primary);
-    }
-    .order-item {
-      display: flex;
-      justify-content: space-between;
-      font-size: 13px;
-      margin-bottom: 6px;
-      color: var(--text-muted);
-    }
-    .order-total {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px dashed var(--border);
-      display: flex;
-      justify-content: space-between;
-      font-weight: 800;
-      color: var(--text);
-    }
-
-    @media(max-width:900px) {
-      .profile-wrap {
-        grid-template-columns: 1fr
-      }
-
-      .p-sidebar {
-        position: static
-      }
-
-      .info-grid {
-        grid-template-columns: 1fr
-      }
+    /* TOAST */
+    .toast {
+      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); padding: 14px 28px;
+      background: var(--text); color: #fff; border-radius: 99px; font-size: 13px; font-weight: 700;
+      z-index: 9999; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
     }
   </style>
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-  <script src="app.js"></script>
 </head>
-
 <body>
+  <div id="scrollProgress"></div>
+  
   <header class="header" id="header">
     <a href="index.html" class="logo"><img src="assets/brand/AJ3.png" alt="AJ Vantage Logo" class="site-logo"></a>
-                <nav class="desktop-nav">
-      <a href="index.html">Home</a>
+    <nav class="desktop-nav">
+      <a href="index.html" class="active">Home</a>
       <a href="shop.html">Shop</a>
       <a href="collections.html">Collections</a>
       <a href="support.html">Support</a>
     </nav>
     <div class="search-pill">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8" />
-        <path d="m21 21-4.3-4.3" />
-      </svg>
-      <input type="text" placeholder="Search...">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+      <input type="text" placeholder="Search products..." id="searchInput">
     </div>
     <div class="header-actions">
-      <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2">
-          <path
-            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-        </svg></a>
-      <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <path d="M16 10a4 4 0 0 1-8 0" />
-        </svg><span class="cart-badge" id="cartCount">0</span></a>
-      <a href="profile.html" class="avatar active">A</a>
+      <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg></a>
+      <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg><span class="cart-badge" id="cartCount">0</span></a>
       <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
       </button>
+      <a href="profile.html" class="avatar">A</a>
     </div>
   </header>
 
-  <div class="nav-overlay" id="navOverlay"></div>
-        <nav class="mobile-nav" id="mobileNav">
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="collections.html">Collections</a>
-    <a href="support.html">Support</a>
-  </nav>
-
-  <div class="app-container">
-    <div class="page-header reveal">
-      <h1 class="page-title">My Account</h1>
-      <p class="page-sub">Manage your profile, orders, and preferences.</p>
-    </div>
-
-    <div class="profile-wrap reveal">
-      <div class="p-sidebar">
-        <div class="p-avatar-zone">
-          <div class="p-avatar-ring">AJ</div>
-          <div class="p-name" id="userName">M.ASHFAQ JAREED</div>
-          <div class="p-email" id="userEmailDisplay">ashfaqjareed@gmail.com</div>
-          <span class="p-badge">âœ¦ Vantage Member</span>
-        </div>
-        <nav class="p-nav">
-          <div class="p-nav-item active" onclick="showTab('info',this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-              <circle cx="12" cy="7" r="4" />
-            </svg>Personal Info
-          </div>
-          <div class="p-nav-item" onclick="showTab('orders',this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-              <line x1="3" y1="6" x2="21" y2="6" />
-              <path d="M16 10a4 4 0 0 1-8 0" />
-            </svg>Order History
-          </div>
-          <div class="p-nav-item" onclick="showTab('payment',this)">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="1" y="4" width="22" height="16" rx="2" />
-              <line x1="1" y1="10" x2="23" y2="10" />
-            </svg>Payment Methods
-          </div>
-          <div class="p-nav-item" onclick="location.href='wishlist.html'">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path
-                d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-            </svg>Wishlist
-          </div>
-          <div class="p-divider"></div>
-          <div class="p-nav-item danger" onclick="handleSignOut()">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
-              <polyline points="16 17 21 12 16 7" />
-              <line x1="21" y1="12" x2="9" y2="12" />
-            </svg>Sign Out
-          </div>
-        </nav>
+  <div class="profile-container reveal">
+    <!-- SIDEBAR -->
+    <aside class="profile-sidebar">
+      <div class="avatar-wrap">
+        <div class="avatar-inner" id="userInitial">V</div>
       </div>
+      <h2 class="user-name" id="userNameDisplay">Elite Member</h2>
+      <p class="user-email" id="userEmailDisplay">member@ajvantage.lk</p>
+      
+      <nav class="sidebar-nav">
+        <a href="profile.html" class="nav-link active">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          Account Details
+        </a>
+        <a href="profile.html#orders" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 00-8 0v2"/></svg>
+          Heritage Orders
+        </a>
+        <a href="security.html" class="nav-link">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Security Suite
+        </a>
+      </nav>
 
-      <div class="p-main">
-        <div id="tab-info">
-          <div class="p-card">
-            <div class="p-card-head">
-              <div class="p-card-title">Personal Information</div>
-              <button class="btn-primary" id="editBtn" onclick="toggleEdit()"
-                style="padding:10px 24px;font-size:13px;">Edit Profile</button>
-            </div>
-            <div class="info-grid">
-              <div class="info-box">
-                <div class="info-label">Full Name</div><input type="text" id="editName" value="M.ASHFAQ JAREED" readonly
-                   class="info-value">
-              </div>
-              <div class="info-box">
-                <div class="info-label">Email Address</div><input type="email" id="editEmail"
-                  value="m.ashfaqjareed@gmail.com" readonly class="info-value">
-              </div>
-              <div class="info-box">
-                <div class="info-label">Phone Number</div><input type="text" id="editPhone" value="+94 072 122 6766"
-                  readonly class="info-value">
-              </div>
-              <div class="info-box" style="grid-column: 1 / -1;">
-                <div class="info-label">Shipping Address</div><input type="text" id="editAddress" value="No. 42, Luxury Lane, Colombo 07"
-                  readonly class="info-value">
-              </div>
-              <div class="info-box">
-                <div class="info-label">Country / Region</div><input type="text" id="editCountry"
-                  value="Sri Lanka ðŸ‡±ðŸ‡°" readonly class="info-value">
-              </div>
-              <div class="info-box">
-                <div class="info-label">Member Since</div>
-                <div class="info-value" id="dispMemberSince">January 2024</div>
-              </div>
-              <div class="info-box">
-                <div class="info-label">Points Balance</div>
-                <div class="info-value" id="dispPoints" style="color:#10b981;">0 PTS</div>
-              </div>
-              <div class="info-box">
-                <div class="info-label">Total Expenditure</div>
-                <div class="info-value" id="dispSpent">RS. 0</div>
-              </div>
-              <div class="info-box">
-                <div class="info-label">Account Tier</div>
-                <div class="info-value" id="dispTier" style="color:var(--primary);">Bronze</div>
-              </div>  </div>
-              <div class="info-box" style="cursor: pointer;" onclick="handleChangePassword()">
-                <div class="info-label">Account Security</div>
-                <div class="info-value" style="display:flex; align-items:center; gap:8px;">
-                  Change Password 
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
-                  </svg>
-                </div>
-              </div>
-            </div>
-            <div style="margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border);">
-              <h4 style="font-size: 15px; font-weight: 800; margin-bottom: 8px;">Danger Zone</h4>
-              <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 16px;">Once you delete your account,
-                there is no going back. Please be certain.</p>
-              <button class="btn-outline"
-                style="border-color: rgba(255,59,48,0.5); color: #ff3b30; padding: 12px 24px; font-size: 13px;"
-                onclick="deleteAccount()">Delete Account</button>
-            </div>
-          </div>
+      <div class="sidebar-actions">
+        <div style="display:flex; gap:12px; justify-content:center; margin-bottom:24px;">
+          <a href="https://wa.me/c/94704800058" target="_blank" style="width:36px;height:36px;border-radius:10px;background:var(--surface-dim);display:flex;align-items:center;justify-content:center;color:#25D366;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.029c0 2.119.549 4.187 1.59 6.037L0 24l6.105-1.602a11.834 11.834 0 005.937 1.587h.005c6.637 0 12.032-5.391 12.036-12.028.003-3.218-1.252-6.242-3.541-8.53z"/></svg></a>
+          <a href="https://www.facebook.com/marketplace/profile/61587322066412" target="_blank" style="width:36px;height:36px;border-radius:10px;background:var(--surface-dim);display:flex;align-items:center;justify-content:center;color:#1877F2;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
+          <a href="mailto:support@ajvantage.lk" style="width:36px;height:36px;border-radius:10px;background:var(--surface-dim);display:flex;align-items:center;justify-content:center;color:var(--text);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
         </div>
+        <button class="btn-side" onclick="handleSignOut()">Sign Out</button>
+      </div>
+    </aside>
 
-        <div id="tab-orders" style="display:none;">
-          <div class="p-card">
-            <div class="p-card-head">
-              <div class="p-card-title">Order History</div>
-            </div>
-            <div id="orderContainer">
-              <div style="background:var(--surface-dim);border:1px solid var(--border);border-radius:var(--radius-xl);padding:24px;text-align:center;">
-                <p style="color:var(--text-muted);font-weight:600;">Loading your order history...</p>
-              </div>
-            </div>
-          </div>
+    <!-- MAIN -->
+    <main class="profile-main">
+      <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 40px; letter-spacing: -1px;">Elite Registry Information</h1>
+      
+      <div class="info-grid">
+        <div class="form-group">
+          <label class="form-label">Artisan Name</label>
+          <input type="text" id="profName" class="form-input" placeholder="Your Full Name">
         </div>
+        <div class="form-group">
+          <label class="form-label">Contact Link</label>
+          <input type="text" id="profPhone" class="form-input" placeholder="+94 7X XXX XXXX">
+        </div>
+        <div class="form-group" style="grid-column: span 2;">
+          <label class="form-label">Primary Shipping Address</label>
+          <textarea id="profAddr" class="form-input" style="min-height:100px; resize:none;" placeholder="Enter your delivery location"></textarea>
+        </div>
+      </div>
+      
+      <div style="margin-top: 48px; padding: 32px; background: var(--surface-dim); border-radius: 24px; border: 1px solid var(--border);">
+        <h3 style="font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; color: var(--primary);">Payment Ecosystem Link</h3>
+        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 24px;">Your authorized billing methods for secure checkouts.</p>
+        
+        <div style="display:flex; flex-direction:column; gap:16px;">
+          <!-- Primary Active -->
+          <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: #fff; border-radius: 16px; border: 1.5px solid var(--primary);">
+            <div style="width: 40px; height: 40px; background: var(--primary-glow); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M11 10v11M15 10v11M20 10v11"/></svg>
+            </div>
+            <div style="flex: 1;">
+              <div style="font-size: 14px; font-weight: 800;">Bank Transfer & FriMi QR</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Verified Merchant Status — Active</div>
+            </div>
+            <span style="font-size: 10px; font-weight: 900; color: var(--primary); text-transform: uppercase;">Primary</span>
+          </div>
 
+          <!-- Coming Soon -->
+          <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: var(--surface); border-radius: 16px; border: 1px solid var(--border); opacity:0.7;">
+            <div style="width: 40px; height: 40px; background: var(--surface-dim); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17h4V5H2v12h3m5 0h4m5-3h3l1.1 2.2a2 2 0 0 1 .1.8V19a1 1 0 0 1-1 1h-1M14 17h5m-5 0V9h7v8M5 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0m14 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0"/></svg>
+            </div>
+            <div style="flex: 1;">
+              <div style="font-size: 14px; font-weight: 800;">Cash on Delivery</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Nationwide Doorstep Protocol</div>
+            </div>
+            <span style="font-size: 10px; font-weight: 900; background: #fef9c3; color: #854d0e; padding:4px 8px; border-radius:99px; text-transform: uppercase;">Aug 15</span>
+          </div>
 
-        <div id="tab-payment" style="display:none;">
-          <div class="p-card">
-            <div class="p-card-head">
-              <div class="p-card-title">Payment Gateways</div>
+          <!-- Coming Soon Cards -->
+          <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: var(--surface); border-radius: 16px; border: 1px solid var(--border); opacity:0.5;">
+            <div style="width: 40px; height: 40px; background: var(--surface-dim); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
             </div>
-            <div class="pay-method">
-              <div class="pay-icon" style="background:rgba(37,211,102,0.1);color:#25D366;"><svg viewBox="0 0 24 24"
-                  fill="currentColor">
-                  <path
-                    d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                  <path
-                    d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.533 5.862L.057 23.994l6.305-1.654A11.954 11.954 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 0 1-5.007-1.374l-.36-.214-3.724.976.997-3.633-.235-.374A9.818 9.818 0 1 1 12 21.818z" />
-                </svg></div>
-              <div>
-                <div class="pay-title">WhatsApp Business Catlog</div>
-                <div class="pay-sub">Direct Checkout via Whatsapp Buisness Marketplace</div>
-              </div>
-              <span class="coming-pill" style="margin-left:auto;">Active</span>
+            <div style="flex: 1;">
+              <div style="font-size: 14px; font-weight: 800;">Credit / Debit System</div>
+              <div style="font-size: 11px; color: var(--text-muted);">Secure Global Gateway</div>
             </div>
-            <div class="pay-method">
-              <div class="pay-icon" style="background:rgba(24,119,242,0.1);color:#1877F2;"><svg viewBox="0 0 24 24"
-                  fill="currentColor">
-                  <path
-                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
-                </svg></div>
-              <div>
-                <div class="pay-title">Facebook Marketplace</div>
-                <div class="pay-sub">Secure social e-commerce</div>
-              </div>
-              <span class="coming-pill" style="margin-left:auto;">Active</span>
-            </div>
-            <p style="margin-top:24px; font-size:13px; color:var(--text-muted);">Bank details are shown only during
-              <strong>Checkout</strong> for security.
-            </p>
+            <span style="font-size: 10px; font-weight: 900; background: #f1f5f9; color: #475569; padding:4px 8px; border-radius:99px; text-transform: uppercase;">Nov 2026</span>
           </div>
         </div>
       </div>
-    </div>
+
+      <button class="btn-action" style="margin-top:40px;" onclick="saveProfile()">Update My Registry</button>
+    </main>
   </div>
 
-  <div class="toast" id="toast"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="2">
-      <path d="M20 6L9 17l-5-5" />
-    </svg><span id="toastMsg">Done</span></div>
-        <footer>
-    <div class="f-grid">
-      <div class="f-about">
-        <div class="logo"><img src="assets/brand/AJ2.png" alt="AJ Vantage Logo" class="site-logo"></div>
-        <p>Premium leather goods crafted with passion since 2026. Our collection consists of 80% new and 20% selectively curated pre-owned pieces available across our Website, WhatsApp Catalog, and Facebook Marketplace.</p>
-      </div>
-      <div class="f-col">
-        <h4>Shopping</h4>
-        <a href="shop.html">Shop</a>
-        <a href="collections.html">Collections</a>
-        <a href="shop.html?new=true">New Collections</a>
-        <a href="shop.html">Products</a>
-      </div>
-      <div class="f-col">
-        <h4>Support</h4>
-        <a href="support.html">FAQ</a>
-        <a href="support.html">Help Center</a>
-        <a href="payment.html">Payment Methods</a>
-      </div>
-      <div class="f-col">
-        <h4>Legal</h4>
-        <a href="about.html">About Us</a>
-        <a href="legal.html#privacy">Privacy Policy</a>
-        <a href="legal.html#terms">Terms of Service</a>
-        <a href="legal.html#shipping">Shipping Policy</a>
-      </div>
-    </div>
-    <div class="f-bottom"><span>Â© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA ðŸ‡±ðŸ‡°</span></div>
-  </footer>
+  <div id="toast" class="toast"></div>
 
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBy44sne8A7Ynm5GEgA7DBrEmeuJkRc890",
@@ -771,107 +268,58 @@
       projectId: "aj-vantage-ecom",
       storageBucket: "aj-vantage-ecom.firebasestorage.app",
       messagingSenderId: "797206947976",
-      appId: "1:797206947976:web:ec58e49ce403741dd9d73d"
+      appId: "1:797206947976:web:ec58e49ce403741dd9d73d",
+      measurementId: "G-WJCRWVWB6H"
     };
-    if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
+    firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
+    const auth = firebase.auth();
 
-    let isEditing = false;
-
-    function listenToUserProfile(uid) {
-      return db.collection('customers').doc(uid).onSnapshot((doc) => {
-        if (!doc.exists) return;
-        const d = doc.data();
-        const name = d.name || 'Member';
-        if (document.getElementById('userName')) document.getElementById('userName').textContent = name;
-        const ring = document.querySelector('.p-avatar-ring');
-        if (ring) ring.textContent = name.charAt(0).toUpperCase();
-        if (document.getElementById('editName')) document.getElementById('editName').value = name;
-        if (document.getElementById('editPhone')) document.getElementById('editPhone').value = d.phone || '';
-        if (document.getElementById('editAddress')) document.getElementById('editAddress').value = d.address || '';
-        if (document.getElementById('editCountry')) document.getElementById('editCountry').value = d.country || 'Sri Lanka';
-        if (document.getElementById('dispMemberSince')) document.getElementById('dispMemberSince').textContent = d.memberSince || 'Recent';
-        if (document.getElementById('dispPoints')) document.getElementById('dispPoints').textContent = (d.points || 0) + ' PTS';
-        if (document.getElementById('dispSpent')) document.getElementById('dispSpent').textContent = 'RS. ' + (d.totalSpent || 0).toLocaleString();
-        if (document.getElementById('dispTier')) document.getElementById('dispTier').textContent = d.tier || 'Bronze';
-      });
+    function toast(m) {
+      const t = document.getElementById('toast');
+      t.textContent = m; t.style.display = 'block';
+      setTimeout(() => t.style.display = 'none', 3000);
     }
 
-    async function loadOrderHistory(uid) {
-      const container = document.getElementById('orderContainer');
-      if (!container) return;
-      try {
-        const snap = await db.collection('orders').where('userId','==',uid).orderBy('timestamp','desc').get();
-        if (snap.empty) {
-          container.innerHTML = '<div style="padding:40px;text-align:center;color:var(--text-muted);">No orders yet. <a href="shop.html" style="color:var(--primary);font-weight:700;">Start Shopping â†’</a></div>';
-          return;
-        }
-        container.innerHTML = snap.docs.map(doc => {
-          const o = doc.data();
-          const date = o.timestamp ? o.timestamp.toDate().toLocaleDateString() : 'Recent';
-          return `<div class="order-card"><div class="order-header"><span class="order-id">#${doc.id.slice(-8).toUpperCase()}</span><span class="order-status">${o.status||'Processing'}</span></div><div style="font-size:12px;color:var(--text-muted);margin-bottom:8px;">${date}</div>${(o.items||[]).map(it=>`<div class="order-item"><span>${it.name} x${it.qty}</span><span>RS. ${(it.price*it.qty).toLocaleString()}</span></div>`).join('')}<div class="order-total"><span>Total</span><span>${typeof o.total==='number'?'RS. '+o.total.toLocaleString():o.total||''}</span></div></div>`;
-        }).join('');
-      } catch(e) {
-        container.innerHTML = '<p style="text-align:center;color:var(--text-muted);padding:20px;">Could not load history.</p>';
+    auth.onAuthStateChanged(user => {
+      if (user) {
+        document.getElementById('userNameDisplay').textContent = user.displayName || 'Elite Member';
+        document.getElementById('userEmailDisplay').textContent = user.email;
+        document.getElementById('userInitial').textContent = (user.displayName || user.email)[0].toUpperCase();
+        document.getElementById('profName').value = user.displayName || '';
+        
+        db.collection('customers').doc(user.uid).get().then(doc => {
+          if (doc.exists) {
+            const data = doc.data();
+            document.getElementById('profPhone').value = data.phone || '';
+            document.getElementById('profAddr').value = data.address || '';
+          }
+        });
+      } else {
+        location.href = 'index.html';
       }
-    }
-
-    async function toggleEdit() {
-      const user = auth.currentUser;
-      if (!user) return;
-      isEditing = !isEditing;
-      const btn = document.getElementById('editBtn');
-      ['editName','editPhone','editCountry','editAddress'].forEach(id => {
-        const el = document.getElementById(id);
-        if (!el) return;
-        el.readOnly = !isEditing;
-        el.style.background = isEditing ? 'rgba(255,149,0,0.05)' : 'none';
-        el.style.borderBottom = isEditing ? '1px solid var(--primary)' : 'none';
-      });
-      if (btn) btn.textContent = isEditing ? 'Save Changes' : 'Edit Profile';
-      if (!isEditing) {
-        toast('Syncing...');
-        try {
-          await db.collection('customers').doc(user.uid).update({
-            name: document.getElementById('editName').value,
-            phone: document.getElementById('editPhone').value,
-            address: document.getElementById('editAddress').value,
-            country: document.getElementById('editCountry').value
-          });
-          toast('Profile Updated');
-        } catch(e) { toast('Update Failed: ' + e.message); }
-      }
-    }
-
-    async function handleChangePassword() {
-      const user = auth.currentUser;
-      if (!user) return;
-      const p = prompt('Enter new password (8-16 chars):');
-      if (!p || p.length < 8 || p.length > 16) { toast('Password must be 8-16 characters.'); return; }
-      try { await user.updatePassword(p); toast('Password Updated'); }
-      catch(e) { if (e.code==='auth/requires-recent-login') { toast('Re-login required'); setTimeout(()=>handleSignOut(),2000); } else toast('Failed: '+e.message); }
-    }
-
-    function showTab(id, el) {
-      ['info','orders','payment'].forEach(t => {
-        const tab = document.getElementById('tab-'+t);
-        if (tab) tab.style.display = t===id ? 'block' : 'none';
-      });
-      document.querySelectorAll('.p-nav-item').forEach(n => n.classList.remove('active'));
-      if (el) el.classList.add('active');
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      auth.onAuthStateChanged(user => {
-        if (!user) { location.href = 'login.html'; return; }
-        if (document.getElementById('userEmailDisplay')) document.getElementById('userEmailDisplay').textContent = user.email;
-        if (document.getElementById('editEmail')) document.getElementById('editEmail').value = user.email;
-        listenToUserProfile(user.uid);
-        loadOrderHistory(user.uid);
-      });
-      showTab('info', document.querySelector('.p-nav-item'));
     });
+
+    function saveProfile() {
+      const user = auth.currentUser;
+      const name = document.getElementById('profName').value;
+      const phone = document.getElementById('profPhone').value;
+      const address = document.getElementById('profAddr').value;
+
+      user.updateProfile({ displayName: name }).then(() => {
+        db.collection('customers').doc(user.uid).set({ name, phone, address }, { merge: true }).then(() => {
+          toast('Elite Registry Updated Successfully');
+          document.getElementById('userNameDisplay').textContent = name;
+        });
+      });
+    }
+
+    function handleSignOut() {
+      auth.signOut().then(() => {
+        location.href = 'index.html';
+      });
+    }
   </script>
+  <script src="app.js"></script>
 </body>
 </html>

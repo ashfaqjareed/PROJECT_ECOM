@@ -5,314 +5,216 @@
   <link rel="icon" type="image/png" href="assets/brand/AJ.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>AJ VANTAGE | About Us Page</title>
+  <title>Heritage & Vision — AJ VANTAGE</title>
   <link rel="stylesheet" href="styles.css">
+  <style>
+    .bg-blob {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: radial-gradient(circle, rgba(255, 109, 46, 0.05) 0%, transparent 70%);
+      filter: blur(80px);
+      z-index: -1;
+      pointer-events: none;
+    }
+
+    .about-hero {
+      padding: 120px 0 80px;
+      text-align: center;
+      position: relative;
+    }
+
+    /* NEW IMAGE LAYOUT */
+    .image-composition {
+      display: flex;
+      gap: 40px;
+      justify-content: center;
+      align-items: center;
+      margin: 80px 0;
+    }
+
+    .img-box {
+      width: 300px;
+      height: 400px;
+      border-radius: 40px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .img-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .img-left {
+      margin-top: 80px; /* Staggered effect */
+    }
+
+    .img-right {
+      position: relative;
+    }
+
+    .founder-pill {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      background: white;
+      padding: 20px 32px;
+      border-radius: 99px;
+      font-size: 16px;
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+
+    /* Keep timeline grid CSS */
+    .timeline-wrap {
+      margin: 100px 0;
+      padding: 100px 40px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 32px;
+      position: relative;
+      padding-top: 40px;
+    }
+
+    .timeline-item { text-align: center; position: relative; z-index: 2; }
+    .timeline-dot { width: 24px; height: 24px; border-radius: 50%; margin: 30px auto 24px; border: 6px solid var(--surface); position: relative; z-index: 2; }
+    .timeline-dot.active { background: var(--primary); box-shadow: 0 0 20px var(--primary-glow); }
+    .timeline-year { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
+    .timeline-text { font-size: 13px; color: var(--text-muted); font-weight: 600; line-height: 1.6; }
+  </style>
 </head>
 
 <body>
-
+  <div id="scrollProgress"></div>
+  
   <header class="header" id="header">
     <a href="index.html" class="logo"><img src="assets/brand/AJ3.png" alt="AJ Vantage Logo" class="site-logo"></a>
-                <nav class="desktop-nav">
-      <a href="index.html">Home</a>
+    <nav class="desktop-nav">
+      <a href="index.html" class="active">Home</a>
       <a href="shop.html">Shop</a>
       <a href="collections.html">Collections</a>
       <a href="support.html">Support</a>
     </nav>
-    <div class="search-pill"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-        stroke-width="2">
-        <circle cx="11" cy="11" r="8" />
-        <path d="m21 21-4.3-4.3" />
-      </svg><input type="text" placeholder="Search..."></div>
+    <div class="search-pill">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+      <input type="text" placeholder="Search products..." id="searchInput">
+    </div>
     <div class="header-actions">
-      <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2">
-          <path
-            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-        </svg></a>
-      <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <path d="M16 10a4 4 0 0 1-8 0" />
-        </svg><span class="cart-badge" id="cartCount">0</span></a>
-      <a href="profile.html" class="avatar">A</a>
+      <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg></a>
+      <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg><span class="cart-badge" id="cartCount">0</span></a>
       <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
       </button>
+      <a href="profile.html" class="avatar">A</a>
     </div>
   </header>
 
-  <div class="nav-overlay" id="navOverlay"></div>
-        <nav class="mobile-nav" id="mobileNav">
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="collections.html">Collections</a>
-    <a href="support.html">Support</a>
-  </nav>
-
   <div class="app-container">
-    <div class="page-header reveal">
-      <h1 class="page-title">Heritage & Vision</h1>
-      <p class="page-sub">The pursuit of excellence in every stitch, pixel, and interaction.</p>
-    </div>
+    <div class="bg-blob" style="top: 100px; left: -200px;"></div>
+    
+    <section class="about-hero reveal">
+      <h1 class="page-title">The AJ VANTAGE Story</h1>
+      <p class="page-sub">Generational mastery meets future innovation.</p>
+    </section>
 
-    <!-- AJ VANTAGE STORY (TOP) -->
-    <section class="reveal" style="margin-top: 60px; padding-bottom: 100px;">
-      <div
-        style="background: var(--surface-dim); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 80px; position: relative; overflow: hidden;">
-        <!-- Ambient glow -->
-        <div
-          style="position: absolute; top: -80px; right: -80px; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(255,149,0,0.08) 0%, transparent 70%); pointer-events: none;">
-        </div>
-        <div style="max-width: 760px; margin: 0 auto; text-align: center;">
-          <div
-            style="font-size: 12px; font-weight: 800; letter-spacing: 4px; text-transform: uppercase; color: var(--primary); margin-bottom: 20px;">
-            Our Origin</div>
-          <h2 class="section-title" style="margin-bottom: 32px;">The Story Behind AJ Vantage</h2>
-          <p style="font-size: 18px; color: var(--text-muted); line-height: 1.9; margin-bottom: 32px;">
-            AJ Vantage was born not out of a business plan, but out of a belief — that Sri Lanka deserved a luxury
-            leather brand that could stand with the world's finest. Founded in 2024 by M. Ashfaq Jareed, the brand began
-            as a personal obsession with quality: the texture of full-grain leather, the precision of a hand-cut edge,
-            the permanence of a well-made thing.
-          </p>
-          <p style="font-size: 18px; color: var(--text-muted); line-height: 1.9; margin-bottom: 48px;">
-            What started as a vision became a movement. Every product that leaves our studio carries with it the
-            fingerprints of our artisans, the discipline of our engineer, and the soul of a founder who refused to
-            compromise. AJ Vantage is not just a brand — it is a declaration that excellence can emerge from anywhere.
-          </p>
-          <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px;">
-            <div
-              style="background: var(--surface); border-radius: var(--radius-xl); padding: 28px 20px; border: 1px solid var(--border); text-align: center;">
-              <div style="font-size: 32px; font-weight: 800; color: var(--primary); margin-bottom: 6px;">2026</div>
-              <div
-                style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 700;">
-                Founded</div>
-            </div>
-            <div
-              style="background: var(--surface); border-radius: var(--radius-xl); padding: 28px 20px; border: 1px solid var(--border); text-align: center;">
-              <div style="font-size: 32px; font-weight: 800; color: var(--primary); margin-bottom: 6px;">12+</div>
-              <div
-                style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 700;">
-                Artisans</div>
-            </div>
-            <div
-              style="background: var(--surface); border-radius: var(--radius-xl); padding: 28px 20px; border: 1px solid var(--border); text-align: center;">
-              <div style="font-size: 32px; font-weight: 800; color: var(--primary); margin-bottom: 6px;">80+</div>
-              <div
-                style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 700;">
-                Products</div>
-            </div>
-            <div
-              style="background: var(--surface); border-radius: var(--radius-xl); padding: 28px 20px; border: 1px solid var(--border); text-align: center;">
-              <div style="font-size: 32px; font-weight: 800; color: var(--primary); margin-bottom: 6px;">ðŸ‡±ðŸ‡°</div>
-              <div
-                style="font-size: 12px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--text-muted); font-weight: 700;">
-                Made In</div>
-            </div>
-          </div>
-        </div>
+    <!-- STORY TEXT SECTION -->
+    <section class="reveal vector-bg" style="margin-bottom: 80px; padding: 100px 80px; background: var(--surface-dim); border-radius: 40px; border: 1px solid var(--border);">
+      <div style="max-width: 900px; margin: 0 auto; text-align: center;">
+        <h2 class="section-title" style="margin-bottom: 32px;">An Obsession with Quality</h2>
+        <p style="font-size: 18px; color: var(--text-muted); line-height: 1.9; margin-bottom: 24px;">
+          AJ VANTAGE was born from a family legacy in Sri Lanka, where the touch of leather and the precision of a stitch were more than just a trade—they were an obsession. Our story is one of evolution, taking the timeless soul of traditional craftsmanship and engineering it for a new era.
+        </p>
+        <p style="font-size: 18px; color: var(--text-muted); line-height: 1.9;">
+          Founded by the Jareed family, we bridge the gap between two worlds. 80% of our collection consists of precision-engineered brand new goods, while 20% is dedicated to curated pre-owned heritage pieces, ensuring every item we offer has a story to tell.
+        </p>
       </div>
     </section>
 
-    <!-- PROFILES CONTAINER -->
-    <div
-      style="background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 80px; box-shadow: var(--shadow-lg); margin-top: 40px; margin-bottom: 80px;">
+    <!-- NEW IMAGE COMPOSITION -->
+    <section class="image-composition reveal">
+      <div class="img-box img-left">
+        <img src="assets/products/Jareed.jpg" alt="M. Jareed Jiffrey">
+      </div>
+      <div class="img-box img-right">
+        <img src="assets/products/Ashfaq.png" alt="M. Ashfaq Jareed">
+        <div class="founder-pill">THE FOUNDER</div>
+      </div>
+    </section>
 
-      <!-- THE Founder (TOP) -->
-      <section class="reveal">
-        <div class="f-grid" style="grid-template-columns: 1fr 1.5fr; gap: 80px; align-items: center;">
-          <div class="about-box" style="text-align: right;">
-            <h2 class="section-title">The Founder</h2>
-            <p style="font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 24px;">M.JAREED JIFFREY —
-              Speech</p>
-            <p style="font-size: 17px; color: var(--text-muted); line-height: 1.8; margin-bottom: 32px;">
-              "Craftsmanship goes beyond leather. It extends to the digital realm. The AJ VANTAGE platform is engineered
-              to reflect our physical precision. Every interaction, every pixel, and every millisecond of performance on
-              this platform is architected to deliver an uncompromising, high-status luxury experience."
-            </p>
-            <div class="spec-grid" style="justify-content: flex-end;">
-              <div class="spec-item">
-                <div class="spec-label">Role</div>
-                <div class="spec-value">The Founder</div>
-              </div>
-              <div class="spec-item">
-                <div class="spec-label">Experience</div>
-                <div class="spec-value">20+ Years</div>
-              </div>
-              <div class="spec-item">
-                <div class="spec-label">Based In</div>
-                <div class="spec-value">Saudi Arabia ðŸ‡¸ðŸ‡¦</div>
-              </div>
-            </div>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; position: relative;">
-            <div
-              style="aspect-ratio: 3/4; border-radius: var(--radius-xl); overflow: hidden; transform: translateY(40px);">
-              <img src="assets/products/Jareed.jpg" style="width:100%; height:100%; object-fit:cover;"
-                alt="Founder Portrait">
-            </div>
-            <div style="aspect-ratio: 3/4; border-radius: var(--radius-xl); overflow: hidden;">
-              <img src="assets/products/Jareed2.png" style="width:100%; height:100%; object-fit:cover;"
-                alt="Founder Portrait 2">
-            </div>
-            <div
-              style="position: absolute; bottom: -20px; right: -20px; background: var(--surface); color: var(--text); padding: 20px; border-radius: var(--radius-lg); font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 2px; border: 1.5px solid var(--border);">
-              The Founder</div>
-          </div>
+    <!-- TIMELINE AT THE END -->
+    <section class="timeline-wrap reveal vector-bg">
+      <div style="text-align: center; margin-bottom: 60px;">
+        <h2 class="section-title">The AJ Live Timeline</h2>
+        <p class="section-tag">Relentless evolution of a luxury legacy.</p>
+      </div>
+      
+      <div class="timeline-grid">
+        <div class="timeline-strike"></div>
+        <div class="timeline-item">
+          <div class="timeline-year" style="color: #6366f1;">2026</div>
+          <div class="timeline-dot" style="background: #6366f1;"></div>
+          <div class="timeline-text">The Foundry: AJ VANTAGE officially registered.</div>
         </div>
-      </section>
-
-      <!-- THE Developer (BOTTOM) -->
-      <section class="reveal" style="margin-top:40px;">
-        <div class="f-grid" style="grid-template-columns: 1.5fr 1fr; gap: 80px; align-items: center;">
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; position: relative;">
-            <div
-              style="aspect-ratio: 3/4; border-radius: var(--radius-xl); overflow: hidden; transform: translateY(40px);">
-              <img src="assets/products/Ashfaq.png" style="width:100%; height:100%; object-fit:cover;"
-                alt="Developer Portrait">
-            </div>
-            <div style="aspect-ratio: 3/4; border-radius: var(--radius-xl); overflow: hidden;">
-              <img src="assets/products/Ashfaq2.png" style="width:100%; height:100%; object-fit:cover;"
-                alt="Developer Portrait 2">
-            </div>
-            <div
-              style="position: absolute; bottom: -20px; right: -20px; background: var(--primary); color: white; padding: 20px; border-radius: var(--radius-lg); font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 2px;">
-              The Developer</div>
-          </div>
-          <div class="about-box">
-            <h2 class="section-title">The Developer & Engineer</h2>
-            <p style="font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 24px;">M.ASHFAQ JAREED —
-              Speech</p>
-            <p style="font-size: 17px; color: var(--text-muted); line-height: 1.8; margin-bottom: 32px;">
-              "I didn't just want to create another leather brand. I wanted to build a legacy that honors the silent
-              mastery of our island's artisans. Every stitch at AJ Vantage is a bridge between heritage and the future
-              of
-              global fashion."
-            </p>
-            <div class="spec-grid">
-              <div class="spec-item">
-                <div class="spec-label">Role</div>
-                <div class="spec-value">Developer & Engineer</div>
-              </div>
-              <div class="spec-item">
-                <div class="spec-label">Experience</div>
-                <div class="spec-value">1+ Year</div>
-              </div>
-              <div class="spec-item">
-                <div class="spec-label">Based In</div>
-                <div class="spec-value">Sri Lanka ðŸ‡±ðŸ‡°</div>
-              </div>
-            </div>
-          </div>
+        <div class="timeline-item">
+          <div class="timeline-year" style="color: #ff6d2e;">JULY 1</div>
+          <div class="timeline-dot active"></div>
+          <div class="timeline-text">Grand Launch: Full digital platform live.</div>
         </div>
-      </section>
-
-    </div>
+        <div class="timeline-item">
+          <div class="timeline-year" style="color: #22c55e;">AUG 15</div>
+          <div class="timeline-dot" style="background: #22c55e;"></div>
+          <div class="timeline-text">Logistics: COD systems activated island-wide.</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-year" style="color: #a855f7;">NOV 26</div>
+          <div class="timeline-dot" style="background: #a855f7;"></div>
+          <div class="timeline-text">Global Horizon: Launch of international shipping.</div>
+        </div>
+      </div>
+    </section>
   </div>
 
-
-
-        <footer>
+  <footer>
     <div class="f-grid">
       <div class="f-about">
         <div class="logo"><img src="assets/brand/AJ2.png" alt="AJ Vantage Logo" class="site-logo"></div>
-        <p>Premium leather goods crafted with passion since 2026. Our collection consists of 80% new and 20% selectively curated pre-owned pieces available across our Website, WhatsApp Catalog, and Facebook Marketplace.</p>
+        <p>Premium goods crafted with passion. 80% new and 20% curated pre-owned.</p>
       </div>
       <div class="f-col">
-        <h4>Shopping</h4>
-        <a href="shop.html">Shop</a>
+        <h4>Explore</h4>
+        <a href="shop.html">Shop Catalog</a>
         <a href="collections.html">Collections</a>
-        <a href="shop.html?new=true">New Collections</a>
-        <a href="shop.html">Products</a>
+        <a href="pre-owned.html">Pre-Owned</a>
       </div>
       <div class="f-col">
-        <h4>Support</h4>
-        <a href="support.html">FAQ</a>
+        <h4>Artisan Support</h4>
         <a href="support.html">Help Center</a>
-        <a href="payment.html">Payment Methods</a>
+        <a href="payment.html">Payments</a>
+        <a href="about.html">About Heritage</a>
       </div>
       <div class="f-col">
-        <h4>Legal</h4>
-        <a href="about.html">About Us</a>
-        <a href="legal.html#privacy">Privacy Policy</a>
-        <a href="legal.html#terms">Terms of Service</a>
-        <a href="legal.html#shipping">Shipping Policy</a>
+        <h4>Official</h4>
+        <a href="legal.html#privacy">Privacy Registry</a>
+        <a href="legal.html#terms">Terms of Access</a>
       </div>
     </div>
-    <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA 🇱🇰</span></div>
+    <div class="f-bottom"><span>© 2026 AJ Vantage. Sri Lanka's Pride.</span><span class="sri-tag">🇱🇰</span></div>
   </footer>
 
-  <!-- CHATBOT WIDGET -->
-  <div id="chatWidget">
-    <div id="chatWindow">
-      <div class="chat-header">
-        <div style="display:flex;align-items:center;gap:10px;">
-          <div
-            style="width:32px;height:32px;border-radius:50%;background:var(--primary);display:flex;align-items:center;justify-content:center;">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-            </svg>
-          </div>
-          <div>
-            <div style="font-size:14px;font-weight:800;">AJ Assistant</div>
-            <div style="font-size:11px;color:var(--text-muted);">Online — Replies instantly</div>
-          </div>
-        </div>
-        <button onclick="toggleChat()"
-          style="width:28px;height:28px;border-radius:50%;background:var(--surface-dim);display:flex;align-items:center;justify-content:center;color:var(--text-muted);">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        </button>
-      </div>
-      <div class="chat-body" id="chatBody">
-        <div class="chat-msg bot">Welcome to <strong>AJ VANTAGE</strong>. I'm your dedicated assistant. How can I help
-          you today?</div>
-        <div class="chat-msg bot" style="background:rgba(255,149,0,0.1);color:var(--primary);">✦ Coming soon to AJ
-          VANTAGE: Live Order Tracking, Style Recommendations & more.</div>
-      </div>
-      <div class="chat-input-area">
-        <input type="text" id="chatInput" placeholder="Ask me anything..."
-          onkeydown="if(event.key==='Enter')sendChatMessage()">
-        <button onclick="sendChatMessage()">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="22" y1="2" x2="11" y2="13" />
-            <polygon points="22 2 15 22 11 13 2 9 22 2" />
-          </svg>
-        </button>
-      </div>
-    </div>
-    <button id="chatBtn" onclick="toggleChat()" title="Chat with AJ Assistant">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-      </svg>
-    </button>
-  </div>
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBy44sne8A7Ynm5GEgA7DBrEmeuJkRc890",
-      authDomain: "aj-vantage-ecom.firebaseapp.com",
-      projectId: "aj-vantage-ecom",
-      storageBucket: "aj-vantage-ecom.firebasestorage.app",
-      messagingSenderId: "797206947976",
-      appId: "1:797206947976:web:ec58e49ce403741dd9d73d",
-      measurementId: "G-WJCRWVWB6H"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-  </script>
   <script src="app.js"></script>
 </body>
-
 </html>

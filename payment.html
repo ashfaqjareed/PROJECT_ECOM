@@ -5,340 +5,236 @@
   <link rel="icon" type="image/png" href="assets/brand/AJ.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>AJ VANTAGE | Payment Page</title>
+  <title>Payment Ecosystem — AJ VANTAGE</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    .pay-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 30px;
-      margin-top: 40px;
-    }
-
-    .pay-card {
+    .ecosystem-section {
+      margin-top: 60px;
+      padding: 60px;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      padding: 40px;
-      text-align: center;
-      transition: transform 0.3s var(--ease), border-color 0.3s var(--ease);
+      border-radius: 40px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+    }
+
+    .ecosystem-title {
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 48px;
       display: flex;
-      flex-direction: column;
       align-items: center;
+      gap: 16px;
+      color: var(--text);
+    }
+
+    .ecosystem-title::after { content: ''; flex: 1; height: 1.5px; background: linear-gradient(90deg, var(--border), transparent); }
+
+    .pay-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 32px; }
+
+    .pay-card {
+      background: var(--surface-dim);
+      border: 1.5px solid var(--border);
+      border-radius: 32px;
+      padding: 40px;
+      transition: all 0.4s var(--ease);
+      position: relative;
+      cursor: pointer;
     }
 
     .pay-card:hover {
-      transform: translateY(-5px);
       border-color: var(--primary);
+      transform: translateY(-8px);
+      background: #fff;
     }
 
-    .pay-card svg {
-      color: var(--primary);
-      margin-bottom: 20px;
-    }
-
-    .pay-title {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
-    .pay-desc {
-      color: var(--text-muted);
-      font-size: 15px;
-      line-height: 1.6;
-      margin-bottom: 0;
-    }
-
-    .pay-details {
-      max-height: 0;
-      overflow: hidden;
-      opacity: 0;
-      transition: max-height 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease, margin-top 0.4s ease, padding-top 0.4s ease;
-      text-align: left;
-      width: 100%;
-    }
-
-    .pay-details.open {
-      max-height: 400px;
-      opacity: 1;
-      margin-top: 20px;
-      padding-top: 20px;
-      border-top: 1px solid var(--border);
-    }
-
-    .market-banner {
-      background: linear-gradient(135deg, var(--surface) 0%, var(--background) 100%);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-xl);
-      padding: 60px;
-      text-align: center;
-      margin-top: 80px;
-      margin-bottom: 80px;
-    }
-
-    .market-stat {
-      font-size: 48px;
-      font-weight: 800;
-      color: var(--primary);
-      margin-bottom: 10px;
+    .pay-icon-box {
+      width: 64px;
+      height: 64px;
+      background: #fff;
+      border-radius: 20px;
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 40px;
+      margin-bottom: 28px;
+      color: var(--primary);
+      border: 1.5px solid var(--border);
     }
 
-    .market-stat div {
-      display: flex;
-      flex-direction: column;
-    }
+    .pay-card:hover .pay-icon-box { background: var(--primary); color: #fff; border-color: var(--primary); }
 
-    .market-stat span {
-      font-size: 14px;
+    .pay-title { font-size: 22px; font-weight: 900; margin-bottom: 12px; }
+    .pay-desc { font-size: 15px; color: var(--text-muted); line-height: 1.7; margin-bottom: 0; }
+
+    .status-badge {
+      position: absolute;
+      top: 32px;
+      right: 32px;
+      padding: 6px 14px;
+      border-radius: 99px;
+      font-size: 10px;
+      font-weight: 900;
       text-transform: uppercase;
-      letter-spacing: 2px;
-      color: var(--text-muted);
-      font-weight: 600;
-      margin-top: 5px;
+      letter-spacing: 1.5px;
     }
+
+    .status-active { background: #dcfce7; color: #166534; }
+    .status-coming { background: #fef9c3; color: #854d0e; }
+
+    /* Modal Image Layout */
+    .qr-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 24px; }
+    .qr-item { text-align: center; }
+    .qr-img { width: 100%; border-radius: 20px; border: 1px solid var(--border); margin-bottom: 12px; }
+    .qr-label { font-size: 11px; font-weight: 800; color: var(--primary); text-transform: uppercase; }
   </style>
 </head>
 
 <body>
-
+  <div id="scrollProgress"></div>
+  
   <header class="header" id="header">
     <a href="index.html" class="logo"><img src="assets/brand/AJ3.png" alt="AJ Vantage Logo" class="site-logo"></a>
     <nav class="desktop-nav">
-      <a href="index.html">Home</a>
+      <a href="index.html" class="active">Home</a>
       <a href="shop.html">Shop</a>
       <a href="collections.html">Collections</a>
       <a href="support.html">Support</a>
     </nav>
     <div class="search-pill">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <circle cx="11" cy="11" r="8" />
-        <path d="m21 21-4.3-4.3" />
-      </svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
       <input type="text" placeholder="Search products..." id="searchInput">
     </div>
     <div class="header-actions">
-      <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2">
-          <path
-            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-        </svg></a>
-      <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2">
-          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <path d="M16 10a4 4 0 0 1-8 0" />
-        </svg><span class="cart-badge" id="cartCount">0</span></a>
-      <a href="profile.html" class="avatar">A</a>
+      <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg></a>
+      <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg><span class="cart-badge" id="cartCount">0</span></a>
       <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <line x1="3" y1="12" x2="21" y2="12" />
-          <line x1="3" y1="6" x2="21" y2="6" />
-          <line x1="3" y1="18" x2="21" y2="18" />
-        </svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
       </button>
+      <a href="profile.html" class="avatar">A</a>
     </div>
   </header>
 
-  <div class="nav-overlay" id="navOverlay"></div>
-  <nav class="mobile-nav" id="mobileNav">
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="collections.html">Collections</a>
-    <a href="support.html">Support</a>
-  </nav>
-
-  <div class="app-container">
-    <div class="page-header reveal">
-      <h1 class="page-title">How Payment Works</h1>
-      <p class="page-sub">For the year 2026, we exclusively process orders through direct, secure channels to ensure
-        absolute personal service.</p>
+  <div class="app-container" style="padding-top: 140px;">
+    <div class="reveal">
+      <h1 class="page-title">Payment Ecosystem</h1>
+      <p class="page-sub">Touch a card to reveal secure payment instructions.</p>
     </div>
 
-    <section class="reveal">
+    <!-- CONTAINER 1: ACCESS CHANNELS -->
+    <section class="ecosystem-section reveal vector-bg">
+      <div class="ecosystem-title">Official Access Channels</div>
       <div class="pay-grid">
-        <div class="pay-card" style="cursor: pointer;" onclick="togglePayDetails('bank')">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M4 10h16M4 14h16M4 18h16M2 22h20M12 2L2 7h20L12 2z" />
-          </svg>
+        <div class="pay-card" onclick="window.open('https://wa.me/c/94704800058', '_blank')">
+          <span class="status-badge status-active">Active</span>
+          <div class="pay-icon-box"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.029c0 2.119.549 4.187 1.59 6.037L0 24l6.105-1.602a11.834 11.834 0 005.937 1.587h.005c6.637 0 12.032-5.391 12.036-12.028.003-3.218-1.252-6.242-3.541-8.53z"/></svg></div>
+          <h3 class="pay-title">WhatsApp Catalog</h3>
+          <p class="pay-desc">Personalized concierge service. Browse our full heritage collection and settle orders via direct chat.</p>
+        </div>
+        <div class="pay-card" onclick="window.open('https://www.facebook.com/marketplace/profile/61587322066412', '_blank')">
+          <span class="status-badge status-active">Active</span>
+          <div class="pay-icon-box"><svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></div>
+          <h3 class="pay-title">Messenger Direct</h3>
+          <p class="pay-desc">Marketplace acquisitions. Connect with our curators via Facebook for instant assistance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTAINER 2: PAYMENT SYSTEMS -->
+    <section class="ecosystem-section reveal" style="margin-top: 40px; border-style: dashed; background: var(--surface-dim);">
+      <div class="ecosystem-title">Verified Payment Systems</div>
+      <div class="pay-grid">
+        <div class="pay-card" onclick="openPaymentModal('bank')">
+          <span class="status-badge status-active">Enabled</span>
+          <div class="pay-icon-box"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M11 10v11M15 10v11M20 10v11"/></svg></div>
           <h3 class="pay-title">Bank Transfer</h3>
-          <p class="pay-desc">Complete your purchase via direct bank transfer. Click to view details.</p>
-          <div id="details-bank" class="pay-details">
-            <div
-              style="font-size: 11px; font-weight: 800; color: var(--text-light); text-transform:uppercase; margin-bottom: 4px;">
-              Bank Name</div>
-            <div style="font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 12px;">Commercial Bank
-            </div>
-            <div
-              style="font-size: 11px; font-weight: 800; color: var(--text-light); text-transform:uppercase; margin-bottom: 4px;">
-              Account Name</div>
-            <div style="font-size: 15px; font-weight: 800; color: var(--text); margin-bottom: 12px;">Mohamed Ashfaq
-              Mohamed Jareed</div>
-            <div
-              style="font-size: 11px; font-weight: 800; color: var(--text-light); text-transform:uppercase; margin-bottom: 4px;">
-              Account Number</div>
-            <div style="font-size: 15px; font-weight: 800; color: var(--text);">8021194630</div>
-          </div>
+          <p class="pay-desc">High-status manual settlement. Touch to reveal verified account details.</p>
         </div>
-
-        <div class="pay-card" style="cursor: pointer;" onclick="togglePayDetails('wa')">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path
-              d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" />
-          </svg>
-          <h3 class="pay-title">WhatsApp Orders</h3>
-          <p class="pay-desc">Message us Directly on WhatsApp. Click to reveal and copy our number.</p>
-          <div id="details-wa" class="pay-details">
-            <div
-              style="font-size: 11px; font-weight: 800; color: var(--text-light); text-transform:uppercase; margin-bottom: 8px;">
-              Reach Us On</div>
-            <div style="display:flex; gap:8px;">
-              <input type="text" value="+94 70 480 0058" readonly
-                style="flex:1; padding: 10px; background: var(--surface-dim); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-weight: 800; cursor: text;"
-                onclick="event.stopPropagation();">
-              <button
-                onclick="event.stopPropagation(); navigator.clipboard.writeText('+94 70 480 0058'); alert('Number Copied!');"
-                style="padding: 10px 16px; background: var(--surface-high); border: 1px solid var(--border); border-radius: var(--radius); color: var(--text); font-weight: 700; cursor: pointer;">Copy</button>
-            </div>
-            <a href="https://wa.me/94704800058" target="_blank"
-              style="display:block; margin-top:12px; text-align:center; padding:12px; background:#25D366; color:white; border-radius:var(--radius); font-weight:800; text-decoration:none; font-size:13px;">Open
-              WhatsApp Chat</a>
-          </div>
-        </div>
-
-        <div class="pay-card" style="cursor: pointer;" onclick="togglePayDetails('frimi')">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="2" y="5" width="20" height="14" rx="2" />
-            <path d="M2 10h20" />
-          </svg>
-          <h3 class="pay-title">FriMi QR Scan</h3>
-          <p class="pay-desc">Instant Checkout via FriMi Merchant QR. Click to view scan details.</p>
-          <div id="details-frimi" class="pay-details" style="text-align:center;">
-            <div
-              style="background:var(--surface-dim); padding:20px; border-radius:var(--radius); border:1px dashed var(--border);">
-              <div style="font-size:12px; font-weight:800; color:var(--primary); margin-bottom:12px;">SCAN TO PAY</div>
-              <div
-                style="width:130px; height:130px; background:var(--surface-high); margin:0 auto; display:flex; align-items:center; justify-content:center; border-radius:var(--radius);">
-                <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <path
-                    d="M3 7V5a2 2 0 0 1 2-2h2m10 0h2a2 2 0 0 1 2 2v2m0 10v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2" />
-                  <rect x="7" y="7" width="3" height="3" />
-                  <rect x="14" y="7" width="3" height="3" />
-                  <rect x="7" y="14" width="3" height="3" />
-                </svg>
-              </div>
-              <div style="margin-top:12px; font-size:13px; font-weight:800;">Merchant ID: AJV-FRI-2026</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="pay-card" style="cursor: pointer;" onclick="togglePayDetails('cod')">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <rect x="1" y="3" width="15" height="13" />
-            <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
-            <circle cx="5.5" cy="18.5" r="2.5" />
-            <circle cx="18.5" cy="18.5" r="2.5" />
-          </svg>
-          <h3 class="pay-title">Cash on Delivery</h3>
-          <p class="pay-desc">Pay at your doorstep. Officially launching August 15, 2026.</p>
-          <div id="details-cod" class="pay-details">
-            <div
-              style="padding:20px; background:rgba(255,149,0,0.05); border:1px solid rgba(255,149,0,0.2); border-radius:var(--radius);">
-              <div style="font-size:14px; font-weight:800; color:var(--primary); margin-bottom:10px;">Coming August 15
-              </div>
-              <ul style="font-size:12px; color:var(--text); padding-left:16px; line-height:1.7;">
-                <li>Available for orders under Rs. 50,000</li>
-                <li>Flat handling fee of Rs. 350 apply</li>
-                <li>Verification call mandatory for first orders</li>
-              </ul>
-            </div>
-          </div>
+        <div class="pay-card" onclick="openPaymentModal('frimi')">
+          <span class="status-badge status-active">Enabled</span>
+          <div class="pay-icon-box"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>
+          <h3 class="pay-title">FriMi QR Suite</h3>
+          <p class="pay-desc">Digital scan-to-pay. Touch to reveal both secure Merchant QR codes.</p>
         </div>
       </div>
     </section>
+  </div>
 
-    <section class="reveal">
-      <div class="market-banner">
-        <div class="market-stat">
-          <div>80%<span>Brand New</span></div>
-          <div><span style="font-size:32px;color:var(--border);">/</span></div>
-          <div>20%<span>Pre-Owned</span></div>
-        </div>
-        <p style="font-size: 18px; color: var(--text); max-width: 600px; margin: 30px auto 0; line-height: 1.6;">
-          Our inventory consists of 80% pristine, brand-new products and 20% meticulously verified pre-owned pieces.
-          Available across our Website, WhatsApp Catalog, and Facebook Marketplace.
-        </p>
-      </div>
-    </section>
+  <!-- PAYMENT MODALS -->
+  <div class="ajv-modal" id="payModal">
+    <div class="ajv-modal-content">
+      <div class="modal-close" onclick="closePaymentModal()">&times;</div>
+      <div id="modalBody"></div>
+    </div>
   </div>
 
   <footer>
     <div class="f-grid">
       <div class="f-about">
         <div class="logo"><img src="assets/brand/AJ2.png" alt="AJ Vantage Logo" class="site-logo"></div>
-        <p>Premium leather goods crafted with passion since 2026. Our collection consists of 80% new and 20% selectively
-          curated pre-owned pieces available across our Website, WhatsApp Catalog, and Facebook Marketplace.</p>
+        <p>Premium goods crafted with passion.</p>
       </div>
       <div class="f-col">
-        <h4>Shopping</h4>
-        <a href="shop.html">Shop</a>
+        <h4>Explore</h4>
+        <a href="shop.html">Shop Catalog</a>
         <a href="collections.html">Collections</a>
-        <a href="shop.html?new=true">New Collections</a>
-        <a href="shop.html">Products</a>
       </div>
       <div class="f-col">
         <h4>Support</h4>
-        <a href="support.html">FAQ</a>
         <a href="support.html">Help Center</a>
-        <a href="payment.html">Payment Methods</a>
-      </div>
-      <div class="f-col">
-        <h4>Legal</h4>
-        <a href="about.html">About Us</a>
-        <a href="legal.html#privacy">Privacy Policy</a>
-        <a href="legal.html#terms">Terms of Service</a>
-        <a href="legal.html#shipping">Shipping Policy</a>
+        <a href="payment.html">Payments</a>
       </div>
     </div>
-    <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA
-        🇱🇰</span></div>
+    <div class="f-bottom"><span>© 2026 AJ Vantage.</span></div>
   </footer>
 
-  <!-- Firebase -->
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyBy44sne8A7Ynm5GEgA7DBrEmeuJkRc890",
-      authDomain: "aj-vantage-ecom.firebaseapp.com",
-      projectId: "aj-vantage-ecom",
-      storageBucket: "aj-vantage-ecom.firebasestorage.app",
-      messagingSenderId: "797206947976",
-      appId: "1:797206947976:web:ec58e49ce403741dd9d73d",
-      measurementId: "G-WJCRWVWB6H"
-    };
-    firebase.initializeApp(firebaseConfig);
-    const auth = firebase.auth();
-    const db = firebase.firestore();
-  </script>
   <script src="app.js"></script>
   <script>
-    function togglePayDetails(type) {
-      const details = ['bank', 'wa', 'frimi', 'cod'];
-      details.forEach(id => {
-        const el = document.getElementById('details-' + id);
-        if (id === type) {
-          el.classList.toggle('open');
-        } else {
-          el.classList.remove('open');
-        }
-      });
+    function openPaymentModal(type) {
+      const modal = document.getElementById('payModal');
+      const body = document.getElementById('modalBody');
+      
+      if (type === 'bank') {
+        body.innerHTML = `
+          <h2 style="font-size:24px;font-weight:900;margin-bottom:12px;">Bank Settlement</h2>
+          <p style="color:var(--text-muted);font-size:14px;margin-bottom:32px;">Please complete your transfer to the following account and share the receipt.</p>
+          <div style="background:var(--surface-dim);padding:24px;border-radius:20px;border:1.5px solid var(--border);">
+            <div style="font-size:11px;font-weight:900;color:var(--primary);text-transform:uppercase;margin-bottom:8px;">Bank Name</div>
+            <div style="font-size:18px;font-weight:800;margin-bottom:20px;">Commercial Bank</div>
+            <div style="font-size:11px;font-weight:900;color:var(--primary);text-transform:uppercase;margin-bottom:8px;">Account Name</div>
+            <div style="font-size:18px;font-weight:800;margin-bottom:20px;">Mohamed Ashfaq Jareed</div>
+            <div style="font-size:11px;font-weight:900;color:var(--primary);text-transform:uppercase;margin-bottom:8px;">Account Number</div>
+            <div style="font-size:22px;font-weight:900;color:var(--text);">8021194630</div>
+          </div>
+          <button onclick="navigator.clipboard.writeText('8021194630');alert('Acc Number Copied!')" style="width:100%;margin-top:24px;padding:16px;background:var(--primary);color:#fff;border-radius:12px;font-weight:800;border:none;cursor:pointer;">Copy Acc Number</button>
+        `;
+      } else if (type === 'frimi') {
+        body.innerHTML = `
+          <h2 style="font-size:24px;font-weight:900;margin-bottom:12px;">FriMi QR Suite</h2>
+          <p style="color:var(--text-muted);font-size:14px;margin-bottom:24px;">Scan either QR code below via your FriMi app to complete settlement.</p>
+          <div class="qr-grid">
+            <div class="qr-item">
+              <img src="assets/brand/Qrc.jpg" class="qr-img">
+              <div class="qr-label">Standard Merchant</div>
+            </div>
+            <div class="qr-item">
+              <img src="assets/brand/frimi_qr_2.png" class="qr-img">
+              <div class="qr-label">Express Checkout</div>
+            </div>
+          </div>
+        `;
+      }
+      modal.classList.add('active');
+    }
+
+    function closePaymentModal() {
+      document.getElementById('payModal').classList.remove('active');
+    }
+
+    // Close on click outside
+    window.onclick = function(event) {
+      const modal = document.getElementById('payModal');
+      if (event.target == modal) closePaymentModal();
     }
   </script>
 </body>
-
 </html>
