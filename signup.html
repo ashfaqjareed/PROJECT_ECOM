@@ -94,6 +94,7 @@
 
     .form-group {
       margin-bottom: 24px;
+      position: relative;
     }
 
     .form-group label {
@@ -148,7 +149,7 @@
       gap: 6px;
       transition: color 0.3s var(--ease);
     }
-    
+
     .criteria-item svg {
       opacity: 0.3;
       transition: opacity 0.3s var(--ease), color 0.3s var(--ease);
@@ -157,9 +158,45 @@
     .criteria-item.met {
       color: #10b981;
     }
+
     .criteria-item.met svg {
       opacity: 1;
       color: #10b981;
+    }
+
+    /* Eye Pulse Animation */
+    @keyframes eye-pulse {
+      0% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+
+      50% {
+        transform: scale(1.1);
+        opacity: 1;
+        color: var(--primary);
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
+    }
+
+    .eye-animate {
+      animation: eye-pulse 2s infinite ease-in-out;
+    }
+
+    /* Godly Page Transition */
+    body {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s cubic-bezier(0.2, 0, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+
+    body.page-ready {
+      opacity: 1;
+      transform: translateY(0);
     }
   </style>
 </head>
@@ -205,22 +242,54 @@
         </div>
         <div class="form-group">
           <label>Password</label>
-          <input type="password" placeholder="*** **** *****" id="signupPass" oninput="checkPassCriteria()">
+          <input type="password" placeholder="*** **** *****" id="signupPass" oninput="checkPassCriteria()"
+            oncopy="return false" onpaste="return false" style="padding-right: 48px;">
+          <button type="button" onclick="togglePass('signupPass', this)" class="eye-animate"
+            style="position: absolute; right: 16px; top: 40px; background: none; border: none; color: var(--text-muted); cursor: pointer; transition: all 0.3s var(--ease);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </button>
           <div class="pass-criteria" id="passCriteria">
-            <div class="criteria-item" id="crit-length"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 8-12 Characters</div>
-            <div class="criteria-item" id="crit-upper"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 1 Uppercase Letter</div>
-            <div class="criteria-item" id="crit-num"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 1 Number</div>
-            <div class="criteria-item" id="crit-sym"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"></polyline></svg> 1 Symbol</div>
+            <div class="criteria-item" id="crit-length"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> 8-12 Characters</div>
+            <div class="criteria-item" id="crit-upper"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> 1 Uppercase Letter</div>
+            <div class="criteria-item" id="crit-num"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> 1 Number</div>
+            <div class="criteria-item" id="crit-sym"><svg width="12" height="12" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="3">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg> 1 Symbol</div>
           </div>
         </div>
         <div class="form-group">
           <label>Confirm Password</label>
-          <input type="password" placeholder="*** **** *****" id="signupPassConfirm">
+          <input type="password" placeholder="*** **** *****" id="signupPassConfirm" oncopy="return false"
+            onpaste="return false" style="padding-right: 48px;">
+          <button type="button" onclick="togglePass('signupPassConfirm', this)" class="eye-animate"
+            style="position: absolute; right: 16px; top: 40px; background: none; border: none; color: var(--text-muted); cursor: pointer; transition: all 0.3s var(--ease);">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+              <circle cx="12" cy="12" r="3" />
+            </svg>
+          </button>
         </div>
 
         <div class="form-group" style="display:flex; align-items:flex-start; gap:10px; margin-bottom:24px;">
-          <input type="checkbox" id="signupTc" style="width:18px; height:18px; flex-shrink:0; cursor:pointer; accent-color:var(--primary); margin-top:2px;">
-          <label for="signupTc" style="font-size:12px; color:var(--text-muted); text-transform:none; letter-spacing:0; margin:0;">I agree to the <a href="legal.html" style="color:var(--primary); font-weight:700;">Terms & Conditions</a> and <a href="legal.html" style="color:var(--primary); font-weight:700;">Privacy Policy</a>.</label>
+          <input type="checkbox" id="signupTc"
+            style="width:18px; height:18px; flex-shrink:0; cursor:pointer; accent-color:var(--primary); margin-top:2px;">
+          <label for="signupTc"
+            style="font-size:12px; color:var(--text-muted); text-transform:none; letter-spacing:0; margin:0;">I agree to
+            the <a href="legal.html" style="color:var(--primary); font-weight:700;">Terms & Conditions</a> and <a
+              href="legal.html" style="color:var(--primary); font-weight:700;">Privacy Policy</a>.</label>
         </div>
 
         <button class="btn-primary auth-btn" onclick="handleSignup()">Create Account</button>
@@ -236,10 +305,33 @@
     </div>
   </div>
 
-  <div class="toast" id="toast"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-      stroke-width="2">
-      <path d="M20 6L9 17l-5-5" />
-    </svg><span id="toastMsg">Done</span></div>
+  <div id="paymentPreferenceModal"
+    style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.8); backdrop-filter:blur(10px); z-index:9999; align-items:center; justify-content:center; padding:20px;">
+    <div
+      style="background:var(--surface); border:1px solid var(--border); border-radius:24px; padding:40px; max-width:400px; width:100%; text-align:center;">
+      <h2 style="font-size:24px; font-weight:800; margin-bottom:12px;">Preferred Payment</h2>
+      <p style="color:var(--text-muted); font-size:14px; margin-bottom:24px;">Select your preferred payment method to
+        streamline your future checkouts.</p>
+
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        <button
+          style="padding: 14px; border-radius: 16px; font-size: 13px; font-weight: 800; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface-dim); color: var(--text);"
+          onclick="savePreference('COD')">Cash on Delivery</button>
+        <button
+          style="padding: 14px; border-radius: 16px; font-size: 13px; font-weight: 800; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface-dim); color: var(--text);"
+          onclick="savePreference('PayPal')">PayPal</button>
+        <button
+          style="padding: 14px; border-radius: 16px; font-size: 13px; font-weight: 800; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface-dim); color: var(--text);"
+          onclick="savePreference('Credit/Debit')">Credit / Debit Card</button>
+        <button
+          style="padding: 14px; border-radius: 16px; font-size: 13px; font-weight: 800; cursor: pointer; border: 1.5px solid var(--border); background: var(--surface-dim); color: var(--text);"
+          onclick="savePreference('FriMi')">FriMi</button>
+      </div>
+      <button onclick="savePreference('None')"
+        style="margin-top:24px; background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:13px; font-weight:600;">Skip
+        for now</button>
+    </div>
+  </div>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
@@ -261,19 +353,31 @@
   </script>
   <script src="app.js"></script>
   <script>
+    function togglePass(id, btn) {
+      const input = document.getElementById(id);
+      if (input.type === 'password') {
+        input.type = 'text';
+        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24M1 1l22 22"/></svg>';
+      } else {
+        input.type = 'password';
+        btn.innerHTML = '<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>';
+      }
+    }
+
     function checkPassCriteria() {
       const pass = document.getElementById('signupPass').value;
       const cLength = document.getElementById('crit-length');
       const cUpper = document.getElementById('crit-upper');
       const cNum = document.getElementById('crit-num');
       const cSym = document.getElementById('crit-sym');
-      
+
       if (pass.length >= 8 && pass.length <= 12) cLength.classList.add('met'); else cLength.classList.remove('met');
       if (/[A-Z]/.test(pass)) cUpper.classList.add('met'); else cUpper.classList.remove('met');
       if (/[0-9]/.test(pass)) cNum.classList.add('met'); else cNum.classList.remove('met');
       if (/[^A-Za-z0-9]/.test(pass)) cSym.classList.add('met'); else cSym.classList.remove('met');
     }
-    async function handleSignup() {
+
+    async function handleSignup() {
       const name = document.getElementById('signupName').value.trim();
       const email = document.getElementById('signupEmail').value.trim();
       const phone = document.getElementById('signupPhone').value.trim();
@@ -285,10 +389,10 @@
       if (!email.includes('@')) { toast('Please enter a valid email'); return; }
       if (!phone || phone.length < 10) { toast('Please enter a valid phone number'); return; }
       if (pass !== passConf) { toast('Passwords do not match'); return; }
-      
-      if (pass.length < 8 || pass.length > 12 || !/[A-Z]/.test(pass) || !/[0-9]/.test(pass) || !/[^A-Za-z0-9]/.test(pass)) { 
-        toast('Please meet all password criteria'); 
-        return; 
+
+      if (pass.length < 8 || pass.length > 12 || !/[A-Z]/.test(pass) || !/[0-9]/.test(pass) || !/[^A-Za-z0-9]/.test(pass)) {
+        toast('Please meet all password criteria');
+        return;
       }
 
       if (!tc) { toast('Please accept the Terms & Conditions'); return; }
@@ -303,17 +407,17 @@
 
         const userCredential = await auth.createUserWithEmailAndPassword(email, pass);
         const user = userCredential.user;
-        
+
         const today = new Date().toISOString().split('T')[0];
 
         // Create document in 'customers' collection
         await db.collection('customers').doc(user.uid).set({
           uid: user.uid,
           email: email,
-          homeBranch: "katugastota",
+          homeBranch: branch,
           memberSince: today,
           name: name,
-          password: pass, 
+          password: pass,
           phone: phone,
           pin: pass.slice(0, 6),
           points: 0,
@@ -322,15 +426,15 @@
           transactions: [],
           profileComplete: false,
           address: "",
+          paymentPreference: "",
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         });
 
         localStorage.setItem('aj_has_account', 'true');
         localStorage.setItem('aj_logged_in', 'true');
         localStorage.setItem('aj_user_phone', phone);
-        
-        toast('Account Created! Welcome to AJ VANTAGE.');
-        setTimeout(() => location.href = 'profile.html', 1500);
+
+        document.getElementById('paymentPreferenceModal').style.display = 'flex';
       } catch (error) {
         console.error("Signup Error:", error);
         if (error.code === 'auth/email-already-in-use') {
@@ -343,8 +447,22 @@
         }
       }
     }
-    document.addEventListener('DOMContentLoaded', observeReveals);
+    async function savePreference(method) {
+      const user = auth.currentUser;
+      if (user) {
+        await db.collection('customers').doc(user.uid).update({
+          paymentPreference: method
+        });
+      }
+      toast('Account Setup Complete! Welcome to AJ VANTAGE.');
+      setTimeout(() => location.href = 'profile.html', 1500);
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('page-ready');
+      observeReveals();
+    });
   </script>
 </body>
+
 </html>
->

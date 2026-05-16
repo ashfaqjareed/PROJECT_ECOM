@@ -24,20 +24,31 @@
       position: relative;
     }
 
-    /* NEW IMAGE LAYOUT */
-    .image-composition {
+    /* EXECUTIVE PROFILES */
+    .executive-profiles {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      max-width: 1000px;
+      margin: 80px auto;
+      padding: 0 40px;
+    }
+
+    .exec-card {
       display: flex;
-      gap: 40px;
-      justify-content: center;
-      align-items: center;
-      margin: 80px 0;
+      flex-direction: column;
+      gap: 32px;
+      position: relative;
+    }
+
+    .exec-card.staggered {
+      margin-top: 80px;
     }
 
     .img-box {
-      width: 300px;
-      height: 400px;
+      width: 100%;
+      height: 500px;
       border-radius: 40px;
-      overflow: hidden;
       box-shadow: 0 20px 40px rgba(0,0,0,0.1);
       position: relative;
     }
@@ -46,34 +57,56 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 40px;
     }
 
-    .img-left {
-      margin-top: 80px; /* Staggered effect */
+    .exec-info {
+      text-align: left;
+      padding: 0 10px;
     }
 
-    .img-right {
-      position: relative;
+    .exec-info h3 {
+      font-size: 28px;
+      font-weight: 900;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .exec-info .role {
+      color: var(--primary);
+      font-weight: 800;
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .exec-info .details {
+      color: var(--text-muted);
+      font-size: 16px;
+      line-height: 1.8;
     }
 
     .founder-pill {
       position: absolute;
       bottom: -20px;
       right: -20px;
-      background: white;
-      padding: 20px 32px;
+      background: var(--surface);
+      padding: 16px 32px;
       border-radius: 99px;
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 900;
       letter-spacing: 2px;
-      color: #000;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+      color: var(--text);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+      border: 1px solid var(--border);
       z-index: 10;
     }
 
     /* Keep timeline grid CSS */
     .timeline-wrap {
-      margin: 100px 0;
+      margin: 100px auto;
+      max-width: 1200px;
       padding: 100px 40px;
       background: var(--surface);
       border: 1px solid var(--border);
@@ -90,11 +123,48 @@
       padding-top: 40px;
     }
 
+    .timeline-strike {
+      position: absolute;
+      top: 114px;
+      left: 12.5%;
+      right: 12.5%;
+      height: 4px;
+      background: var(--border);
+      z-index: 1;
+      border-radius: 4px;
+    }
+
     .timeline-item { text-align: center; position: relative; z-index: 2; }
-    .timeline-dot { width: 24px; height: 24px; border-radius: 50%; margin: 30px auto 24px; border: 6px solid var(--surface); position: relative; z-index: 2; }
+    .timeline-dot { width: 24px; height: 24px; border-radius: 50%; margin: 30px auto 24px; border: 6px solid var(--surface); position: relative; z-index: 2; background: var(--border); }
     .timeline-dot.active { background: var(--primary); box-shadow: 0 0 20px var(--primary-glow); }
     .timeline-year { font-size: 28px; font-weight: 900; margin-bottom: 8px; }
     .timeline-text { font-size: 13px; color: var(--text-muted); font-weight: 600; line-height: 1.6; }
+    
+    @media (max-width: 768px) {
+      .executive-profiles {
+        grid-template-columns: 1fr;
+        gap: 80px;
+      }
+      .exec-card.staggered {
+        margin-top: 0;
+      }
+      .img-box {
+        height: 400px;
+      }
+      .timeline-grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+      }
+      .timeline-strike {
+        top: 40px;
+        bottom: 40px;
+        left: 50%;
+        right: auto;
+        width: 4px;
+        height: auto;
+        transform: translateX(-50%);
+      }
+    }
   </style>
 </head>
 
@@ -144,17 +214,66 @@
       </div>
     </section>
 
-    <!-- NEW IMAGE COMPOSITION -->
-    <section class="image-composition reveal">
-      <div class="img-box img-left">
-        <img src="assets/products/Jareed.jpg" alt="M. Jareed Jiffrey">
+    <!-- EXECUTIVE PROFILES -->
+    <section class="executive-profiles reveal">
+      <div class="exec-card staggered">
+        <div class="img-box">
+          <img src="assets/products/Jareed.jpg" alt="M. Jareed Jiffrey">
+        </div>
+        <div class="exec-info">
+          <h3>M. Jareed Jiffrey</h3>
+          <p class="role">Co-Founder & Director</p>
+          <p class="details">Bringing decades of business acumen and an unyielding commitment to quality, ensuring every product meets the highest standards of excellence.</p>
+        </div>
       </div>
-      <div class="img-box img-right">
-        <img src="assets/products/Ashfaq.png" alt="M. Ashfaq Jareed">
-        <div class="founder-pill">THE FOUNDER</div>
+      
+      <div class="exec-card">
+        <div class="img-box">
+          <img src="assets/products/Ashfaq.png" alt="M. Ashfaq Jareed">
+          <div class="founder-pill">THE FOUNDER</div>
+        </div>
+        <div class="exec-info">
+          <h3>M. Ashfaq Jareed</h3>
+          <p class="role">Founder & Lead Developer</p>
+          <p class="details">The visionary architect behind AJ VANTAGE, blending cutting-edge technology with premium e-commerce experiences to redefine online shopping.</p>
+        </div>
       </div>
     </section>
 
+    <!-- SPEECHES -->
+    <section class="speeches-grid reveal" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto 100px; padding: 0 40px;">
+      
+      <!-- FOUNDER'S MESSAGE -->
+      <div class="founder-speech" style="padding: 60px 40px; text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: 40px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="var(--surface-dim)" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 24px; margin-left: auto; margin-right: auto;"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" /><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" /></svg>
+          <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 24px;">A Letter from the Founder</h2>
+          <p style="font-size: 16px; color: var(--text-muted); line-height: 1.8; font-style: italic; margin-bottom: 32px;">
+            "AJ VANTAGE is the culmination of a family's lifelong obsession with premium quality. We didn't want to just sell products; we set out to curate a lifestyle. Our commitment remains unwavering: to bring you the pinnacle of luxury, balancing tradition with the future."
+          </p>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+          <span style="font-size: 18px; font-weight: 800; color: var(--text);">M. Jareed Jiffrey</span>
+          <span style="font-size: 13px; color: var(--primary); font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">Founder & Director</span>
+        </div>
+      </div>
+
+      <!-- DEVELOPER'S MESSAGE -->
+      <div class="founder-speech" style="padding: 60px 40px; text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: 40px; display: flex; flex-direction: column; justify-content: space-between;">
+        <div>
+          <svg width="40" height="40" viewBox="0 0 24 24" fill="var(--surface-dim)" stroke="var(--primary)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 24px; margin-left: auto; margin-right: auto;"><path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" /><path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z" /></svg>
+          <h2 style="font-size: 24px; font-weight: 800; margin-bottom: 24px;">A Letter from the Developer</h2>
+          <p style="font-size: 16px; color: var(--text-muted); line-height: 1.8; font-style: italic; margin-bottom: 32px;">
+            "When we built AJ VANTAGE, the goal wasn't just another e-commerce store. We engineered a destination where the soul of traditional craftsmanship seamlessly met the frictionless efficiency of modern technology. Every pixel and interaction is crafted to respect your time."
+          </p>
+        </div>
+        <div style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+          <span style="font-size: 18px; font-weight: 800; color: var(--text);">M. Ashfaq Jareed</span>
+          <span style="font-size: 13px; color: var(--primary); font-weight: 700; letter-spacing: 2px; text-transform: uppercase;">Co-Founder & Lead Developer</span>
+        </div>
+      </div>
+
+    </section>
     <!-- TIMELINE AT THE END -->
     <section class="timeline-wrap reveal vector-bg">
       <div style="text-align: center; margin-bottom: 60px;">

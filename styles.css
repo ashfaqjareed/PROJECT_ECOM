@@ -63,6 +63,37 @@ html { scroll-behavior: smooth; }
   --grad3: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
 }
 
+/* Endless Banner Slider */
+.banner-track {
+  display: flex;
+  width: max-content;
+  animation: banner-scroll 40s linear infinite;
+  gap: 100px;
+  padding-left: 100px;
+}
+
+.banner-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+}
+
+@keyframes banner-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.banner-text {
+  font-size: 13px;
+  font-weight: 900;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2.5px;
+  text-shadow: 0 0 10px rgba(255,255,255,0.3);
+}
+
+
 /* Cinematic Reveals — unified single definition */
 
 
@@ -106,6 +137,9 @@ body {
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   position: relative;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 a {

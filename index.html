@@ -8,23 +8,110 @@
   <title>AJ VANTAGE | Home Page</title>
   <meta name="description" content="Discover the perfect blend of minimalist design and maximum utility.">
   <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Endless Banner Slider */
+    .banner-track {
+      display: flex;
+      width: max-content;
+      animation: banner-scroll 40s linear infinite;
+      gap: 100px;
+      padding-left: 100px;
+    }
+
+    .banner-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      white-space: nowrap;
+    }
+
+    @keyframes banner-scroll {
+      from {
+        transform: translateX(0);
+      }
+
+      to {
+        transform: translateX(-50%);
+      }
+    }
+
+    .banner-text {
+      font-size: 13px;
+      font-weight: 900;
+      color: #fff;
+      text-transform: uppercase;
+      letter-spacing: 2.5px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+
+    /* Godly Page Transition */
+    body {
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.6s cubic-bezier(0.2, 0, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0, 0.2, 1);
+    }
+
+    body.page-ready {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
 </head>
 
 <body>
   <div id="scrollProgress"></div>
 
-  <div id="ajv-top-banner" style="background:#ff6d2e; padding:12px 0; position:relative; z-index:1100; overflow:hidden; box-shadow:0 4px 15px rgba(255,109,46,0.3);">
-    <div style="position:absolute; inset:0; opacity:0.15; background-image:url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30c0-1.105.895-2 2-2s2 .895 2 2-.895 2-2 2-2-.895-2-2z' fill='%23ffffff' fill-opacity='1'/%3E%3C/svg%3E&quot;); pointer-events:none;"></div>
-    <div style="max-width:1300px; margin:0 auto; padding:0 40px; display:flex; justify-content:center; align-items:center; position:relative; z-index:2;">
-      <div style="display:flex; align-items:center; gap:12px;">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z"/></svg>
-        <span style="font-size:13px; font-weight:900; color:#fff; text-transform:uppercase; letter-spacing:2.5px;">WELCOME TO AJ VANTAGE — LAUNCHING ON JULY 1ST</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z"/></svg>
+  <div id="ajv-top-banner"
+    style="background: #ff6d2e; padding: 14px 0; position: relative; z-index: 1100; overflow: hidden; box-shadow: 0 4px 20px rgba(255,109,46,0.4); border-bottom: 1px solid rgba(255,255,255,0.1);">
+    <div
+      style="position: absolute; inset: 0; opacity: 0.2; background-image: url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30c0-1.105.895-2 2-2s2 .895 2 2-.895 2-2 2-2-.895-2-2z' fill='%23ffffff' fill-opacity='1'/%3E%3C/svg%3E&quot;); pointer-events: none;">
+    </div>
+    <div class="banner-track">
+      <div class="banner-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z" />
+        </svg>
+        <span class="banner-text">WELCOME TO AJ VANTAGE — LAUNCHING ON JULY 1ST</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z" />
+        </svg>
+      </div>
+      <div class="banner-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z" />
+        </svg>
+        <span class="banner-text">CRAFTED FOR THE MODERN CONNOISSEUR — WORLDWIDE SHIPPING</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z" />
+        </svg>
+      </div>
+      <!-- Duplicates for seamless loop -->
+      <div class="banner-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z" />
+        </svg>
+        <span class="banner-text">WELCOME TO AJ VANTAGE — LAUNCHING ON JULY 1ST</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z" />
+        </svg>
+      </div>
+      <div class="banner-item">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z" />
+        </svg>
+        <span class="banner-text">CRAFTED FOR THE MODERN CONNOISSEUR — WORLDWIDE SHIPPING</span>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white">
+          <path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z" />
+        </svg>
       </div>
     </div>
   </div>
 
-  <script>document.documentElement.style.opacity='1';document.body.style.opacity='1';document.body.style.visibility='visible';</script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add('page-ready');
+    });
+  </script>
 
   <header class="header" id="header">
     <a href="index.html" class="logo"><img src="assets/brand/AJ3.png" alt="AJ Vantage Logo" class="site-logo"></a>
@@ -35,14 +122,30 @@
       <a href="support.html">Support</a>
     </nav>
     <div class="search-pill">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8" />
+        <path d="m21 21-4.3-4.3" />
+      </svg>
       <input type="text" placeholder="Search products..." id="searchInput">
     </div>
     <div class="header-actions">
-      <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg></a>
-      <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg><span class="cart-badge" id="cartCount">0</span></a>
+      <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <path
+            d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+        </svg></a>
+      <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2">
+          <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <path d="M16 10a4 4 0 0 1-8 0" />
+        </svg><span class="cart-badge" id="cartCount">0</span></a>
       <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
       </button>
       <a href="profile.html" class="avatar">A</a>
     </div>
@@ -59,23 +162,42 @@
   <div class="app-container">
 
     <!-- HERO SLIDESHOW -->
-    <section class="hero-slide-wrap reveal" style="border-radius:60px; margin:40px auto; width:100%; max-width:var(--container);">
+    <section class="hero-slide-wrap reveal"
+      style="border-radius:60px; margin:40px auto; width:100%; max-width:var(--container);">
       <div class="hero-slides" id="heroSlides">
-        <div class="hero-slide active" style="background-image:url('https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=1600&auto=format&fit=crop')"></div>
-        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1559563458-527698bf5295?q=80&w=1600&auto=format&fit=crop')"></div>
-        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1524592093825-d3450917036d?q=80&w=1600&auto=format&fit=crop')"></div>
-        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=1600&auto=format&fit=crop')"></div>
-        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?q=80&w=1600&auto=format&fit=crop')"></div>
-        <div class="hero-slide" style="background-image:url('https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=1600&auto=format&fit=crop')"></div>
+        <div class="hero-slide active"
+          style="background-image:url('https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=1600&auto=format&fit=crop')">
+        </div>
+        <div class="hero-slide"
+          style="background-image:url('https://images.unsplash.com/photo-1559563458-527698bf5295?q=80&w=1600&auto=format&fit=crop')">
+        </div>
+        <div class="hero-slide"
+          style="background-image:url('https://images.unsplash.com/photo-1524592093825-d3450917036d?q=80&w=1600&auto=format&fit=crop')">
+        </div>
+        <div class="hero-slide"
+          style="background-image:url('https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=1600&auto=format&fit=crop')">
+        </div>
+        <div class="hero-slide"
+          style="background-image:url('https://images.unsplash.com/photo-1566150905458-1bf1fc113f0d?q=80&w=1600&auto=format&fit=crop')">
+        </div>
+        <div class="hero-slide"
+          style="background-image:url('https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=1600&auto=format&fit=crop')">
+        </div>
       </div>
       <div class="hero-slide-overlay"></div>
       <div class="hero-slide-content">
         <div class="hero-badge">✦ New Collection 2026 ✦</div>
         <h1 class="hero-h1">Unpack Your Style</h1>
-        <p class="hero-sub">Discover the perfect blend of minimalist design and maximum utility. Elevate your daily carry with craftsmanship that speaks for itself.</p>
+        <p class="hero-sub">Discover the perfect blend of minimalist design and maximum utility. Elevate your daily
+          carry with craftsmanship that speaks for itself.</p>
         <div style="display:flex;gap:12px;flex-wrap:wrap">
-          <a href="shop.html" class="btn-primary">Explore Collection <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
-          <a href="shop.html" class="btn-outline" style="border-color:rgba(255,255,255,0.3);color:white;">View All 80+ Items</a>
+          <a href="shop.html" class="btn-primary">Explore Collection <svg width="20" height="20" viewBox="0 0 24 24"
+              fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg></a>
+          <a href="shop.html" class="btn-outline" style="border-color:rgba(255,255,255,0.3);color:white;">View All 80+
+            Items</a>
         </div>
         <div class="hero-slide-dots" id="heroDotsWrap">
           <span class="hero-dot active" onclick="goSlide(0)"></span>
@@ -93,8 +215,16 @@
       <div class="slider-header">
         <h2 class="section-title">Latest &amp; Featured</h2>
         <div class="slider-arrows">
-          <button class="slider-arrow" onclick="slideLeft()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5" /><path d="m12 19-7-7 7-7" /></svg></button>
-          <button class="slider-arrow" onclick="slideRight()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></button>
+          <button class="slider-arrow" onclick="slideLeft()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M19 12H5" />
+              <path d="m12 19-7-7 7-7" />
+            </svg></button>
+          <button class="slider-arrow" onclick="slideRight()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2">
+              <path d="M5 12h14" />
+              <path d="m12 5 7 7-7 7" />
+            </svg></button>
         </div>
       </div>
       <div class="slider-track" id="sliderTrack"></div>
@@ -105,38 +235,74 @@
     <section class="reveal" style="margin-top:100px;">
       <div class="section-header" style="margin-bottom:40px;">
         <h2 class="section-title">Exclusive Collections</h2>
-        <a href="collections.html" class="section-link">View All Collections <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14" /><path d="m12 5 7 7-7 7" /></svg></a>
+        <a href="collections.html" class="section-link">View All Collections <svg width="16" height="16"
+            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M5 12h14" />
+            <path d="m12 5 7 7-7 7" />
+          </svg></a>
       </div>
       <!-- Row 1: 4 tall cards -->
       <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px; margin-bottom:20px;">
-        <div onclick="location.href='shop.html?cat=bags'" class="col-card" style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:340px;background:linear-gradient(135deg,#2d1b0e,#5d3a1a);transition:transform 0.35s,box-shadow 0.35s;" onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
-          <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=600&auto=format&fit=crop" alt="Bags" style="width:100%;height:100%;object-fit:cover;opacity:0.65;transition:opacity 0.3s;" onmouseenter="this.style.opacity='0.8'" onmouseleave="this.style.opacity='0.65'">
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:5px;">Premium</div>
+        <div onclick="location.href='shop.html?cat=bags'" class="col-card"
+          style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:340px;background:linear-gradient(135deg,#2d1b0e,#5d3a1a);transition:transform 0.35s,box-shadow 0.35s;"
+          onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'"
+          onmouseleave="this.style.transform='';this.style.boxShadow=''">
+          <img src="https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=600&auto=format&fit=crop"
+            alt="Bags" style="width:100%;height:100%;object-fit:cover;opacity:0.65;transition:opacity 0.3s;"
+            onmouseenter="this.style.opacity='0.8'" onmouseleave="this.style.opacity='0.65'">
+          <div
+            style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
+            <div
+              style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:5px;">
+              Premium</div>
             <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:6px;">Bags</div>
             <div style="font-size:12px;color:rgba(255,255,255,0.6);">Shop Collection →</div>
           </div>
         </div>
-        <div onclick="location.href='shop.html?cat=wallets'" class="col-card" style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:340px;background:linear-gradient(135deg,#0a0a0a,#333);transition:transform 0.35s,box-shadow 0.35s;" onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
-          <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=600&auto=format&fit=crop" alt="Wallets" style="width:100%;height:100%;object-fit:cover;opacity:0.65;transition:opacity 0.3s;" onmouseenter="this.style.opacity='0.8'" onmouseleave="this.style.opacity='0.65'">
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:5px;">Slim &amp; Refined</div>
+        <div onclick="location.href='shop.html?cat=wallets'" class="col-card"
+          style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:340px;background:linear-gradient(135deg,#0a0a0a,#333);transition:transform 0.35s,box-shadow 0.35s;"
+          onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'"
+          onmouseleave="this.style.transform='';this.style.boxShadow=''">
+          <img src="https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=600&auto=format&fit=crop"
+            alt="Wallets" style="width:100%;height:100%;object-fit:cover;opacity:0.65;transition:opacity 0.3s;"
+            onmouseenter="this.style.opacity='0.8'" onmouseleave="this.style.opacity='0.65'">
+          <div
+            style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
+            <div
+              style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:5px;">
+              Slim &amp; Refined</div>
             <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:6px;">Wallets</div>
             <div style="font-size:12px;color:rgba(255,255,255,0.6);">Shop Collection →</div>
           </div>
         </div>
-        <div onclick="location.href='shop.html?cat=watches'" class="col-card" style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:340px;background:linear-gradient(135deg,#1a1a2e,#16213e);transition:transform 0.35s,box-shadow 0.35s;" onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
-          <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=600&auto=format&fit=crop" alt="Watches" style="width:100%;height:100%;object-fit:cover;opacity:0.65;transition:opacity 0.3s;" onmouseenter="this.style.opacity='0.8'" onmouseleave="this.style.opacity='0.65'">
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:5px;">Timeless</div>
+        <div onclick="location.href='shop.html?cat=watches'" class="col-card"
+          style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:340px;background:linear-gradient(135deg,#1a1a2e,#16213e);transition:transform 0.35s,box-shadow 0.35s;"
+          onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'"
+          onmouseleave="this.style.transform='';this.style.boxShadow=''">
+          <img src="https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=600&auto=format&fit=crop"
+            alt="Watches" style="width:100%;height:100%;object-fit:cover;opacity:0.65;transition:opacity 0.3s;"
+            onmouseenter="this.style.opacity='0.8'" onmouseleave="this.style.opacity='0.65'">
+          <div
+            style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
+            <div
+              style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:5px;">
+              Timeless</div>
             <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:6px;">Watches</div>
             <div style="font-size:12px;color:rgba(255,255,255,0.6);">Shop Collection →</div>
           </div>
         </div>
-        <div onclick="location.href='pre-owned.html'" class="col-card" style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:340px;background:linear-gradient(135deg,#1b3022,#2d5a27);transition:transform 0.35s,box-shadow 0.35s;" onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
-          <img src="https://images.unsplash.com/photo-1524592093825-d3450917036d?q=80&w=600&auto=format&fit=crop" alt="Pre-Owned" style="width:100%;height:100%;object-fit:cover;opacity:0.65;transition:opacity 0.3s;" onmouseenter="this.style.opacity='0.8'" onmouseleave="this.style.opacity='0.65'">
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:5px;">Curated</div>
+        <div onclick="location.href='pre-owned.html'" class="col-card"
+          style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:340px;background:linear-gradient(135deg,#1b3022,#2d5a27);transition:transform 0.35s,box-shadow 0.35s;"
+          onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'"
+          onmouseleave="this.style.transform='';this.style.boxShadow=''">
+          <img src="https://images.unsplash.com/photo-1524592093825-d3450917036d?q=80&w=600&auto=format&fit=crop"
+            alt="Pre-Owned" style="width:100%;height:100%;object-fit:cover;opacity:0.65;transition:opacity 0.3s;"
+            onmouseenter="this.style.opacity='0.8'" onmouseleave="this.style.opacity='0.65'">
+          <div
+            style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:24px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
+            <div
+              style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:5px;">
+              Curated</div>
             <div style="font-size:20px;font-weight:800;color:#fff;margin-bottom:6px;">Pre-Owned</div>
             <div style="font-size:12px;color:rgba(255,255,255,0.6);">Shop Collection →</div>
           </div>
@@ -144,34 +310,62 @@
       </div>
       <!-- Row 2: 4 more shorter cards -->
       <div style="display:grid; grid-template-columns:repeat(4,1fr); gap:20px;">
-        <div onclick="location.href='shop.html?cat=belts'" class="col-card" style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:220px;background:linear-gradient(135deg,#3d1515,#6b2121);transition:transform 0.35s,box-shadow 0.35s;" onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
-          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600&auto=format&fit=crop" alt="Belts" style="width:100%;height:100%;object-fit:cover;opacity:0.65;">
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:4px;">Classic</div>
+        <div onclick="location.href='shop.html?cat=belts'" class="col-card"
+          style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:220px;background:linear-gradient(135deg,#3d1515,#6b2121);transition:transform 0.35s,box-shadow 0.35s;"
+          onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'"
+          onmouseleave="this.style.transform='';this.style.boxShadow=''">
+          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600&auto=format&fit=crop"
+            alt="Belts" style="width:100%;height:100%;object-fit:cover;opacity:0.65;">
+          <div
+            style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
+            <div
+              style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:4px;">
+              Classic</div>
             <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px;">Belts</div>
             <div style="font-size:11px;color:rgba(255,255,255,0.6);">Shop →</div>
           </div>
         </div>
-        <div onclick="location.href='shop.html?cat=footwear'" class="col-card" style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:220px;background:linear-gradient(135deg,#1a0e2e,#2d1a5a);transition:transform 0.35s,box-shadow 0.35s;" onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
-          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600&auto=format&fit=crop" alt="Footwear" style="width:100%;height:100%;object-fit:cover;opacity:0.65;">
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:4px;">Elite</div>
+        <div onclick="location.href='shop.html?cat=footwear'" class="col-card"
+          style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:220px;background:linear-gradient(135deg,#1a0e2e,#2d1a5a);transition:transform 0.35s,box-shadow 0.35s;"
+          onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'"
+          onmouseleave="this.style.transform='';this.style.boxShadow=''">
+          <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=600&auto=format&fit=crop"
+            alt="Footwear" style="width:100%;height:100%;object-fit:cover;opacity:0.65;">
+          <div
+            style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
+            <div
+              style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:4px;">
+              Elite</div>
             <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px;">Footwear</div>
             <div style="font-size:11px;color:rgba(255,255,255,0.6);">Shop →</div>
           </div>
         </div>
-        <div onclick="location.href='shop.html?cat=accessories'" class="col-card" style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:220px;background:linear-gradient(135deg,#1e2a1a,#2a3d1e);transition:transform 0.35s,box-shadow 0.35s;" onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
-          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=600&auto=format&fit=crop" alt="Accessories" style="width:100%;height:100%;object-fit:cover;opacity:0.65;">
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:4px;">Essential</div>
+        <div onclick="location.href='shop.html?cat=accessories'" class="col-card"
+          style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:220px;background:linear-gradient(135deg,#1e2a1a,#2a3d1e);transition:transform 0.35s,box-shadow 0.35s;"
+          onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'"
+          onmouseleave="this.style.transform='';this.style.boxShadow=''">
+          <img src="https://images.unsplash.com/photo-1611591437281-460bfbe1220a?q=80&w=600&auto=format&fit=crop"
+            alt="Accessories" style="width:100%;height:100%;object-fit:cover;opacity:0.65;">
+          <div
+            style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
+            <div
+              style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:4px;">
+              Essential</div>
             <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px;">Accessories</div>
             <div style="font-size:11px;color:rgba(255,255,255,0.6);">Shop →</div>
           </div>
         </div>
-        <div onclick="location.href='shop.html'" class="col-card" style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:220px;background:linear-gradient(135deg,#1a1510,#3d2e1a);transition:transform 0.35s,box-shadow 0.35s;" onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'" onmouseleave="this.style.transform='';this.style.boxShadow=''">
-          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600&auto=format&fit=crop" alt="Travel" style="width:100%;height:100%;object-fit:cover;opacity:0.65;">
-          <div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
-            <div style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:4px;">Luxury</div>
+        <div onclick="location.href='shop.html'" class="col-card"
+          style="cursor:pointer;border-radius:var(--radius-xl);overflow:hidden;position:relative;height:220px;background:linear-gradient(135deg,#1a1510,#3d2e1a);transition:transform 0.35s,box-shadow 0.35s;"
+          onmouseenter="this.style.transform='scale(1.03)';this.style.boxShadow='0 24px 48px rgba(0,0,0,0.25)'"
+          onmouseleave="this.style.transform='';this.style.boxShadow=''">
+          <img src="https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=600&auto=format&fit=crop"
+            alt="Travel" style="width:100%;height:100%;object-fit:cover;opacity:0.65;">
+          <div
+            style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;background:linear-gradient(to top,rgba(0,0,0,0.85),transparent 60%);">
+            <div
+              style="font-size:10px;text-transform:uppercase;letter-spacing:2.5px;color:var(--primary);font-weight:800;margin-bottom:4px;">
+              Luxury</div>
             <div style="font-size:18px;font-weight:800;color:#fff;margin-bottom:4px;">Travel Goods</div>
             <div style="font-size:11px;color:rgba(255,255,255,0.6);">Shop →</div>
           </div>
@@ -194,36 +388,80 @@
     <!-- CONNECT WITH US (animated) -->
     <style>
       @keyframes pulse-wa {
-        0%,100% { box-shadow: 0 4px 20px rgba(37,211,102,0.35); }
-        50%      { box-shadow: 0 4px 36px rgba(37,211,102,0.7), 0 0 0 8px rgba(37,211,102,0.12); }
+
+        0%,
+        100% {
+          box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
+        }
+
+        50% {
+          box-shadow: 0 4px 36px rgba(37, 211, 102, 0.7), 0 0 0 8px rgba(37, 211, 102, 0.12);
+        }
       }
+
       @keyframes pulse-fb {
-        0%,100% { box-shadow: 0 4px 20px rgba(24,119,242,0.35); }
-        50%      { box-shadow: 0 4px 36px rgba(24,119,242,0.7), 0 0 0 8px rgba(24,119,242,0.12); }
+
+        0%,
+        100% {
+          box-shadow: 0 4px 20px rgba(24, 119, 242, 0.35);
+        }
+
+        50% {
+          box-shadow: 0 4px 36px rgba(24, 119, 242, 0.7), 0 0 0 8px rgba(24, 119, 242, 0.12);
+        }
       }
+
       .btn-wa-pill {
-        display:inline-flex; align-items:center; gap:12px;
-        padding:16px 40px; border-radius:9999px;
-        background:#25D366; color:white;
-        font-size:16px; font-weight:700; text-decoration:none;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 40px;
+        border-radius: 9999px;
+        background: #25D366;
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
         animation: pulse-wa 2.4s ease-in-out infinite;
         transition: transform 0.3s, filter 0.3s;
       }
-      .btn-wa-pill:hover { transform:translateY(-4px) scale(1.04); filter:brightness(1.1); animation-play-state:paused; }
+
+      .btn-wa-pill:hover {
+        transform: translateY(-4px) scale(1.04);
+        filter: brightness(1.1);
+        animation-play-state: paused;
+      }
+
       .btn-fb-pill {
-        display:inline-flex; align-items:center; gap:12px;
-        padding:16px 40px; border-radius:9999px;
-        background:#1877F2; color:white;
-        font-size:16px; font-weight:700; text-decoration:none;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 16px 40px;
+        border-radius: 9999px;
+        background: #1877F2;
+        color: white;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
         animation: pulse-fb 2.4s ease-in-out infinite;
         animation-delay: 1.2s;
         transition: transform 0.3s, filter 0.3s;
       }
-      .btn-fb-pill:hover { transform:translateY(-4px) scale(1.04); filter:brightness(1.1); animation-play-state:paused; }
+
+      .btn-fb-pill:hover {
+        transform: translateY(-4px) scale(1.04);
+        filter: brightness(1.1);
+        animation-play-state: paused;
+      }
+
       .btn-pill-icon {
-        width:28px; height:28px; border-radius:50%;
-        background:rgba(255,255,255,0.25);
-        display:flex; align-items:center; justify-content:center;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
     </style>
     <section class="reveal" style="margin-top:100px;">
@@ -236,13 +474,20 @@
       <div style="display:flex; justify-content:center; gap:24px; flex-wrap:wrap;">
         <a href="https://wa.me/c/94704800058" target="_blank" rel="noopener" class="btn-wa-pill">
           <span class="btn-pill-icon">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.029c0 2.119.549 4.187 1.59 6.037L0 24l6.105-1.602a11.834 11.834 0 005.937 1.587h.005c6.637 0 12.032-5.391 12.036-12.028.003-3.218-1.252-6.242-3.541-8.53z"/></svg>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="white">
+              <path
+                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.029c0 2.119.549 4.187 1.59 6.037L0 24l6.105-1.602a11.834 11.834 0 005.937 1.587h.005c6.637 0 12.032-5.391 12.036-12.028.003-3.218-1.252-6.242-3.541-8.53z" />
+            </svg>
           </span>
           WhatsApp Catalog
         </a>
-        <a href="https://www.facebook.com/marketplace/profile/61587322066412" target="_blank" rel="noopener" class="btn-fb-pill">
+        <a href="https://www.facebook.com/marketplace/profile/61587322066412" target="_blank" rel="noopener"
+          class="btn-fb-pill">
           <span class="btn-pill-icon">
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="white"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+            <svg viewBox="0 0 24 24" width="16" height="16" fill="white">
+              <path
+                d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+            </svg>
           </span>
           Facebook Marketplace
         </a>
@@ -251,20 +496,26 @@
 
     <!-- 80% / 20% STATS -->
     <section class="reveal" style="margin-top:80px;">
-      <div style="background:linear-gradient(135deg,var(--surface) 0%,var(--background) 100%); border:1px solid var(--border); border-radius:var(--radius-xl); padding:60px; text-align:center;">
-        <div style="font-size:48px; font-weight:800; color:var(--primary); margin-bottom:10px; display:flex; justify-content:center; align-items:center; gap:40px;">
+      <div
+        style="background:linear-gradient(135deg,var(--surface) 0%,var(--background) 100%); border:1px solid var(--border); border-radius:var(--radius-xl); padding:60px; text-align:center;">
+        <div
+          style="font-size:48px; font-weight:800; color:var(--primary); margin-bottom:10px; display:flex; justify-content:center; align-items:center; gap:40px;">
           <div style="display:flex; flex-direction:column; align-items:center;">
             <span style="line-height:1;">80%</span>
-            <span style="font-size:14px; text-transform:uppercase; letter-spacing:2px; color:var(--text-muted); font-weight:600; margin-top:10px;">Brand New</span>
+            <span
+              style="font-size:14px; text-transform:uppercase; letter-spacing:2px; color:var(--text-muted); font-weight:600; margin-top:10px;">Brand
+              New</span>
           </div>
           <div style="font-size:32px; color:var(--border); opacity:0.5;">/</div>
           <div style="display:flex; flex-direction:column; align-items:center;">
             <span style="line-height:1;">20%</span>
-            <span style="font-size:14px; text-transform:uppercase; letter-spacing:2px; color:var(--text-muted); font-weight:600; margin-top:10px;">Pre-Owned</span>
+            <span
+              style="font-size:14px; text-transform:uppercase; letter-spacing:2px; color:var(--text-muted); font-weight:600; margin-top:10px;">Pre-Owned</span>
           </div>
         </div>
         <p style="font-size:18px; color:var(--text); max-width:600px; margin:30px auto 0; line-height:1.6;">
-          Our inventory is selectively curated. Available directly on our Website, WhatsApp Catalog, and Facebook Marketplace.
+          Our inventory is selectively curated. Available directly on our Website, WhatsApp Catalog, and Facebook
+          Marketplace.
         </p>
       </div>
     </section>
@@ -275,7 +526,8 @@
     <div class="f-grid">
       <div class="f-about">
         <div class="logo"><img src="assets/brand/AJ2.png" alt="AJ Vantage Logo" class="site-logo"></div>
-        <p>Premium leather goods crafted with passion since 2026. Our collection consists of 80% new and 20% selectively curated pre-owned pieces available across our Website, WhatsApp Catalog, and Facebook Marketplace.</p>
+        <p>Premium leather goods crafted with passion since 2026. Our collection consists of 80% new and 20% selectively
+          curated pre-owned pieces available across our Website, WhatsApp Catalog, and Facebook Marketplace.</p>
       </div>
       <div class="f-col">
         <h4>Shopping</h4>
@@ -296,12 +548,12 @@
         <a href="legal.html#privacy">Privacy Policy</a>
         <a href="legal.html#terms">Terms of Service</a>
         <a href="legal.html#shipping">Shipping Policy</a>
+        <a href="security.html">Security Suite</a>
       </div>
     </div>
-    <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA 🇱🇰</span></div>
+    <div class="f-bottom"><span>© 2026 AJ Vantage. All rights reserved.</span><span class="sri-tag">CRAFTED IN SRI LANKA
+        🇱🇰</span></div>
   </footer>
-
-  <div class="toast" id="toast"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" /></svg><span id="toastMsg">Added to cart</span></div>
 
   <!-- Firebase -->
   <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>

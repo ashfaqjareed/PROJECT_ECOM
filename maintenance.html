@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="icon" type="image/png" href="assets/brand/AJ.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site Under Maintenance</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        :root {
+            --m-orange: #ff6d2e;
+            --m-dark: #e85a1a;
+        }
+
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--m-orange);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .m-container {
+            text-align: center;
+            z-index: 10;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .m-error {
+            font-size: 14px;
+            font-weight: 800;
+            letter-spacing: 4px;
+            opacity: 0.8;
+            margin-top: 32px;
+            text-transform: uppercase;
+        }
+
+        .m-logo {
+            width: 120px;
+            margin-bottom: 24px;
+            filter: brightness(0) invert(1);
+        }
+
+        .m-title {
+            font-size: 40px;
+            font-weight: 900;
+            letter-spacing: -1.5px;
+            margin-bottom: 12px;
+            margin-top: 0;
+        }
+
+        .m-subtitle {
+            margin-bottom: 40px;
+            opacity: 0.85;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .pills-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            align-items: center;
+            width: 100%;
+        }
+
+        .m-pill {
+            background: transparent;
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
+            padding: 16px 20px;
+            border-radius: 99px;
+            font-size: 14px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            width: 320px;
+            max-width: 90vw;
+            color: white;
+            transition: 0.3s;
+            animation: float 4s infinite ease-in-out;
+        }
+
+        .m-pill:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: scale(1.02);
+            border-color: white;
+        }
+
+        .m-pill:nth-child(1) {
+            animation-delay: 0s;
+        }
+
+        .m-pill:nth-child(2) {
+            animation-delay: 0.4s;
+            background: white;
+            color: var(--m-orange);
+            cursor: pointer;
+            border: none;
+            margin-top: 10px;
+        }
+
+        .m-pill:nth-child(2):hover {
+            background: #fcfcfc;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            transform: scale(1.02);
+        }
+
+        @keyframes float {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        /* POPUP */
+        .m-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(15px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 20px;
+        }
+
+        .m-modal {
+            background: white;
+            color: #111;
+            padding: 40px;
+            border-radius: 32px;
+            max-width: 500px;
+            width: 100%;
+            position: relative;
+            animation: modalIn 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes modalIn {
+            from {
+                transform: scale(0.9) translateY(20px);
+                opacity: 0;
+            }
+
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .m-modal h2 {
+            font-size: 28px;
+            font-weight: 900;
+            margin-bottom: 16px;
+            color: var(--m-orange);
+        }
+
+        .m-modal p {
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 24px;
+        }
+
+        .m-modal .m-btn {
+            background: var(--m-orange);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 99px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 24px;
+            right: 24px;
+            background: #f5f5f5;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* BG PATTERN */
+        .m-bg-pattern {
+            position: absolute;
+            inset: 0;
+            opacity: 0.1;
+            background-image: radial-gradient(#fff 2px, transparent 2px);
+            background-size: 40px 40px;
+            z-index: 1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="m-bg-pattern"></div>
+    <div class="m-container">
+        <img src="assets/brand/AJ3.png" class="m-logo" alt="AJ Vantage">
+        <h1 class="m-title">We are Tuning the Experience.</h1>
+        <p class="m-subtitle">For our Dear Customers, We apologize for the inconvenience caused.<br>The Site will be
+            Live Soon again.</p>
+
+        <div class="pills-container">
+            <div class="m-pill">SITE IS IN MAINTENANCE</div>
+            <button class="m-pill" onclick="openModal()">LEARN MORE</button>
+        </div>
+        <div class="m-error" style="color: rgb(255, 255, 255);">SITE ERROR | ERROR CODE 503</div>
+    </div>
+
+    <div class="m-overlay" id="mOverlay">
+        <div class="m-modal">
+            <div class="close-btn" onclick="closeModal()">✕</div>
+            <h2>Registry Update</h2>
+            <p>Our artisans are currently rebuilding the backend architecture to support our upcoming July 1st global
+                launch. This includes:</p>
+            <ul style="text-align: left; margin-bottom: 24px; color: #555;">
+                <li>Upgrading Firestore Security Rules</li>
+                <li>Optimizing Liquid Glass UI Components</li>
+                <li>Syncing Global Inventory Database</li>
+                <li>Finalizing Elite Membership Tiers</li>
+            </ul>
+            <p>Access is temporarily restricted to ensure data integrity. We appreciate your patience.</p>
+            <button class="m-btn" style="width: 100%; background: var(--m-orange); color: white;"
+                onclick="closeModal()">Got it</button>
+        </div>
+    </div>
+
+    <script>
+        function openModal() { document.getElementById('mOverlay').style.display = 'flex'; }
+        function closeModal() { document.getElementById('mOverlay').style.display = 'none'; }
+    </script>
+    <script src="app.js"></script>
+</body>
+
+</html>
