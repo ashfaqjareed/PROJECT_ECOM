@@ -464,7 +464,7 @@ async function trackLoginAttempt(success) {
   } else {
     loginAttempts++;
     if (loginAttempts >= 2) {
-      toast("Multiple Failed attempts. Try, Forgot Password?");
+      toast("Multiple Failed Attempts. Try, Forgot Password?");
       // Small delay before suggesting reset
       setTimeout(() => {
         if (confirm("Would you like to Reset your Password?")) {
@@ -521,7 +521,7 @@ function toggleWish(id) {
   } else {
     w.push(id);
     setWish(w);
-    toast('Added to wishlist');
+    toast('Added to Wishlist');
   }
 
   // Re-render UI to update heart color
@@ -939,7 +939,7 @@ async function handleSignOut() {
     localStorage.removeItem('aj_cart');
     localStorage.removeItem('aj_wish');
     sessionStorage.removeItem('aj_welcomed'); // Clear so popup shows again on next visit
-    toast("Signing out securely...");
+    toast("Signing out Securely...");
     setTimeout(() => location.href = 'index.html', 1000);
   } catch (e) {
     location.href = 'index.html';
@@ -1124,7 +1124,7 @@ async function submitEnquiry() {
     document.getElementById('supportForm').reset();
   } catch (err) {
     console.error('Enquiry Error:', err);
-    toast('Failed to send transmission. Please try again.');
+    toast('Failed to send Transmission. Please try again.');
   } finally {
     btn.disabled = false;
     btn.innerHTML = originalText;
@@ -1413,6 +1413,16 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Floating WhatsApp button removed per user request
 
+  // Set active navigation link based on current URL
+  const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.desktop-nav a').forEach(link => {
+    link.classList.remove('active');
+    const href = link.getAttribute('href');
+    // Basic match; if currentPath is empty, default to index.html
+    if (href === currentPath || (currentPath === '' && href === 'index.html')) {
+      link.classList.add('active');
+    }
+  });
   observeReveals();
 });
 
