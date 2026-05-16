@@ -16,7 +16,7 @@
       animation: slideUp 0.4s cubic-bezier(0.16,1,0.3,1) both;
     }
     .wish-card:hover { border-color: var(--primary); box-shadow: 0 12px 32px rgba(255,109,46,0.1); transform: translateY(-2px); }
-    @keyframes slideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform:translateY(0); } }
+    @keyframes slideUp { from { opacity:0; transform:translateY(16px); } to { opacity:1; transform: none; } }
     .wish-img { width:90px; height:90px; border-radius:14px; background:var(--surface-dim); overflow:hidden; border:1px solid var(--border); display:flex; align-items:center; justify-content:center; }
     .wish-img img { width:100%; height:100%; object-fit:contain; transition:transform .4s; }
     .wish-card:hover .wish-img img { transform:scale(1.08); }
