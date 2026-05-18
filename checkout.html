@@ -149,7 +149,7 @@
 
         <section style="margin-bottom: 60px;">
           <h3
-            style="font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); margin-bottom: 32px; font-weight: 800;">
+            style="font-size: 13px; text-transform: uppercase; letter-spacing: 2px; color: var(--primary); margin-bottom: 32px; font-weight: 800; text-decoration: underline; text-underline-offset: 4px;">
             02 — Payment Selection</h3>
 
           <div class="pay-opt active" onclick="setPay('whatsapp', this)">
@@ -190,9 +190,54 @@
             <span class="status-badge status-active" style="position:static; margin-left:auto;">Enabled</span>
           </div>
 
-          <div style="margin-top: 30px; margin-bottom: 20px;">
-            <label style="font-size: 13px; font-weight: 700; color: var(--text-light); display: block; margin-bottom: 10px;">Upload Payment Screenshot</label>
-            <input type="file" id="paymentScreenshot" accept="image/*" style="padding: 16px; background: var(--surface); border: 1.5px dashed var(--border); border-radius: var(--radius); color: var(--text); font-weight: 600; width: 100%; cursor: pointer;">
+          <div class="pay-opt" style="opacity: 0.5; pointer-events: none; filter: grayscale(100%);">
+            <div class="pay-opt-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                <line x1="1" y1="10" x2="23" y2="10"/>
+              </svg></div>
+            <div class="pay-opt-text">
+              <div class="pay-opt-title">Credit / Debit Card</div>
+              <div class="pay-opt-sub">Currently unavailable</div>
+            </div>
+            <span class="status-badge" style="position:static; margin-left:auto; background: var(--surface-dim); color: var(--text-muted);">Disabled</span>
+          </div>
+
+          <div class="pay-opt" style="opacity: 0.5; pointer-events: none; filter: grayscale(100%);">
+            <div class="pay-opt-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7.076 21.337H2.47a.641.641 0 0 1-.633-.74l3.144-20.106A.641.641 0 0 1 5.614 0h7.152c3.2 0 4.915 1.528 4.707 4.542-.153 2.186-1.127 4.296-2.923 5.343-1.428.832-3.143.948-4.707.948H8.5l-1.424 10.504zM6.98 2.667L4.47 18.67h2.606l1.24-9.155h1.53c2.463 0 3.737-.584 4.02-2.585.195-1.378-.293-2.618-1.53-3.328-.887-.507-2.193-.564-3.21-.564H6.98z"/>
+              </svg></div>
+            <div class="pay-opt-text">
+              <div class="pay-opt-title">PayPal</div>
+              <div class="pay-opt-sub">Currently unavailable</div>
+            </div>
+            <span class="status-badge" style="position:static; margin-left:auto; background: var(--surface-dim); color: var(--text-muted);">Disabled</span>
+          </div>
+
+          <div class="pay-opt" style="opacity: 0.5; pointer-events: none; filter: grayscale(100%);">
+            <div class="pay-opt-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2">
+                <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+                <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+              </svg></div>
+            <div class="pay-opt-text">
+              <div class="pay-opt-title">Cash on Delivery</div>
+              <div class="pay-opt-sub">Currently unavailable</div>
+            </div>
+            <span class="status-badge" style="position:static; margin-left:auto; background: var(--surface-dim); color: var(--text-muted);">Disabled</span>
+          </div>
+
+          <div style="margin-top: 40px; margin-bottom: 20px;">
+            <label style="font-size: 13px; font-weight: 800; color: var(--text); text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; margin-bottom: 16px;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Upload Payment Screenshot
+            </label>
+            <div style="position: relative; overflow: hidden; border: 2px dashed var(--border); border-radius: var(--radius-xl); background: var(--surface-dim); padding: 32px 24px; text-align: center; transition: all 0.3s var(--ease);" onmouseover="this.style.borderColor='var(--primary)'; this.style.background='var(--surface)'" onmouseout="this.style.borderColor='var(--border)'; this.style.background='var(--surface-dim)'">
+              <input type="file" id="paymentScreenshot" accept="image/*" style="position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; z-index: 10;">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="2" style="margin-bottom: 12px;"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+              <div style="font-size: 15px; font-weight: 700; color: var(--text); margin-bottom: 4px;">Click or drag to upload</div>
+              <div style="font-size: 12px; color: var(--text-muted);">SVG, PNG, JPG or GIF (max. 5MB)</div>
+            </div>
           </div>
         </section>
 
