@@ -1,5 +1,5 @@
 // MAINTENANCE MODE - Set to true to activate maintenance screen globally
-const MAINTENANCE_MODE = false;
+const MAINTENANCE_MODE = true;
 
 if (MAINTENANCE_MODE && !window.location.pathname.endsWith('maintenance.html')) {
   window.location.href = 'maintenance.html';
@@ -40,7 +40,7 @@ for (let i = 1; i <= 80; i++) {
     id: i,
     name: `Vantage ${catLabels[cat]} ${i > 20 ? 'Elite' : 'Classic'} ${i}`,
     cat: cat,
-    price: (Math.floor(Math.random() * 200) + 40) * 450,
+    price: 50000,
     badge: i < 10 ? "New" : (i % 12 === 0 ? "Best Seller" : ""),
     img: `${baseImages[cat]}?q=80&w=800&auto=format&fit=crop&sig=${i}`,
     desc: "Exquisite handcrafted leather piece designed for longevity and timeless style."
