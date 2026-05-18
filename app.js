@@ -1,5 +1,5 @@
 // MAINTENANCE MODE - Set to true to activate maintenance screen globally
-const MAINTENANCE_MODE = true;
+const MAINTENANCE_MODE = false;
 
 if (MAINTENANCE_MODE && !window.location.pathname.endsWith('maintenance.html')) {
   window.location.href = 'maintenance.html';
@@ -316,6 +316,14 @@ function getWish() {
 function setWish(w) { localStorage.setItem('aj_wish', JSON.stringify(w)); }
 
 function updateCartBadge() {
+  if (window.location.pathname.endsWith('maintenance.html')) {
+    document.querySelectorAll('#cartCount,.cart-badge').forEach(el => {
+      el.style.display = 'none';
+    });
+    let floatCart = document.getElementById('aj-float-cart');
+    if (floatCart) floatCart.style.display = 'none';
+    return;
+  }
   const c = getCart();
   document.querySelectorAll('#cartCount,.cart-badge').forEach(el => {
     el.textContent = c.length;
@@ -325,6 +333,12 @@ function updateCartBadge() {
 }
 
 function updateFloatingCart() {
+  if (window.location.pathname.endsWith('maintenance.html')) {
+    let floatCart = document.getElementById('aj-float-cart');
+    if (floatCart) floatCart.style.display = 'none';
+    return;
+  }
+
   const c = getCart();
   let floatCart = document.getElementById('aj-float-cart');
   if (!floatCart) {
@@ -345,7 +359,7 @@ function updateFloatingCart() {
   let subtotal = 0;
   let count = 0;
   c.forEach(item => {
-    const p = globalProducts.find(x => x.id === item.id);
+    const p = globalProducts.find(x => x.id == item.id);
     if (p) {
       subtotal += p.price * item.qty;
       count += item.qty;
@@ -444,7 +458,7 @@ async function executeDeleteAccount() {
     await db.collection('customers').doc(user.uid).delete();
     await user.delete();
     localStorage.clear();
-    toast('Account deleted. See you around.');
+    toast('Account Deleted. See you around.');
     setTimeout(() => location.href = 'index.html', 1500);
   } catch (error) {
     if (error.code === 'auth/requires-recent-login') {
@@ -477,14 +491,14 @@ async function trackLoginAttempt(success) {
   }
 }
 
-function addToCart(id, qty = 1, size = 'Default', color = 'Default') {
+function addToCart(id, qty = 1, size = 'Default', color = 'Default', fromProductPage = false) {
   if (!isLoggedIn()) {
     toast('Account Required | Redirecting to Login Page');
     setTimeout(() => location.href = 'login.html', 1500);
-    return;
+    return false;
   }
   const p = globalProducts.find(x => x.id == id);
-  if (p && p.isGhost) { toast('Sneak Peek Only — Launching Nov 2026'); return; }
+  if (p && p.isGhost) { toast('Sneak Peek Only — Launching Nov 2026'); return false; }
 
   const c = getCart();
   // Check if same product + size + color exists
@@ -492,19 +506,22 @@ function addToCart(id, qty = 1, size = 'Default', color = 'Default') {
 
   if (p && p.isPreOwned) {
     if (existing || qty > 1) {
-      toast("Pre-Owned Item: Limited to 1 unit");
-      return;
+      toast("Pre-Owned Items : Limited to 1 unit");
+      return false;
     }
   }
 
+  const priceStr = p ? fmtLKR(p.price * qty) : '';
+
   if (existing) {
-    existing.qty += qty;
-    toast('Cart Updated');
+    toast('Added to Cart - Increase the Quantity');
+    return false;
   } else {
     c.push({ id, qty, size, color, cartId: Date.now() + Math.random() });
-    toast('Added to cart');
+    toast(`Added to Cart${priceStr ? ' — ' + priceStr : ''}`);
   }
   setCart(c);
+  return true;
 }
 
 function toggleWish(id) {
@@ -551,7 +568,7 @@ function openSocial(channel, pid) {
     return;
   }
 
-  const p = allProducts.find(x => x.id === pid) || preOwnedProducts.find(x => x.id === pid);
+  const p = allProducts.find(x => x.id == pid) || preOwnedProducts.find(x => x.id == pid);
   if (p) {
     if (channel === 'wa' && p.waLink) {
       window.open(p.waLink, '_blank');
@@ -711,7 +728,7 @@ function renderCartItems() {
 
   let subtotal = 0;
   container.innerHTML = cart.map(item => {
-    const p = globalProducts.find(x => x.id === item.id);
+    const p = globalProducts.find(x => x.id == item.id);
     if (!p) return '';
     const itemTotal = p.price * item.qty;
     subtotal += itemTotal;
@@ -740,15 +757,15 @@ function renderCartItems() {
       </div>
     `;
   }).join('');
-  const tax = subtotal * 0.08;
-  const total = subtotal + tax;
+  const delivery = 500;
+  const total = subtotal + delivery;
 
   const subEl = document.getElementById('subtotal');
-  const taxEl = document.getElementById('tax');
+  const deliveryEl = document.getElementById('delivery');
   const totalEl = document.getElementById('total');
 
   if (subEl) subEl.textContent = fmtLKR(subtotal);
-  if (taxEl) taxEl.textContent = fmtLKR(tax);
+  if (deliveryEl) deliveryEl.textContent = fmtLKR(delivery);
   if (totalEl) totalEl.textContent = fmtLKR(total);
 
   setTimeout(observeReveals, 50);
@@ -1267,7 +1284,7 @@ async function syncUserToFirestore(user, isNew) {
       email: user.email,
       phone: phone,
       memberSince: new Date().toISOString().split('T')[0],
-      homeBranch: "katugastota",
+      homeBranch: "Wattala",
       tier: "Bronze",
       points: 0,
       totalSpent: 0,

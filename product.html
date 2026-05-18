@@ -320,7 +320,7 @@
     let activeTab = 'desc';
 
     function changeQty(d) {
-      const p = globalProducts.find(x => x.id === pid) || allProducts[0];
+      const p = globalProducts.find(x => x.id == pid) || allProducts[0];
       if (p && p.isPreOwned) return; // Hard block for pre-owned
       const maxQ = (p && p.maxQty) ? p.maxQty : 10;
       const newQty = qty + d;
@@ -371,7 +371,7 @@
     const _origToggleWish = toggleWish;
     toggleWish = function (id) {
       _origToggleWish(id);
-      if (id === pid) {
+      if (id == pid) {
         const btn = document.getElementById('wishBtn');
         const wish = getWish();
         btn.classList.toggle('active', wish.includes(pid));
@@ -382,7 +382,7 @@
       const u = new URLSearchParams(location.search);
       const rawId = u.get('id') || '1';
       pid = rawId.startsWith('po-') ? rawId : (parseInt(rawId) || 1);
-      const p = globalProducts.find(x => x.id === pid) || allProducts[0];
+      const p = globalProducts.find(x => x.id == pid) || allProducts[0];
       const isPreOwnedItem = p && p.isPreOwned === true;
       const icon = getIcon(p.cat);
       const isGhost = p.isGhost;
@@ -553,7 +553,7 @@
       setTimeout(observeReveals, 50);
     });
 
-    function addAndGo() { addToCart(pid, qty, selectedSize, selectedColor); }
+    function addAndGo() { addToCart(pid, qty, selectedSize, selectedColor, true); }
     function toggleProdWish() { toggleWish(pid); }
 
   </script>

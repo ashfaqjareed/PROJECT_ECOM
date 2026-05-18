@@ -253,6 +253,13 @@
         function closeModal() { document.getElementById('mOverlay').style.display = 'none'; }
     </script>
     <script src="app.js"></script>
+    <script>
+      // Hide all cart badges and pills on the maintenance screen
+      document.addEventListener('DOMContentLoaded', () => {
+        const cartBadges = document.querySelectorAll('.cart-badge, #cartCount, .cart-btn');
+        cartBadges.forEach(el => { if (el) el.style.display = 'none'; });
+      });
+    </script>
 </body>
 
 </html>
