@@ -52,7 +52,7 @@ const overrides = [
   {
     id: 1, name: "AJ Vantage Executive Briefcase", cat: "bags", price: 85000,
     img: "assets/products/Ashfaq.png",
-    gallery: ["assets/products/Ashfaq.png", "assets/products/Ashfaq2.png", "assets/products/Jareed.jpg"],
+    gallery: ["assets/products/Ashfaq.png", "assets/products/Ashfaq2.png"],
     desc: "A masterpiece of utility and style. Handcrafted with precision, triple-reinforced stitching and premium full-grain leather.",
     sizes: ['Standard', 'Executive XL', 'Custom Fit'],
     colors: [
