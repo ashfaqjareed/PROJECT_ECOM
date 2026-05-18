@@ -1,5 +1,5 @@
 // MAINTENANCE MODE - Set to true to activate maintenance screen globally
-const MAINTENANCE_MODE = false;
+const MAINTENANCE_MODE = true;
 
 if (MAINTENANCE_MODE && !window.location.pathname.endsWith('maintenance.html')) {
   window.location.href = 'maintenance.html';

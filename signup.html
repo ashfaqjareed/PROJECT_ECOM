@@ -243,7 +243,7 @@
         <div class="form-group">
           <label>Password</label>
           <input type="password" placeholder="*** **** *****" id="signupPass" oninput="checkPassCriteria()"
-            oncopy="return false" onpaste="return false" style="padding-right: 48px;">
+             onpaste="return false" style="padding-right: 48px;">
           <button type="button" onclick="togglePass('signupPass', this)" class="eye-animate"
             style="position: absolute; right: 16px; top: 40px; background: none; border: none; color: var(--text-muted); cursor: pointer; transition: all 0.3s var(--ease);">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -272,7 +272,7 @@
         </div>
         <div class="form-group">
           <label>Confirm Password</label>
-          <input type="password" placeholder="*** **** *****" id="signupPassConfirm" oncopy="return false"
+          <input type="password" placeholder="*** **** *****" id="signupPassConfirm" 
             onpaste="return false" style="padding-right: 48px;">
           <button type="button" onclick="togglePass('signupPassConfirm', this)" class="eye-animate"
             style="position: absolute; right: 16px; top: 40px; background: none; border: none; color: var(--text-muted); cursor: pointer; transition: all 0.3s var(--ease);">
@@ -397,6 +397,12 @@
 
       if (pass.length < 8 || pass.length > 12 || !/[A-Z]/.test(pass) || !/[0-9]/.test(pass) || !/[^A-Za-z0-9]/.test(pass)) {
         toast('Please meet all password criteria');
+        return;
+      }
+
+      // Vulnerability Check: Don't allow password to contain phone number
+      if (pass.includes(phone) || phone.includes(pass)) {
+        toast('Password is too vulnerable. Do not use your phone number.');
         return;
       }
 
