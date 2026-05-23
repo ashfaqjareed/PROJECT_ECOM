@@ -30,6 +30,8 @@
       <a href="index.html" class="active">Home</a>
       <a href="shop.html">Shop</a>
       <a href="collections.html">Collections</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
       <a href="support.html">Support</a>
     </nav>
     <div class="search-pill">
@@ -134,15 +136,15 @@
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
             </div>
             <div style="flex:1;">
-              <h4 style="font-size:15px; font-weight:800; color:var(--text); margin-bottom:6px; letter-spacing:-0.2px;">AJ VANTAGE — Elite Assurance</h4>
+              <h4 id="assuranceTitle" style="font-size:15px; font-weight:800; color:var(--text); margin-bottom:6px; letter-spacing:-0.2px;">AJ VANTAGE — Elite Assurance</h4>
               <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:12px;">
                 <div style="display:flex; align-items:center; gap:8px;">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-                  <span style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">7-Day Returns</span>
+                  <span id="assuranceReturn" style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">7-Day Returns</span>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px;">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
-                  <span style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Verified Craft</span>
+                  <span id="assuranceWarranty" style="font-size:11px; font-weight:800; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px;">Verified Craft</span>
                 </div>
                 <div style="display:flex; align-items:center; gap:8px;">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
@@ -388,7 +390,7 @@
       const isGhost = p.isGhost;
 
       document.getElementById('prodTitle').textContent = p.name;
-      document.getElementById('prodPrice').textContent = isGhost ? 'Coming Soon' : fmtLKR(p.price);
+      document.getElementById('prodPrice').innerHTML = isGhost ? 'Coming Soon' : (p.originalPrice ? `${fmtLKR(p.price)} <span style="text-decoration:line-through;opacity:0.45;font-size:0.65em;font-weight:600;">${fmtLKR(p.originalPrice)}</span> <span style="font-size:0.6em;font-weight:900;background:var(--primary);color:#fff;padding:2px 8px;border-radius:99px;vertical-align:middle;">SALE</span>` : fmtLKR(p.price));
       document.getElementById('buyPrice').textContent = isGhost ? 'Coming Soon' : fmtLKR(p.price * qty);
       document.getElementById('prodDesc').textContent = p.desc;
       document.getElementById('prodBread').textContent = p.name;
@@ -397,6 +399,19 @@
       if (isPreOwnedItem) {
         document.getElementById('qtyRow').style.display = 'none';
         qty = 1;
+      }
+
+      // Dynamic Assurance card swap
+      const assuranceTitle = document.getElementById('assuranceTitle');
+      const assuranceReturn = document.getElementById('assuranceReturn');
+      const assuranceWarranty = document.getElementById('assuranceWarranty');
+      if (isPreOwnedItem) {
+        if (assuranceTitle) assuranceTitle.textContent = 'AJ VANTAGE — Pre-Owned Assurance';
+        if (assuranceReturn) assuranceReturn.textContent = '3-Day Returns';
+        if (assuranceWarranty) assuranceWarranty.textContent = 'Sold As-Is';
+      } else {
+        if (assuranceReturn) assuranceReturn.textContent = '7-Day Returns';
+        if (assuranceWarranty) assuranceWarranty.textContent = 'Lifetime Warranty';
       }
 
       if (isGhost) {
@@ -453,16 +468,18 @@
         document.getElementById('colorRow').innerHTML = activeColors.map((c, i) => {
           const isAvail = c.stock !== false;
           const isSel = c.name === selectedColor;
-          return `<div class="prod-color-swatch ${isSel ? 'active' : ''} ${!isAvail ? 'out-of-stock' : ''}" style="background:${c.hex}" onclick="if(${!isAvail}) return; document.querySelectorAll('.prod-color-swatch').forEach(s=>s.classList.remove('active'));this.classList.add('active');document.getElementById('colorName').textContent='${c.name}';selectedColor='${c.name}';" title="${c.name}"></div>`;
+          return `<div class="prod-color-swatch ${isSel ? 'active' : ''} ${!isAvail ? 'out-of-stock' : ''}" style="background:${c.hex}; cursor:${isAvail ? 'pointer' : 'not-allowed'};" onmouseenter="document.getElementById('colorName').textContent='${c.name}'" onmouseleave="document.getElementById('colorName').textContent=selectedColor" onclick="if(!${isAvail}) return; document.querySelectorAll('.prod-color-swatch').forEach(s=>s.classList.remove('active'));this.classList.add('active');document.getElementById('colorName').textContent='${c.name}';selectedColor='${c.name}';" title="${c.name}"></div>`;
         }).join('');
         document.getElementById('colorName').textContent = selectedColor;
       }
 
-      // Sizes
-      const activeSizes = p.sizes ? p.sizes.map(s => ({ label: s, stock: true })) : sizes;
+      // Sizes — handle both object arrays {label, stock} and plain strings
+      const activeSizes = p.sizes
+        ? p.sizes.map(s => typeof s === 'object' && s !== null ? s : { label: String(s), stock: true })
+        : sizes;
       const avSizes = activeSizes.filter(s => s.stock !== false);
       if (avSizes.length > 0) selectedSize = avSizes[0].label;
-      else selectedSize = activeSizes[0].label;
+      else if (activeSizes.length > 0) selectedSize = activeSizes[0].label;
 
       document.getElementById('sizeRow').innerHTML = activeSizes.map((s, i) => {
         const isAvail = s.stock !== false;
@@ -470,7 +487,7 @@
         if (isPreOwnedItem && p.sizes && p.sizes.length === 1) {
           return `<div class="prod-size active" style="cursor:default;">${s.label}</div>`;
         }
-        return `<div class="prod-size ${isSel ? 'active' : ''} ${!isAvail ? 'out-of-stock' : ''}" onclick="if(${!isAvail}) return; document.querySelectorAll('.prod-size').forEach(x=>x.classList.remove('active'));this.classList.add('active');selectedSize='${s.label}';">${s.label}</div>`;
+        return `<div class="prod-size ${isSel ? 'active' : ''} ${!isAvail ? 'out-of-stock' : ''}" style="${!isAvail ? 'opacity:0.4;cursor:not-allowed;text-decoration:line-through;' : ''}" onclick="if(!${isAvail}) return; document.querySelectorAll('.prod-size').forEach(x=>x.classList.remove('active'));this.classList.add('active');selectedSize='${s.label}'">${s.label}${!isAvail ? '<span style="font-size:9px;display:block;color:var(--text-muted)">N/A</span>' : ''}</div>`;
       }).join('');
 
       // Features

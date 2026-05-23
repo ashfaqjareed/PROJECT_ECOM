@@ -1,5 +1,5 @@
 // MAINTENANCE MODE - Set to true to activate maintenance screen globally
-const MAINTENANCE_MODE = false;
+const MAINTENANCE_MODE = true;
 
 if (MAINTENANCE_MODE && !window.location.pathname.endsWith('maintenance.html')) {
   window.location.href = 'maintenance.html';
@@ -34,16 +34,163 @@ const baseImages = {
 
 // === ACTIVE PRODUCTS (80) ===
 const products = [];
+
+// Curated galleries for different categories
+const detailGalleries = {
+  bags: [
+    "https://images.unsplash.com/photo-1548036328-c9fa89d128fa?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1594223274512-ad4803739b7c?q=80&w=800&auto=format&fit=crop"
+  ],
+  wallets: [
+    "https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1627123424755-e917d5d2d0b8?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1588444839799-eb647ed40f6c?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1598532213025-57a3e72183c5?q=80&w=800&auto=format&fit=crop"
+  ],
+  belts: [
+    "https://images.unsplash.com/photo-1624222247344-550fb8ecf7c4?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1618677603286-0ec5629f7768?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1517462964-21fdcec3f25b?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1624222247344-550fb8ecf7c4?q=80&w=800&auto=format&fit=crop"
+  ],
+  footwear: [
+    "https://images.unsplash.com/photo-1549298916-b41d501d3772?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1614252369475-531eba835eb1?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1533867617858-e7b97e060509?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1508296695146-257a814070b4?q=80&w=800&auto=format&fit=crop"
+  ],
+  watches: [
+    "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1614162692292-7ac56d7f7f1e?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1622434641406-a158123450f9?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1523170335258-f5ed11844a49?q=80&w=800&auto=format&fit=crop"
+  ],
+  travel: [
+    "https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?q=80&w=800&auto=format&fit=crop",
+    "https://images.unsplash.com/photo-1527631746610-bca00a040d60?q=80&w=800&auto=format&fit=crop"
+  ]
+};
+
+const defaultColors = [
+  { name: 'Midnight Black', hex: '#111111', stock: true },
+  { name: 'Saddle Brown', hex: '#5d3a1a', stock: true },
+  { name: 'Navy Blue', hex: '#1e3a5f', stock: true },
+  { name: 'Hunter Green', hex: '#1b3022', stock: true },
+  { name: 'Deep Burgundy', hex: '#4a0e0e', stock: false },
+  { name: 'Antique Tan', hex: '#c8956c', stock: true }
+];
+
 for (let i = 1; i <= 80; i++) {
   const cat = categories[i % categories.length];
+
+  // Custom sizes per category
+  let sizes = ['One Size'];
+  if (cat === 'footwear') {
+    sizes = ['39', '40', '41', '42', '43', '44', '45', '46'];
+  } else if (cat === 'bags' || cat === 'travel') {
+    sizes = ['Small (15L)', 'Medium (25L)', 'Large (35L)'];
+  } else if (cat === 'belts') {
+    sizes = ['32', '34', '36', '38', '40', '42'];
+  } else if (cat === 'apparel') {
+    sizes = ['S', 'M', 'L', 'XL'];
+  }
+
+  // Convert sizes to premium objects
+  const sizesObjects = sizes.map((s, idx) => ({
+    label: s,
+    stock: idx !== sizes.length - 1 // Make last size out of stock for realistic UI demo
+  }));
+
+  // Specifications
+  let specs = {
+    "Material": "Premium Full-Grain Leather",
+    "Weight": "350g",
+    "Dimensions": "Standard Fit",
+    "Warranty": "7-Day Returns + Lifetime Hardware Warranty"
+  };
+
+  if (cat === 'bags') {
+    specs = {
+      "Material": "Full-Grain Italian Cowhide Leather",
+      "Weight": "1.2 kg",
+      "Dimensions": "40 x 30 x 12 cm",
+      "Warranty": "7-Day Returns + Lifetime Hardware Warranty"
+    };
+  } else if (cat === 'wallets') {
+    specs = {
+      "Material": "Full-Grain Nappa Leather",
+      "Weight": "150g",
+      "Dimensions": "11 x 9 x 1.5 cm",
+      "Warranty": "7-Day Returns + Lifetime Hardware Warranty"
+    };
+  } else if (cat === 'belts') {
+    specs = {
+      "Material": "Vegetable-Tanned Saddle Leather",
+      "Weight": "250g",
+      "Dimensions": "Width 3.8 cm",
+      "Warranty": "7-Day Returns + Lifetime Hardware Warranty"
+    };
+  } else if (cat === 'footwear') {
+    specs = {
+      "Material": "Full-Grain Hand-Burnished Calfskin",
+      "Weight": "950g per pair",
+      "Dimensions": "Fits true to size",
+      "Warranty": "7-Day Returns + 1-Year Limited Warranty"
+    };
+  } else if (cat === 'watches') {
+    specs = {
+      "Material": "316L Stainless Steel & Leather Strap",
+      "Weight": "85g",
+      "Dimensions": "40mm Case, 20mm Band Width",
+      "Warranty": "7-Day Returns + 2-Year Movement Warranty"
+    };
+  } else if (cat === 'travel') {
+    specs = {
+      "Material": "Heavy-Duty Full-Grain Leather",
+      "Weight": "2.1 kg",
+      "Dimensions": "55 x 35 x 23 cm",
+      "Warranty": "7-Day Returns + Lifetime Hardware Warranty"
+    };
+  }
+
+  // Set prices and discount rates
+  const basePrice = 50000;
+  const isSale = i % 5 === 0; // 20% of products are on sale
+  const price = isSale ? basePrice - 5000 : basePrice;
+  const originalPrice = isSale ? basePrice : null;
+
+  // Colors list: copy of defaultColors but make sure stock status varies slightly
+  const colors = defaultColors.map((c, idx) => ({
+    ...c,
+    stock: idx === 4 ? false : true // Deep Burgundy out of stock
+  }));
+
+  const mainImg = (detailGalleries[cat] && detailGalleries[cat][0]) || `${baseImages[cat]}?q=80&w=800&auto=format&fit=crop&sig=${i}`;
+  const gallery = detailGalleries[cat] || [mainImg, mainImg, mainImg, mainImg];
+
   products.push({
     id: i,
     name: `Vantage ${catLabels[cat]} ${i > 20 ? 'Elite' : 'Classic'} ${i}`,
     cat: cat,
-    price: 50000,
-    badge: i < 10 ? "New" : (i % 12 === 0 ? "Best Seller" : ""),
-    img: `${baseImages[cat]}?q=80&w=800&auto=format&fit=crop&sig=${i}`,
-    desc: "Exquisite handcrafted leather piece designed for longevity and timeless style."
+    price: price,
+    originalPrice: originalPrice,
+    badge: isSale ? "Sale" : (i < 10 ? "New" : (i % 12 === 0 ? "Best Seller" : "")),
+    img: mainImg,
+    gallery: gallery,
+    desc: `An exquisite, handcrafted luxury piece, carefully designed for longevity, ultimate utility, and timeless style. Ideal for those who value authentic heritage and refined craftsmanship.`,
+    specs: specs,
+    colors: colors,
+    sizes: sizesObjects,
+    reviews: [
+      { user: "Winston B.", rating: 5, comment: "Exceptional quality leather. Truly feels like a premium piece that will last decades." },
+      { user: "Sarah L.", rating: 5, comment: "Beautiful details, stitching is robust, and the leather texture is magnificent." }
+    ],
+    shipping: "Free insured delivery within Sri Lanka (2-3 business days Colombo, 3-5 days outstations). Global express via DHL available.",
+    additionalInfo: "Each AJ VANTAGE piece comes with a signed Certificate of Authenticity, dynamic serial number card, and custom flannel dust bag."
   });
 }
 
@@ -621,7 +768,10 @@ function cardHTML(p, i, wish) {
     </div>
     <div class="product-bot">
       <div style="display:flex; flex-direction:column; gap:4px;">
-        <span class="product-price">${isGhost ? 'Coming Soon' : fmtLKR(p.price)}</span>
+        <span class="product-price">
+          ${isGhost ? 'Coming Soon' : fmtLKR(p.price)}
+          ${(!isGhost && p.originalPrice) ? `<span style="text-decoration:line-through; font-size:11px; color:var(--text-muted); margin-left:6px; font-weight:500;">${fmtLKR(p.originalPrice)}</span>` : ''}
+        </span>
         <span style="font-size:9px; font-weight:800; color:var(--primary); opacity:0.8; letter-spacing:1px;">AJ-#${String(p.id).toUpperCase()}</span>
       </div>
       ${!isGhost ? `<button class="add-to-cart" onclick="event.stopPropagation();addToCart('${p.id}')">
