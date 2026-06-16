@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Seeding Database...</title>
+</head>
+<body>
+  <h1>Seeding Database... Please wait...</h1>
+  <div id="log"></div>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBy44sne8A7Ynm5GEgA7DBrEmeuJkRc890",
+      authDomain: "aj-vantage-ecom.firebaseapp.com",
+      projectId: "aj-vantage-ecom",
+      storageBucket: "aj-vantage-ecom.firebasestorage.app",
+      messagingSenderId: "797206947976",
+      appId: "1:797206947976:web:ec58e49ce403741dd9d73d",
+      measurementId: "G-WJCRWVWB6H"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+  </script>
+  <script src="app.js"></script>
+  <script>
+    setTimeout(() => {
+      document.getElementById('log').innerHTML += '<p>Checking and seeding products...</p>';
+      db.collection('products').get().then(snap => {
+        document.getElementById('log').innerHTML += `<p>Currently ${snap.size} products in DB.</p>`;
+        if (snap.empty || snap.size < 10) {
+          document.getElementById('log').innerHTML += '<p>Seeding 100 products now...</p>';
+          let p = Promise.resolve();
+          globalProducts.forEach((prod, i) => {
+            p = p.then(() => {
+              return db.collection('products').doc(prod.id.toString()).set({
+                name: prod.name,
+                price: prod.price,
+                category: prod.cat,
+                img: prod.img,
+                gallery: prod.gallery || (prod.img ? [prod.img] : []),
+                description: prod.desc || '',
+                inStock: true,
+                type: prod.isPreOwned ? 'preowned' : 'shop',
+                condition: prod.specs?.Condition || null,
+                createdAt: firebase.firestore.FieldValue.serverTimestamp()
+              }, { merge: true });
+            });
+          });
+          p.then(() => {
+            document.getElementById('log').innerHTML += '<p style="color:green;font-weight:bold;">Seeding complete! You can close this tab and check the CMS.</p>';
+          });
+        } else {
+          document.getElementById('log').innerHTML += '<p style="color:green;font-weight:bold;">Database is already seeded.</p>';
+        }
+      });
+    }, 1000);
+  </script>
+</body>
+</html>

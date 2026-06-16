@@ -4,480 +4,290 @@
   <link rel="icon" type="image/png" href="assets/brand/AJ.png">
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Elite Dashboard — AJ VANTAGE</title>
+  <title>AJ VANTAGE | Profile</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    :root {
-      --accent: #ff6d2e;
-      --accent-dim: rgba(255, 109, 46, 0.05);
-      --glass: rgba(255, 255, 255, 0.7);
-      --glass-border: rgba(24, 24, 27, 0.06);
-      --stitch: 1.5px dashed rgba(255, 109, 46, 0.3);
-    }
+    body { opacity:0; transform:translateY(10px); transition:opacity 0.5s ease, transform 0.5s ease; }
+    body.page-ready { opacity:1; transform:none; }
 
-    /* Endless Banner Slider */
-    .banner-track {
-      display: flex;
-      width: max-content;
-      animation: banner-scroll 40s linear infinite;
-      gap: 100px;
-      padding-left: 100px;
-    }
-
-    .banner-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      white-space: nowrap;
-    }
-
-    @keyframes banner-scroll {
-      from { transform: translateX(0); }
-      to { transform: translateX(-50%); }
-    }
-
-    .banner-text {
-      font-size: 13px;
-      font-weight: 900;
-      color: #fff;
-      text-transform: uppercase;
-      letter-spacing: 2.5px;
-      text-shadow: 0 0 10px rgba(255,255,255,0.3);
-    }
-
-
-    body { 
-      background: var(--bg); 
-      font-family: var(--font); 
-      margin: 0; 
-      color: var(--text); 
-      overflow-x: hidden;
-      min-height: 100vh;
-    }
-
-    .profile-container {
-      max-width: 1500px;
+        .profile-container {
+      max-width: 1100px;
+      width: 95%;
       margin: 140px auto 80px;
-      padding: 0 40px;
+      padding: 0;
       display: grid;
-      grid-template-columns: 360px 1fr;
-      gap: 40px;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
       align-items: start;
     }
-
-    /* SIDEBAR */
-    .profile-sidebar {
-      background: var(--surface);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border);
-      border-radius: 32px;
-      padding: 40px;
-      position: sticky;
-      top: 140px;
-      text-align: center;
-      box-shadow: var(--shadow-lg);
-    }
-
-    .avatar-wrap {
-      width: 120px;
-      height: 120px;
-      margin: 0 auto 24px;
-      border-radius: 50%;
-      border: var(--stitch);
-      padding: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .avatar-inner {
+    
+    .btn-delete-account {
+      background: transparent;
+      border: 1px solid #ef4444;
+      color: #ef4444;
+      padding: 0.6rem 1.2rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
       width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      background: var(--primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 40px;
-      font-weight: 900;
-      color: #fff;
-      box-shadow: 0 10px 30px rgba(255, 109, 46, 0.3);
     }
-
-    .user-name { font-size: 22px; font-weight: 800; margin-bottom: 6px; color: var(--text); }
-    .user-email { font-size: 13px; color: var(--text-muted); margin-bottom: 16px; }
-
-    .sidebar-nav { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
-
-    .sidebar-nav { display: flex; flex-direction: column; gap: 8px; margin-bottom: 32px; }
-    .nav-link {
-      padding: 12px 20px; border-radius: 12px; font-size: 13px; font-weight: 700; color: var(--text-muted);
-      text-decoration: none; transition: all 0.3s; display: flex; align-items: center; gap: 12px;
+    .btn-delete-account:hover {
+      background: #ef4444;
+      color: white;
     }
-    .nav-link:hover { background: var(--surface-dim); color: var(--text); }
-    .nav-link.active { background: var(--primary-glow); color: var(--primary); }
-
-    .sidebar-actions { display: flex; flex-direction: column; gap: 12px; }
-
-    .btn-side {
-      width: 100%; padding: 14px; border-radius: 16px; font-size: 12px; font-weight: 800;
-      text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; transition: all 0.3s;
-      border: 1.5px solid var(--border); background: var(--surface-dim); color: var(--text);
-      display: flex; align-items: center; justify-content: center; gap: 10px;
+    .right-tab {
+      background: none; border: none; padding: 0.8rem 1.5rem; font-size: 0.95rem; font-weight: 700; color: var(--text-muted); cursor: pointer; border-bottom: 2px solid transparent; transition: 0.2s;
     }
-    .btn-side:hover { background: var(--surface-high); transform: translateY(-2px); }
-    .btn-side.danger { color: #ef4444; border-color: rgba(239, 68, 68, 0.1); }
-    .btn-side.danger:hover { background: #fee2e2; border-color: #ef4444; }
+    .right-tab:hover { color: var(--text); }
+    .right-tab.active { color: var(--primary); border-bottom-color: var(--primary); }
 
-    /* MAIN CONTENT */
-    .profile-main {
-      background: var(--surface);
-      backdrop-filter: blur(20px);
-      border: 1px solid var(--border);
-      border-radius: 32px;
-      padding: 48px;
-      min-height: 600px;
-      box-shadow: var(--shadow-lg);
-    }
+    .profile-sidebar { background:var(--surface); border:1px solid var(--border); border-radius:28px; padding:36px; position:sticky; top:130px; text-align:center; box-shadow:var(--shadow-lg); }
+    .profile-main { background:var(--surface); border:1px solid var(--border); border-radius:28px; padding:44px; min-height:600px; box-shadow:var(--shadow-lg); }
 
-    .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
-    .form-group { display: flex; flex-direction: column; gap: 8px; }
-    .form-label { font-size: 11px; font-weight: 900; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
-    .form-input {
-      padding: 16px 20px; background: var(--surface-dim); border: 1.5px solid var(--border);
-      border-radius: 16px; color: var(--text); font-size: 14px; font-weight: 600; transition: 0.3s;
-    }
-    .form-input:focus { outline: none; border-color: var(--primary); background: #fff; }
+    /* Avatar */
+    .avatar-ring { width:110px; height:110px; margin:0 auto 20px; border-radius:50%; border:3px dashed rgba(255,109,46,0.4); padding:8px; cursor:pointer; position:relative; }
+    .avatar-ring:hover::after { content:'Change Photo'; position:absolute; inset:0; background:rgba(0,0,0,0.5); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-size:11px; font-weight:800; }
+    .avatar-inner { width:100%; height:100%; border-radius:50%; background:var(--primary); display:flex; align-items:center; justify-content:center; font-size:36px; font-weight:900; color:#fff; overflow:hidden; box-shadow:0 8px 24px rgba(255,109,46,0.3); }
+    .avatar-inner img { width:100%; height:100%; object-fit:cover; border-radius:50%; }
 
-    .btn-action {
-      padding: 16px 32px; background: var(--primary); color: #fff; border: none; border-radius: 16px;
-      font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer;
-      box-shadow: 0 8px 24px rgba(255, 109, 46, 0.25); transition: 0.3s;
-    }
-    .btn-action:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255, 109, 46, 0.4); }
+    .user-name { font-size:20px; font-weight:800; margin-bottom:4px; }
+    .user-email { font-size:12px; color:var(--text-muted); margin-bottom:16px; }
 
-    /* TOAST */
-    .toast {
-      position: fixed; bottom: 32px; left: 50%; transform: translateX(-50%); padding: 14px 28px;
-      background: var(--text); color: #fff; border-radius: 99px; font-size: 13px; font-weight: 700;
-      z-index: 9999; display: none; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-    }
+    /* Sidebar nav */
+    .s-nav { display:flex; flex-direction:column; gap:6px; margin:20px 0; }
+    .s-nav-link { display:flex; align-items:center; gap:12px; padding:11px 16px; border-radius:12px; font-size:13px; font-weight:700; color:var(--text-muted); cursor:pointer; transition:all 0.2s; text-align:left; background:none; border:none; width:100%; font-family:inherit; }
+    .s-nav-link:hover { background:var(--surface-dim); color:var(--text); }
+    .s-nav-link.active { background:var(--primary-glow); color:var(--primary); }
 
-    /* Godly Page Transition */
-    body {
-      opacity: 0;
-      transform: translateY(10px);
-      transition: opacity 0.6s cubic-bezier(0.2, 0, 0.2, 1), transform 0.6s cubic-bezier(0.2, 0, 0.2, 1);
-      position: relative;
-      overflow-x: hidden;
-    }
-    body.page-ready {
-      opacity: 1;
-      transform: none;
-    }
+    /* Tabs */
+    .profile-section { display:none; }
+    .profile-section.active { display:block; animation:fadeIn 0.35s ease; }
+    @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
 
-    /* Abstract BG Design */
-    .abstract-blob {
-      position: fixed;
-      width: 500px;
-      height: 500px;
-      background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%);
-      filter: blur(100px);
-      z-index: -1;
-      pointer-events: none;
-      animation: drift 20s infinite alternate ease-in-out;
-    }
-    .blob-1 { top: -100px; right: -100px; }
-    .blob-2 { bottom: -100px; left: -100px; background: radial-gradient(circle, rgba(99, 102, 241, 0.05) 0%, transparent 70%); }
+    /* Form */
+    .info-grid { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+    .form-group { display:flex; flex-direction:column; gap:6px; }
+    .form-label { font-size:10px; font-weight:900; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); }
+    .form-input { padding:14px 18px; background:var(--surface-dim); border:1.5px solid var(--border); border-radius:14px; color:var(--text); font-size:14px; font-weight:600; outline:none; transition:0.2s; font-family:inherit; }
+    .form-input:focus { border-color:var(--primary); }
+    .btn-action { padding:14px 28px; background:var(--primary); color:#fff; border:none; border-radius:14px; font-size:13px; font-weight:800; text-transform:uppercase; letter-spacing:1.2px; cursor:pointer; transition:0.2s; font-family:inherit; }
+    .btn-action:hover { transform:translateY(-2px); box-shadow:0 10px 28px rgba(255,109,46,0.35); }
+    .btn-danger-sm { padding:8px 16px; background:#ef4444; color:#fff; border:none; border-radius:10px; font-size:11px; font-weight:800; text-transform:uppercase; cursor:pointer; }
 
-    @keyframes drift {
-      0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(100px, 50px) scale(1.1); }
-    }
+    /* Order card */
+    .order-card { background:var(--surface-dim); border:1px solid var(--border); border-radius:18px; padding:22px; margin-bottom:14px; transition:0.2s; }
+    .order-card:hover { border-color:var(--primary); }
 
-    /* Tab Logic */
-    .profile-section { display: none; }
-    .profile-section.active { display: block; animation: fadeIn 0.4s ease-out; }
+    /* Toast */
+    #toast { position:fixed; bottom:32px; left:50%; transform:translateX(-50%); padding:13px 26px; background:var(--text); color:#fff; border-radius:99px; font-size:13px; font-weight:700; z-index:9999; display:none; gap:8px; align-items:center; box-shadow:0 8px 24px rgba(0,0,0,0.2); }
+    #toast.show { display:flex; }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: none; }
+    @media(max-width:900px) {
+      .profile-container { grid-template-columns:1fr; margin-top:100px; padding:0 20px; }
+      .profile-sidebar { position:static; }
+      .info-grid { grid-template-columns:1fr; }
     }
   </style>
 </head>
 <body>
-  <div class="abstract-blob blob-1"></div>
-  <div class="abstract-blob blob-2"></div>
   <div id="scrollProgress"></div>
 
-  <div id="ajv-top-banner" style="background: #ff6d2e; padding: 14px 0; position: relative; z-index: 1100; overflow: hidden; box-shadow: 0 4px 20px rgba(255,109,46,0.4); border-bottom: 1px solid rgba(255,255,255,0.1);">
-    <div style="position: absolute; inset: 0; opacity: 0.2; background-image: url(&quot;data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 30c0-1.105.895-2 2-2s2 .895 2 2-.895 2-2 2-2-.895-2-2z' fill='%23ffffff' fill-opacity='1'/%3E%3C/svg%3E&quot;); pointer-events: none;"></div>
-    <div class="banner-track">
-      <div class="banner-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z"/></svg>
-        <span class="banner-text">WELCOME TO AJ VANTAGE — LAUNCHING ON JULY 1ST</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z"/></svg>
-      </div>
-      <div class="banner-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z"/></svg>
-        <span class="banner-text">CRAFTED FOR THE MODERN CONNOISSEUR — WORLDWIDE SHIPPING</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z"/></svg>
-      </div>
-      <div class="banner-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z"/></svg>
-        <span class="banner-text">WELCOME TO AJ VANTAGE — LAUNCHING ON JULY 1ST</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z"/></svg>
-      </div>
-      <div class="banner-item">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z"/></svg>
-        <span class="banner-text">CRAFTED FOR THE MODERN CONNOISSEUR — WORLDWIDE SHIPPING</span>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M12 2L3 7v9c0 5 8 10 9 10 1 0 9-5 9-10V7l-9-5z"/></svg>
-      </div>
+  <!-- TOP BANNER -->
+  <div style="background:#ff6d2e;padding:12px 0;z-index:1100;position:relative;overflow:hidden;">
+    <div style="text-align:center;font-size:12px;font-weight:900;color:#fff;text-transform:uppercase;letter-spacing:2px;">
+      🛡️ WELCOME TO AJ VANTAGE — LAUNCHING JULY 1ST
     </div>
   </div>
-  
+
+  <!-- HEADER -->
   <header class="header" id="header">
     <a href="index.html" class="logo"><img src="assets/brand/AJ3.png" alt="AJ Vantage Logo" class="site-logo"></a>
     <nav class="desktop-nav">
-      <a href="index.html" class="active">Home</a>
+      <a href="index.html">Home</a>
       <a href="shop.html">Shop</a>
       <a href="collections.html">Collections</a>
       <a href="support.html">Support</a>
     </nav>
     <div class="search-pill">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
       <input type="text" placeholder="Search products..." id="searchInput">
     </div>
     <div class="header-actions">
-      <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" /></svg></a>
-      <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z" /><line x1="3" y1="6" x2="21" y2="6" /><path d="M16 10a4 4 0 0 1-8 0" /></svg><span class="cart-badge" id="cartCount">0</span></a>
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>
-      </button>
-      <a href="profile.html" class="avatar">A</a>
+      <a href="wishlist.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></a>
+      <a href="cart.html" class="cart-btn"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg><span class="cart-badge" id="cartCount">0</span></a>
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>
+      <a href="profile.html" class="avatar" id="headerAvatar">A</a>
     </div>
   </header>
 
-  <div class="profile-container reveal">
+  <!-- Hidden DP upload input -->
+  <input type="file" id="dpFileInput" accept="image/*" style="display:none" onchange="uploadDP(this)">
+
+  <div class="profile-container">
     <!-- SIDEBAR -->
     <aside class="profile-sidebar">
-      <div class="avatar-wrap">
+      <div class="avatar-ring" onclick="document.getElementById('dpFileInput').click()" title="Click to change profile photo">
         <div class="avatar-inner" id="userInitial">V</div>
       </div>
-      <h2 class="user-name" id="userNameDisplay">Elite Member</h2>
-      <p class="user-email" id="userEmailDisplay">member@ajvantage.lk</p>
-      <div style="display:flex; justify-content:center; gap:8px; margin-bottom:32px; font-size:11px; font-weight:800; text-transform:uppercase;">
-        <span style="background:var(--primary-glow); color:var(--primary); padding:4px 10px; border-radius:99px;" id="userTierDisplay">Bronze Tier</span>
-        <span style="background:var(--surface-dim); color:var(--text-muted); padding:4px 10px; border-radius:99px;" id="userSinceDisplay">Since 2026</span>
-      </div>
+      <h2 class="user-name" id="userNameDisplay" style="margin-bottom:0;">Loading...</h2>
+      <p class="user-email" id="userEmailDisplay" style="margin-bottom:0;">—</p>
       
-      <nav class="sidebar-nav">
-        <a href="#" class="nav-link active" onclick="switchTab('details', this)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-          Account Details
-        </a>
-        <a href="#" class="nav-link" onclick="switchTab('orders', this)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 00-8 0v2"/></svg>
-          Heritage Orders
-        </a>
-        <a href="#" class="nav-link" onclick="switchTab('security', this)">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Security Suite
-        </a>
-      </nav>
+      <button class="btn-action" onclick="switchTab('settings', document.querySelector('.right-tab[data-tab=\'settings\']'))" style="padding: 0.6rem 1.2rem; font-size: 0.8rem; border-radius: 8px; margin-top: 0.5rem; width: 100%;">Edit Profile</button>
+      
+      <hr style="border: 0; border-top: 1px solid var(--border); width: 100%; margin: 1rem 0;">
 
-      <div class="sidebar-actions">
-        <div style="display:flex; gap:12px; justify-content:center; margin-bottom:24px;">
-          <a href="https://wa.me/c/94704800058" target="_blank" style="width:36px;height:36px;border-radius:10px;background:var(--surface-dim);display:flex;align-items:center;justify-content:center;color:#25D366;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.029c0 2.119.549 4.187 1.59 6.037L0 24l6.105-1.602a11.834 11.834 0 005.937 1.587h.005c6.637 0 12.032-5.391 12.036-12.028.003-3.218-1.252-6.242-3.541-8.53z"/></svg></a>
-          <a href="https://www.facebook.com/marketplace/profile/61587322066412" target="_blank" style="width:36px;height:36px;border-radius:10px;background:var(--surface-dim);display:flex;align-items:center;justify-content:center;color:#1877F2;"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></a>
-          <a href="mailto:support@ajvantage.lk" style="width:36px;height:36px;border-radius:10px;background:var(--surface-dim);display:flex;align-items:center;justify-content:center;color:var(--text);"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></a>
-        </div>
-        <button class="btn-side" onclick="handleSignOut()">Sign Out</button>
-      </div>
+      <button onclick="handleSignOut()" style="background: transparent; border: 1px solid var(--border); color: var(--text); padding: 0.6rem 1.2rem; border-radius: 8px; cursor: pointer; font-size: 0.8rem; transition: all 0.2s; width: 100%;">Sign Out</button>
+      <button class="btn-delete-account" onclick="handleDeleteAccount()">Delete Account</button>
     </aside>
 
-    <!-- MAIN -->
+    <!-- MAIN CONTENT -->
     <main class="profile-main">
-      <div id="detailsSection" class="profile-section active">
-        <div style="margin-bottom: 32px;">
-          <p style="font-size: 14px; font-weight: 700; color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 8px;">Greetings, Artisan</p>
-          <h1 style="font-size: 36px; font-weight: 800; letter-spacing: -1.5px;" id="welcomeGreeting">Welcome back, Elite Member</h1>
-        </div>
-        <h2 style="font-size: 16px; font-weight: 800; margin-bottom: 32px; color: var(--text-muted); opacity: 0.7;">Elite Registry Information</h2>
-      
-      <div class="info-grid">
-        <div class="form-group">
-          <label class="form-label">Artisan Name</label>
-          <input type="text" id="profName" class="form-input" placeholder="Your Full Name">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Email Address</label>
-          <input type="email" id="profEmail" class="form-input" disabled style="opacity: 0.7; cursor: not-allowed;">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Contact Link</label>
-          <input type="text" id="profPhone" class="form-input" placeholder="+94 7X XXX XXXX">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Gender</label>
-          <select id="profGender" class="form-input">
-            <option value="" disabled selected>Select Gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-            <option value="Prefer not to say">Prefer not to say</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label class="form-label">Date Joined</label>
-          <input type="text" id="profJoined" class="form-input" disabled style="opacity: 0.7; cursor: not-allowed;">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Tier Stage</label>
-          <input type="text" id="profTier" class="form-input" disabled style="opacity: 0.7; cursor: not-allowed;">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Reward Points</label>
-          <input type="text" id="profPoints" class="form-input" disabled style="opacity: 0.7; cursor: not-allowed;">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Total Invested (LKR)</label>
-          <input type="text" id="profSpent" class="form-input" disabled style="opacity: 0.7; cursor: not-allowed;">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Preferred Branch</label>
-          <input type="text" id="profBranch" class="form-input" disabled style="opacity: 0.7; cursor: not-allowed;">
-        </div>
-        <div class="form-group" style="grid-column: span 2;">
-          <label class="form-label">Primary Shipping Address</label>
-          <textarea id="profAddr" class="form-input" style="min-height:100px; resize:none;" placeholder="Enter your delivery location"></textarea>
-        </div>
-      </div>
-      
-      <div style="margin-top: 48px; padding: 32px; background: var(--surface-dim); border-radius: 24px; border: 1px solid var(--border);">
-        <h3 style="font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; color: var(--primary);">Payment Ecosystem Link</h3>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 24px;">Your authorized billing methods for secure checkouts.</p>
-        
-        <div style="display:flex; flex-direction:column; gap:16px;">
-          <!-- Preferred Active -->
-          <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: #fff; border-radius: 16px; border: 1.5px solid var(--primary);">
-            <div style="width: 40px; height: 40px; background: var(--primary-glow); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--primary);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18M3 10h18M5 6l7-3 7 3M4 10v11M11 10v11M15 10v11M20 10v11"/></svg>
-            </div>
-            <div style="flex: 1;">
-              <div style="font-size: 14px; font-weight: 800;" id="paymentPreferenceDisplay">Bank Transfer & FriMi QR</div>
-              <div style="font-size: 11px; color: var(--text-muted);">Your Selected Payment Preference</div>
-            </div>
-            <span id="paymentPreferenceBadge" style="font-size: 10px; font-weight: 900; color: var(--primary); text-transform: uppercase;">Preferred</span>
-          </div>
-
-          <!-- Coming Soon -->
-          <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: var(--surface); border-radius: 16px; border: 1px solid var(--border); opacity:0.7;">
-            <div style="width: 40px; height: 40px; background: var(--surface-dim); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 17h4V5H2v12h3m5 0h4m5-3h3l1.1 2.2a2 2 0 0 1 .1.8V19a1 1 0 0 1-1 1h-1M14 17h5m-5 0V9h7v8M5 17a2 2 0 1 0 4 0 2 2 0 0 0-4 0m14 0a2 2 0 1 0 4 0 2 2 0 0 0-4 0"/></svg>
-            </div>
-            <div style="flex: 1;">
-              <div style="font-size: 14px; font-weight: 800;">Cash on Delivery</div>
-              <div style="font-size: 11px; color: var(--text-muted);">Nationwide Doorstep Protocol</div>
-            </div>
-            <span style="font-size: 10px; font-weight: 900; background: #fef9c3; color: #854d0e; padding:4px 8px; border-radius:99px; text-transform: uppercase;">Aug 15</span>
-          </div>
-
-          <!-- Coming Soon Cards -->
-          <div style="display: flex; align-items: center; gap: 16px; padding: 16px; background: var(--surface); border-radius: 16px; border: 1px solid var(--border); opacity:0.5;">
-            <div style="width: 40px; height: 40px; background: var(--surface-dim); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: var(--text-muted);">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
-            </div>
-            <div style="flex: 1;">
-              <div style="font-size: 14px; font-weight: 800;">Credit / Debit System</div>
-              <div style="font-size: 11px; color: var(--text-muted);">Secure Global Gateway</div>
-            </div>
-            <span style="font-size: 10px; font-weight: 900; background: #f1f5f9; color: #475569; padding:4px 8px; border-radius:99px; text-transform: uppercase;">Nov 2026</span>
-          </div>
-        </div>
+      <!-- RIGHT TABS HEADER -->
+      <div style="display: flex; gap: 1rem; border-bottom: 1px solid var(--border); margin-bottom: 2rem; overflow-x: auto;">
+        <button class="right-tab active" data-tab="orders" onclick="switchTab('orders', this)">Orders</button>
+        <button class="right-tab" onclick="location.href='wishlist.html'">Wishlist</button>
+        <button class="right-tab" data-tab="payments" onclick="switchTab('payments', this)">Payment Methods</button>
+        <button class="right-tab" data-tab="settings" onclick="switchTab('settings', this)">Settings</button>
       </div>
 
-      <button class="btn-action" style="margin-top:40px;" onclick="saveProfile()">Update My Registry</button>
 
-      <div style="margin-top: 48px; padding: 32px; background: var(--surface-dim); border-radius: 24px; border: 1px solid var(--border);">
-        <h3 style="font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; color: #ef4444;">Security & Access</h3>
-        <p style="font-size: 13px; color: var(--text-muted); margin-bottom: 24px;">Manage your account security and data.</p>
-        
-        <div style="display:flex; flex-direction:column; gap:16px;">
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px; background: var(--surface); border-radius: 16px; border: 1px solid var(--border);">
-            <div>
-              <div style="font-size: 14px; font-weight: 800;">2-Step Verification</div>
-              <div style="font-size: 11px; color: var(--text-muted);">Coming Soon. <a href="coming-soon.html" style="color:var(--primary); font-weight:700;">Learn more</a></div>
-            </div>
-            <span style="font-size: 10px; font-weight: 900; background: #fef9c3; color: #854d0e; padding:4px 8px; border-radius:99px; text-transform: uppercase;">Upcoming</span>
-          </div>
-
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px; background: var(--surface); border-radius: 16px; border: 1px solid var(--border);">
-            <div>
-              <div style="font-size: 14px; font-weight: 800;">Forgot Password?</div>
-              <div style="font-size: 11px; color: var(--text-muted);">Reset your account access securely.</div>
-            </div>
-            <a href="login.html" style="font-size: 12px; font-weight: 800; color: var(--primary); text-decoration: none;">Reset Password</a>
-          </div>
-
-          <div style="display: flex; align-items: center; justify-content: space-between; padding: 16px; background: #fee2e2; border-radius: 16px; border: 1px solid rgba(239, 68, 68, 0.2);">
-            <div>
-              <div style="font-size: 14px; font-weight: 800; color: #ef4444;">Delete Account</div>
-              <div style="font-size: 11px; color: #b91c1c;">Permanently erase all your data.</div>
-            </div>
-            <button onclick="handleDeleteAccount()" style="padding: 8px 16px; background: #ef4444; color: #fff; border: none; border-radius: 10px; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; cursor: pointer;">Delete</button>
-          </div>
+      <!-- ── DETAILS SECTION ── -->
+      <div id="settingsSection" class="profile-section">
+        <div style="margin-bottom:32px;">
+          <p style="font-size:12px;font-weight:900;color:var(--primary);text-transform:uppercase;letter-spacing:2px;margin-bottom:6px;">Greetings, Artisan</p>
+          <h1 style="font-size:34px;font-weight:900;letter-spacing:-1.5px;" id="welcomeGreeting">Welcome back</h1>
         </div>
-      </div>
 
-      <div id="ordersSection" class="profile-section">
-        <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 40px; letter-spacing: -1px;">Heritage Orders</h1>
-        <div style="text-align: center; padding: 80px 0;">
-          <div style="width: 80px; height: 80px; background: var(--surface-dim); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 24px; color: var(--text-muted);">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
-          </div>
-          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 8px;">No Heritage Orders Yet</h3>
-          <p style="color: var(--text-muted); font-size: 14px;">Your legendary acquisitions will appear here once you begin your journey.</p>
-          <a href="shop.html" class="btn-primary" style="display: inline-flex; margin-top: 32px; text-decoration: none;">Start Shopping</a>
-        </div>
-      </div>
+        <h2 style="font-size:13px;font-weight:800;margin-bottom:28px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Elite Registry Information</h2>
 
-      <div id="securitySection" class="profile-section">
-        <h1 style="font-size: 32px; font-weight: 800; margin-bottom: 12px; letter-spacing: -1px;">Security Suite</h1>
-        <p style="color: var(--text-muted); margin-bottom: 48px; font-size: 15px;">Manage your access credentials and encrypted heritage protection.</p>
-
-        <section style="margin-bottom: 60px;">
-          <h3 style="font-size: 14px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 24px; color: var(--primary);">Update Password</h3>
+        <div class="info-grid">
           <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input type="text" id="profName" class="form-input" placeholder="Your Full Name">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email Address</label>
+            <input type="email" id="profEmail" class="form-input" disabled style="opacity:0.6;cursor:not-allowed;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Phone Number</label>
+            <input type="text" id="profPhone" class="form-input" placeholder="+94 7X XXX XXXX">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Gender</label>
+            <select id="profGender" class="form-input">
+              <option value="" disabled selected>Select Gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+              <option value="Other">Other</option>
+              <option value="Prefer not to say">Prefer not to say</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Date Joined</label>
+            <input type="text" id="profJoined" class="form-input" disabled style="opacity:0.6;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Tier Stage</label>
+            <input type="text" id="profTier" class="form-input" disabled style="opacity:0.6;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Reward Points</label>
+            <input type="text" id="profPoints" class="form-input" disabled style="opacity:0.6;">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Total Invested (LKR)</label>
+            <input type="text" id="profSpent" class="form-input" disabled style="opacity:0.6;">
+          </div>
+          <div class="form-group" style="grid-column:span 2;">
+            <label class="form-label">Primary Shipping Address</label>
+            <textarea id="profAddr" class="form-input" style="min-height:90px;resize:none;" placeholder="Enter your delivery address"></textarea>
+          </div>
+        </div>
+
+        <div style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;">
+          <button class="btn-action" onclick="saveProfile()">Save Changes</button>
+        </div>
+
+        
+
+        </div>
+      </div>
+
+      <!-- ── ORDERS SECTION ── -->
+      <div id="ordersSection" class="profile-section active">
+        <h1 style="font-size:30px;font-weight:900;margin-bottom:8px;letter-spacing:-1px;">My Orders</h1>
+        <p style="color:var(--text-muted);font-size:13px;margin-bottom:32px;">Real-time order tracking — updates live from the CMS</p>
+        <div id="ordersListWrap">
+          <div style="text-align:center;padding:60px 0;color:var(--text-muted);">Loading your orders…</div>
+        </div>
+      </div>
+
+      
+      <!-- ── PAYMENTS SECTION ── -->
+      <div id="paymentsSection" class="profile-section">
+        <h1 style="font-size:30px;font-weight:900;margin-bottom:8px;letter-spacing:-1px;">Payment Methods</h1>
+        <p style="color:var(--text-muted);font-size:13px;margin-bottom:32px;">Manage your saved payment methods and payout preferences.</p>
+        
+        <div style="margin-bottom: 40px;">
+          <h3 style="font-size:14px;font-weight:800;margin-bottom:12px;">Saved Methods</h3>
+          <div style="padding: 30px; border: 1px dashed var(--border); border-radius: 12px; text-align: center; color: var(--text-muted); font-size: 13px; margin-bottom: 16px;">
+            No payment methods saved yet.
+          </div>
+          <button class="btn-outline" style="width: 100%; border: 1px solid var(--primary); color: var(--primary); padding: 12px; border-radius: 8px; font-weight: 700; cursor: pointer; background: transparent;">[+] Add payment method</button>
+        </div>
+
+        <div style="padding:28px;background:var(--surface-dim);border-radius:20px;border:1px solid var(--border);">
+          <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;color:var(--primary);">Preferred Payment Options</h3>
+          <p style="font-size: 14px; line-height: 1.6; font-weight: 600;">
+            We accept Bank Transfer, FriMi, and LankaPay QR.<br>
+            For international orders: PayPal — <a href="https://paypal.me/AJVantage" target="_blank" style="color: var(--primary); text-decoration: none;">paypal.me/AJVantage</a>
+          </p>
+        </div>
+      </div>
+<!-- ── SECURITY SECTION ── -->
+      <div id="securitySection" class="profile-section">
+        <h1 style="font-size:30px;font-weight:900;margin-bottom:8px;letter-spacing:-1px;">Security Suite</h1>
+        <p style="color:var(--text-muted);font-size:13px;margin-bottom:40px;">Manage your access credentials and account security.</p>
+
+        <div style="margin-bottom:32px;">
+          <h3 style="font-size:12px;font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:20px;color:var(--primary);">Update Password</h3>
+          <div class="form-group" style="margin-bottom:16px;">
             <label class="form-label">New Password</label>
             <input type="password" id="newPass" class="form-input" placeholder="••••••••">
           </div>
-          <div class="form-group">
+          <div class="form-group" style="margin-bottom:20px;">
             <label class="form-label">Confirm New Password</label>
             <input type="password" id="confirmPass" class="form-input" placeholder="••••••••">
           </div>
-          <button class="btn-action" style="width: 100%;" onclick="updatePassword()">Authorize Password Change</button>
-        </section>
+          <button class="btn-action" onclick="updatePassword()">Update Password</button>
+        </div>
 
-        <section style="padding: 40px; background: var(--surface-dim); border-radius: 24px; border: 1px solid var(--border);">
-          <h3 style="font-size: 18px; font-weight: 800; margin-bottom: 12px;">Forgot Your Password?</h3>
-          <p style="font-size: 14px; color: var(--text-muted); line-height: 1.6; margin-bottom: 24px;">
-            For maximum security, password resets are handled manually by the AJ VANTAGE mod team. Please send a request via WhatsApp, and a secure reset link will be generated for your registry.
-          </p>
-          <a href="https://wa.me/94704800058?text=I%20forgot%20my%20AJ%20Vantage%20password.%20Please%20send%20a%20reset%20link." target="_blank" style="display: inline-flex; align-items: center; gap: 10px; padding: 16px 32px; background: #25d366; color: #fff; border-radius: 99px; text-decoration: none; font-weight: 800; font-size: 14px;">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.029c0 2.119.549 4.187 1.59 6.037L0 24l6.105-1.602a11.834 11.834 0 005.937 1.587h.005c6.637 0 12.032-5.391 12.036-12.028.003-3.218-1.252-6.242-3.541-8.53z"/></svg>
-            Request Reset Link via WhatsApp
+        <div style="padding:32px;background:var(--surface-dim);border-radius:20px;border:1px solid var(--border);">
+          <h3 style="font-size:16px;font-weight:800;margin-bottom:10px;">Forgot Password?</h3>
+          <p style="font-size:13px;color:var(--text-muted);margin-bottom:20px;line-height:1.6;">Password resets are handled securely via WhatsApp. Send a request and we'll generate a reset link for your account.</p>
+          <a href="https://wa.me/94704800058?text=I%20forgot%20my%20AJ%20Vantage%20password.%20Please%20send%20a%20reset%20link." target="_blank" style="display:inline-flex;align-items:center;gap:10px;padding:14px 28px;background:#25d366;color:#fff;border-radius:99px;text-decoration:none;font-weight:800;font-size:13px;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.414 0 .018 5.393 0 12.029c0 2.119.549 4.187 1.59 6.037L0 24l6.105-1.602a11.834 11.834 0 005.937 1.587h.005c6.637 0 12.032-5.391 12.036-12.028.003-3.218-1.252-6.242-3.541-8.53z"/></svg>
+            Reset via WhatsApp
           </a>
-        </section>
+        </div>
       </div>
+
     </main>
   </div>
 
-  <div class="toast" id="toast"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5" /></svg><span id="toastMsg">Done</span></div>
+  <!-- TOAST -->
+  <div id="toast">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+    <span id="toastMsg">Done</span>
+  </div>
 
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <!-- FIREBASE -->
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-storage-compat.js"></script>
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyBy44sne8A7Ynm5GEgA7DBrEmeuJkRc890",
@@ -491,122 +301,248 @@
     firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
     const auth = firebase.auth();
+    const storage = firebase.storage();
 
-
-
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        document.getElementById('userNameDisplay').textContent = user.displayName || 'Elite Member';
-        document.getElementById('userEmailDisplay').textContent = user.email;
-        document.getElementById('userInitial').textContent = (user.displayName || user.email)[0].toUpperCase();
-        document.getElementById('welcomeGreeting').textContent = `Welcome back, ${user.displayName || 'Elite Member'}`;
-        document.getElementById('profName').value = user.displayName || '';
-        document.getElementById('profEmail').value = user.email || '';
-        document.getElementById('profJoined').value = user.metadata.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString() : 'Unknown';
-        
-        db.collection('customers').doc(user.uid).get().then(doc => {
-          if (doc.exists) {
-            const data = doc.data();
-            document.getElementById('profPhone').value = data.phone || '';
-            document.getElementById('profAddr').value = data.address || '';
-            if (data.gender) {
-              document.getElementById('profGender').value = data.gender;
-            }
-            
-            document.getElementById('userTierDisplay').textContent = (data.tier || 'Bronze') + ' Tier';
-            document.getElementById('profTier').value = (data.tier || 'Bronze') + ' Tier';
-            document.getElementById('profPoints').value = (data.points || 0) + ' AJ Points';
-            document.getElementById('profSpent').value = (data.totalSpent || 0).toLocaleString() + ' LKR';
-            document.getElementById('profBranch').value = (data.homeBranch || 'Katugastota').toUpperCase();
-            
-            if (data.memberSince) {
-              document.getElementById('userSinceDisplay').textContent = 'Since ' + data.memberSince.split('-')[0];
-            }
-            if (data.paymentPreference && data.paymentPreference !== "None") {
-              document.getElementById('paymentPreferenceDisplay').textContent = data.paymentPreference;
-              document.getElementById('paymentPreferenceBadge').textContent = 'Preferred';
-            } else {
-              document.getElementById('paymentPreferenceDisplay').textContent = "Not Selected";
-              document.getElementById('paymentPreferenceBadge').textContent = 'None';
-            }
-          } else {
-            document.getElementById('profTier').value = 'Bronze Tier';
-          }
-        });
-      } else {
-        location.href = 'index.html';
-      }
-    });
-
-    function saveProfile() {
-      const user = auth.currentUser;
-      const name = document.getElementById('profName').value;
-      const phone = document.getElementById('profPhone').value;
-      const address = document.getElementById('profAddr').value;
-      const gender = document.getElementById('profGender').value;
-
-      user.updateProfile({ displayName: name }).then(() => {
-        db.collection('customers').doc(user.uid).set({ name, phone, address, gender }, { merge: true }).then(() => {
-          toast('Elite Registry Updated Successfully');
-          document.getElementById('userNameDisplay').textContent = name;
-        });
-      });
+    // ── TOAST ──
+    function toast(msg, duration = 3000) {
+      const el = document.getElementById('toast');
+      document.getElementById('toastMsg').textContent = msg;
+      el.classList.add('show');
+      clearTimeout(el._t);
+      el._t = setTimeout(() => el.classList.remove('show'), duration);
     }
 
-    function handleSignOut() {
-      auth.signOut().then(() => {
-        location.href = 'index.html';
-      });
-    }
-
-    function handleDeleteAccount() {
-      if(confirm("Are you sure you want to permanently delete your account? This action cannot be undone.")) {
-        const user = auth.currentUser;
-        if(user) {
-          db.collection('customers').doc(user.uid).delete().then(() => {
-            return user.delete();
-          }).then(() => {
-            localStorage.clear();
-            alert("Account deleted successfully.");
-            location.href = 'index.html';
-          }).catch(err => {
-            console.error(err);
-            if(err.code === 'auth/requires-recent-login') {
-              alert("Please sign out and sign back in to delete your account.");
-            } else {
-              alert(err.message);
-            }
-          });
-        }
-      }
-    }
+    // ── TAB SWITCHER ──
     function switchTab(tab, btn) {
       document.querySelectorAll('.profile-section').forEach(s => s.classList.remove('active'));
-      document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
-      
-      if (tab === 'details') document.getElementById('detailsSection').classList.add('active');
-      if (tab === 'orders') document.getElementById('ordersSection').classList.add('active');
-      if (tab === 'security') document.getElementById('securitySection').classList.add('active');
-      
-      btn.classList.add('active');
+      document.querySelectorAll('.right-tab').forEach(l => l.classList.remove('active'));
+      const map = { settings: 'settingsSection', orders: 'ordersSection', payments: 'paymentsSection', security: 'securitySection' };
+      if (map[tab]) document.getElementById(map[tab]).classList.add('active');
+      if (btn) btn.classList.add('active');
+      if (tab === 'orders') loadOrders();
     }
 
+    // ── UPDATE DP UI ──
+    function updateDPUI(url) {
+      if (!url) return;
+      const el = document.getElementById('userInitial');
+      if (el) el.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;border-radius:50%;">`;
+      const headerAvatar = document.getElementById('headerAvatar');
+      if (headerAvatar) {
+        headerAvatar.style.padding = '0';
+        headerAvatar.style.overflow = 'hidden';
+        headerAvatar.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;">`;
+      }
+    }
+
+    // ── UPLOAD DP ──
+    function uploadDP(input) {
+      const file = input.files[0];
+      if (!file) return;
+      const user = auth.currentUser;
+      if (!user) { toast('Please log in to change your photo.'); return; }
+      // Preview immediately
+      const reader = new FileReader();
+      reader.onload = e => updateDPUI(e.target.result);
+      reader.readAsDataURL(file);
+      toast('Uploading profile picture...');
+      const ref = storage.ref(`users_dp/${user.uid}`);
+      ref.put(file).then(() => ref.getDownloadURL()).then(url => {
+        return db.collection('customers').doc(user.uid).set({ dpUrl: url }, { merge: true }).then(() => {
+          updateDPUI(url);
+          toast('✓ Profile picture updated!');
+        });
+      }).catch(err => toast('Upload failed: ' + err.message));
+    }
+
+    // ── AUTH STATE ──
+    auth.onAuthStateChanged(user => {
+      if (!user) { location.href = 'index.html'; return; }
+
+      // Set auth data immediately
+      document.getElementById('userNameDisplay').textContent = user.displayName || 'Elite Member';
+      document.getElementById('userEmailDisplay').textContent = user.email;
+      document.getElementById('userInitial').textContent = (user.displayName || user.email)[0].toUpperCase();
+      document.getElementById('welcomeGreeting').textContent = `Welcome back, ${user.displayName || 'Elite Member'}`;
+      document.getElementById('profName').value = user.displayName || '';
+      document.getElementById('profEmail').value = user.email || '';
+      document.getElementById('profJoined').value = user.metadata.creationTime
+        ? new Date(user.metadata.creationTime).toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' })
+        : 'Unknown';
+
+      // Live Firestore listener for customer profile
+      db.collection('customers').doc(user.uid).onSnapshot(doc => {
+        if (!doc.exists) {
+          document.getElementById('profTier').value = 'Bronze Tier';
+          document.getElementById('profPoints').value = '0 AJ Points';
+          document.getElementById('profSpent').value = '0 LKR';
+          document.getElementById('profBranch') && (document.getElementById('profBranch').value = 'KATUGASTOTA');
+          return;
+        }
+        const d = doc.data();
+        if (d.name) {
+          document.getElementById('userNameDisplay').textContent = d.name;
+          document.getElementById('profName').value = d.name;
+          document.getElementById('welcomeGreeting').textContent = `Welcome back, ${d.name}`;
+        }
+        document.getElementById('profPhone').value = d.phone || '';
+        document.getElementById('profAddr').value = d.address || '';
+        if (d.gender) document.getElementById('profGender').value = d.gender;
+        document.getElementById('userTierDisplay').textContent = (d.tier || 'Bronze') + ' Tier';
+        document.getElementById('profTier').value = (d.tier || 'Bronze') + ' Tier';
+        document.getElementById('profPoints').value = (d.points || 0) + ' AJ Points';
+        document.getElementById('profSpent').value = (d.totalSpent || 0).toLocaleString() + ' LKR';
+        if (d.memberSince) document.getElementById('userSinceDisplay').textContent = 'Since ' + d.memberSince.split('-')[0];
+        if (d.paymentPreference) {
+          document.getElementById('paymentPreferenceDisplay').textContent = d.paymentPreference;
+          document.getElementById('paymentPreferenceBadge').textContent = 'Preferred';
+        }
+        if (d.dpUrl) updateDPUI(d.dpUrl);
+      });
+    });
+
+    // ── SAVE PROFILE ──
+    function saveProfile() {
+      const user = auth.currentUser;
+      if (!user) return;
+      const name = document.getElementById('profName').value.trim();
+      const phone = document.getElementById('profPhone').value.trim();
+      const address = document.getElementById('profAddr').value.trim();
+      const gender = document.getElementById('profGender').value;
+      if (!name) { toast('Please enter your name.'); return; }
+      user.updateProfile({ displayName: name }).then(() => {
+        return db.collection('customers').doc(user.uid).set({ name, phone, address, gender }, { merge: true });
+      }).then(() => {
+        toast('✓ Profile updated successfully!');
+        document.getElementById('userNameDisplay').textContent = name;
+        document.getElementById('welcomeGreeting').textContent = `Welcome back, ${name}`;
+      }).catch(err => toast('Error: ' + err.message));
+    }
+
+    // ── SIGN OUT ──
+    function handleSignOut() {
+      auth.signOut().then(() => location.href = 'index.html');
+    }
+
+    // ── DELETE ACCOUNT ──
+    function handleDeleteAccount() {
+      if (!confirm('Are you sure you want to permanently delete your account? This cannot be undone.')) return;
+      const user = auth.currentUser;
+      if (!user) return;
+      db.collection('customers').doc(user.uid).delete()
+        .then(() => user.delete())
+        .then(() => { localStorage.clear(); location.href = 'index.html'; })
+        .catch(err => {
+          if (err.code === 'auth/requires-recent-login') toast('Please sign out and sign back in first.');
+          else toast(err.message);
+        });
+    }
+
+    // ── LOAD ORDERS (real-time) ──
+    let ordersUnsubscribe = null;
+    function loadOrders() {
+      const user = auth.currentUser;
+      if (!user) return;
+      const wrap = document.getElementById('ordersListWrap');
+      wrap.innerHTML = '<div style="text-align:center;padding:60px 0;color:var(--text-muted);">Loading your orders…</div>';
+
+      if (ordersUnsubscribe) ordersUnsubscribe();
+      ordersUnsubscribe = db.collection('orders')
+        .where('userId', '==', user.uid)
+        .orderBy('timestamp', 'desc')
+        .onSnapshot(snap => {
+          if (snap.empty) {
+            // Try by phone fallback
+            const phone = document.getElementById('profPhone').value.trim();
+            if (phone) {
+              db.collection('orders').where('phone', '==', phone).orderBy('timestamp', 'desc')
+                .onSnapshot(s2 => renderOrders(s2, wrap));
+            } else {
+              renderOrders(snap, wrap);
+            }
+          } else {
+            renderOrders(snap, wrap);
+          }
+        }, () => {
+          wrap.innerHTML = '<div style="text-align:center;padding:40px;color:var(--text-muted);">Could not load orders.</div>';
+        });
+    }
+
+    function renderOrders(snap, wrap) {
+      if (!wrap) return;
+      if (snap.empty) {
+        wrap.innerHTML = `
+          <div style="text-align:center;padding:80px 0;">
+            <div style="width:70px;height:70px;border-radius:50%;background:var(--surface-dim);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:var(--text-muted);">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            </div>
+            <div style="font-size:18px;font-weight:800;margin-bottom:8px;">No Orders Yet</div>
+            <p style="color:var(--text-muted);font-size:13px;max-width:300px;margin:0 auto;">Your orders will appear here in real-time once you place one.</p>
+            <a href="shop.html" class="btn-primary" style="display:inline-flex;margin-top:28px;text-decoration:none;">Start Shopping</a>
+          </div>`;
+        return;
+      }
+
+      const statusColors = {
+        pending_confirmation: '#f59e0b', partially_confirmed: '#6366f1',
+        confirmed: '#10b981', shipped: '#3b82f6', delivered: '#10b981',
+        cancelled: '#ef4444', refunded: '#8b5cf6'
+      };
+      const statusLabels = {
+        pending_confirmation: '⏳ Pending Confirmation',
+        partially_confirmed: '✓ Deposit Confirmed',
+        confirmed: '✓✓ Fully Confirmed',
+        shipped: '🚚 Shipped',
+        delivered: '📦 Delivered',
+        cancelled: '✕ Cancelled',
+        refunded: '↩ Refunded'
+      };
+
+      wrap.innerHTML = snap.docs.map(doc => {
+        const o = doc.data();
+        const color = statusColors[o.status] || '#6b7280';
+        const label = statusLabels[o.status] || o.status;
+        const date = o.timestamp?.toDate
+          ? o.timestamp.toDate().toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' })
+          : 'N/A';
+        return `
+          <div class="order-card">
+            <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px;">
+              <div>
+                <div style="font-size:10px;font-weight:900;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px;">Order Reference</div>
+                <div style="font-size:17px;font-weight:900;color:var(--primary);font-family:monospace;">${o.orderId || doc.id}</div>
+              </div>
+              <span style="font-size:11px;font-weight:800;background:${color}22;color:${color};padding:5px 12px;border-radius:99px;border:1px solid ${color}55;">${label}</span>
+            </div>
+            <div style="display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--text-muted);margin-bottom:10px;">
+              <span>📅 ${date}</span>
+              <span>💳 Rs. ${(o.totalAmount || 0).toLocaleString()}</span>
+              <span>📦 ${(o.cartItems || []).length} item(s)</span>
+              ${o.screenshotUploaded ? '<span style="color:#10b981;">✓ Slip Uploaded</span>' : ''}
+            </div>
+            ${(o.cartSummary || []).length > 0 ? `<div style="font-size:11px;color:var(--text-muted);padding-top:10px;border-top:1px solid var(--border);">${o.cartSummary.join(' &middot; ')}</div>` : ''}
+            ${o.status === 'delivered' ? '<div style="margin-top:10px;padding:10px;background:rgba(16,185,129,0.08);border-radius:10px;font-size:12px;font-weight:700;color:#10b981;">📦 Your order has been delivered! Thank you.</div>' : ''}
+          </div>`;
+      }).join('');
+    }
+
+    // ── CHANGE PASSWORD ──
     function updatePassword() {
       const p1 = document.getElementById('newPass').value;
       const p2 = document.getElementById('confirmPass').value;
-      if (!p1 || p1.length < 6) { toast('Password must be at least 6 characters'); return; }
-      if (p1 !== p2) { toast('Passwords do not match'); return; }
-      
+      if (!p1 || p1.length < 6) { toast('Password must be at least 6 characters.'); return; }
+      if (p1 !== p2) { toast('Passwords do not match.'); return; }
       auth.currentUser.updatePassword(p1).then(() => {
-        toast('Password Updated Successfully');
+        toast('✓ Password updated successfully!');
         document.getElementById('newPass').value = '';
         document.getElementById('confirmPass').value = '';
       }).catch(err => {
-        if (err.code === 'auth/requires-recent-login') { toast('Please sign in again to authorize this change.'); }
-        else { toast(err.message); }
+        if (err.code === 'auth/requires-recent-login') toast('Please sign out and sign back in first.');
+        else toast(err.message);
       });
     }
 
+    // ── INIT ──
     document.addEventListener('DOMContentLoaded', () => {
       document.body.classList.add('page-ready');
     });

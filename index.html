@@ -147,7 +147,9 @@
           <line x1="3" y1="18" x2="21" y2="18" />
         </svg>
       </button>
-      <a href="profile.html" class="avatar">A</a>
+      <a href="login.html" id="nav-signin" style="font-size:14px;font-weight:700;text-decoration:none;color:var(--text);display:none;">Sign In</a>
+      <a href="signup.html" id="nav-signup" class="btn-primary" style="padding:6px 14px;font-size:12px;border-radius:20px;display:none;">Sign Up</a>
+      <a href="profile.html" id="nav-profile" class="avatar hidden" style="display:none;">A</a>
     </div>
   </header>
 
@@ -589,6 +591,19 @@
       slides[currentSlide].classList.add('active');
       dots[currentSlide].classList.add('active');
     }
+
+    // Live Sync Hero Banners from CMS
+    db.collection('system').doc('heroImages').onSnapshot(doc => {
+      if (doc.exists) {
+        const data = doc.data();
+        slides.forEach((slide, i) => {
+          const slot = data['slot' + (i + 1)];
+          if (slot && slot.url) {
+            slide.style.backgroundImage = `url('${slot.url}')`;
+          }
+        });
+      }
+    });
 
     setInterval(() => goSlide(currentSlide + 1), 5000);
 

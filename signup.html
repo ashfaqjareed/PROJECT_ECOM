@@ -422,6 +422,7 @@
         const today = new Date().toISOString().split('T')[0];
 
         // Create document in 'customers' collection
+        await user.updateProfile({ displayName: name });
         await db.collection('customers').doc(user.uid).set({
           uid: user.uid,
           email: email,
@@ -444,6 +445,7 @@
         localStorage.setItem('aj_has_account', 'true');
         localStorage.setItem('aj_logged_in', 'true');
         localStorage.setItem('aj_user_phone', phone);
+        localStorage.setItem('aj_user_name', name);
 
         document.getElementById('paymentPreferenceModal').style.display = 'flex';
       } catch (error) {

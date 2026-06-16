@@ -197,7 +197,7 @@ for (let i = 1; i <= 80; i++) {
 // === MANUAL OVERRIDES ===
 const overrides = [
   {
-    id: 1, name: "AJ Vantage Executive Briefcase", cat: "bags", price: 85000,
+    id: 1, name: "AJ Vantage Executive Briefcase", cat: "bags", price: 5000,
     img: "assets/products/Ashfaq.png",
     gallery: ["assets/products/Ashfaq.png", "assets/products/Ashfaq2.png"],
     desc: "A masterpiece of utility and style. Handcrafted with precision, triple-reinforced stitching and premium full-grain leather.",
@@ -422,7 +422,55 @@ productColorOverrides.forEach(ov => { const p = allProducts.find(x => x.id === o
 preOwnedProducts.forEach(p => { p.isPreOwned = true; if (!p.sizes) p.sizes = ['One Size']; });
 const globalProducts = [...allProducts, ...preOwnedProducts];
 
+// ============================================================================
+// LIVE FIRESTORE SYNC & SEEDING FOR PRODUCTS
+// ============================================================================
+if (typeof db !== 'undefined') {
+  // 1. Live Sync: Override hardcoded products with live CMS data
+  db.collection('products').onSnapshot(snap => {
+    snap.forEach(doc => {
+      const data = doc.data();
+      const index = globalProducts.findIndex(p => p.id === doc.id);
+      if (index !== -1) {
+        // Merge updates from CMS
+        globalProducts[index].name = data.name || globalProducts[index].name;
+        globalProducts[index].price = data.price || globalProducts[index].price;
+        globalProducts[index].img = data.img || globalProducts[index].img;
+        globalProducts[index].cat = data.category || globalProducts[index].cat;
+        globalProducts[index].desc = data.description || globalProducts[index].desc;
+        globalProducts[index].salePrice = data.salePrice;
+        globalProducts[index].inStock = data.inStock !== false;
 
+        // If condition was updated in CMS for pre-owned
+        if (data.condition && globalProducts[index].specs) {
+          globalProducts[index].specs.Condition = data.condition;
+        }
+      } else {
+        // New product added via CMS
+        globalProducts.push({
+          id: doc.id,
+          name: data.name,
+          price: data.price,
+          salePrice: data.salePrice,
+          img: data.img,
+          cat: data.category,
+          desc: data.description,
+          inStock: data.inStock !== false,
+          isPreOwned: data.type === 'preowned',
+          specs: data.condition ? { Condition: data.condition } : {},
+          color: '#888888',
+          sizes: ['One Size']
+        });
+      }
+    });
+
+    // Re-render UI components if they exist on the current page
+    if (typeof renderProducts === 'function') renderProducts();
+    if (typeof renderCatSection === 'function') renderCatSection();
+    if (typeof initSlider === 'function') initSlider();
+  });
+
+}
 
 const catIcons = {
   bags: `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 0 0-8 0v2"/></svg>`,
@@ -1105,6 +1153,9 @@ async function handleSignOut() {
     localStorage.removeItem('ajv_popup_shown');
     localStorage.removeItem('aj_cart');
     localStorage.removeItem('aj_wish');
+    localStorage.removeItem('aj_order_timer_end');
+    localStorage.removeItem('aj_timer_pos');
+    localStorage.removeItem('aj_checkout_draft');
     sessionStorage.removeItem('aj_welcomed'); // Clear so popup shows again on next visit
     toast("Signing out Securely...");
     setTimeout(() => location.href = 'index.html', 1000);
@@ -1559,21 +1610,77 @@ window.sendChatMessage = async function () {
 document.addEventListener('DOMContentLoaded', () => {
   if (typeof firebase !== 'undefined' && firebase.auth) {
     firebase.auth().onAuthStateChanged(user => {
-      const avatar = document.querySelector('a.avatar');
-      if (!avatar) return;
+      const avatars = document.querySelectorAll('a.avatar');
+      if (avatars.length === 0) return;
 
       if (user) {
-        avatar.style.display = 'flex';
+        avatars.forEach(avatar => avatar.style.display = 'flex');
+
+        const setDP = (url) => {
+          avatars.forEach(avatar => {
+            avatar.style.padding = '0';
+            avatar.style.border = '1px solid var(--primary)';
+            avatar.style.overflow = 'hidden';
+            avatar.innerHTML = `<img src="${url}" style="width:100%;height:100%;object-fit:cover;">`;
+          });
+        };
+        const setInitial = (initial) => {
+          avatars.forEach(avatar => avatar.textContent = initial);
+        };
+
+        // Wrap avatars in dropdown
+        avatars.forEach(avatar => {
+          if (!avatar.parentElement.classList.contains('avatar-dropdown-wrapper')) {
+            const wrapper = document.createElement('div');
+            wrapper.className = 'avatar-dropdown-wrapper';
+            avatar.parentNode.insertBefore(wrapper, avatar);
+            wrapper.appendChild(avatar);
+
+            const menu = document.createElement('div');
+            menu.className = 'avatar-dropdown-menu';
+            menu.innerHTML = `
+              <a href="profile.html">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                My Profile
+              </a>
+              <a href="profile.html#orders">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a4 4 0 00-8 0v2"/></svg>
+                My Orders
+              </a>
+              <a href="#" class="sign-out-btn" onclick="firebase.auth().signOut().then(()=>location.href='index.html')">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+                Sign Out
+              </a>
+            `;
+            wrapper.appendChild(menu);
+          }
+        });
+
         firebase.firestore().collection('customers').doc(user.uid).get().then(doc => {
-          const initial = (doc.exists && doc.data().name)
-            ? doc.data().name.charAt(0).toUpperCase()
-            : user.email.charAt(0).toUpperCase();
-          avatar.textContent = initial;
+          if (doc.exists && doc.data().dpUrl) {
+            setDP(doc.data().dpUrl);
+            if (doc.data().name) localStorage.setItem('aj_user_name', doc.data().name);
+          } else {
+            let nameToUse = user.displayName || (doc.exists && doc.data().name);
+            if (nameToUse) {
+              setInitial(nameToUse.charAt(0).toUpperCase());
+              localStorage.setItem('aj_user_name', nameToUse);
+            } else {
+              setInitial(user.email.charAt(0).toUpperCase());
+            }
+          }
         }).catch(() => {
-          avatar.textContent = user.email.charAt(0).toUpperCase();
+          let nameToUse = user.displayName || localStorage.getItem('aj_user_name');
+          if (nameToUse) setInitial(nameToUse.charAt(0).toUpperCase());
+          else setInitial(user.email.charAt(0).toUpperCase());
         });
       } else {
-        avatar.style.display = 'none';
+        avatars.forEach(avatar => avatar.style.display = 'none');
+        // If not logged in, clear any active timer
+        localStorage.removeItem('aj_order_timer_end');
+        localStorage.removeItem('aj_timer_pos');
+        const timerEl = document.getElementById('aj-global-timer');
+        if (timerEl) timerEl.remove();
       }
     });
   }
@@ -1604,4 +1711,200 @@ function observeReveals() {
     });
   }, { threshold: 0.01, rootMargin: '0px 0px -50px 0px' });
   document.querySelectorAll('.reveal:not(.visible)').forEach(el => obs.observe(el));
+}
+
+/* ============================================================
+   === GLOBAL PAYMENT TIMER (PAY LATER FLOW) ===
+   ============================================================ */
+function initGlobalTimer() {
+  const timerEndStr = localStorage.getItem('aj_order_timer_end');
+  // Also hide if signed out. But to be safe, we check if auth state changes
+  if (!timerEndStr) return;
+  const timerEnd = parseInt(timerEndStr, 10);
+
+  if (isNaN(timerEnd) || Date.now() >= timerEnd) {
+    handleTimerExpiration();
+    return;
+  }
+
+  let timerEl = document.getElementById('aj-global-timer');
+  if (!timerEl) {
+    timerEl = document.createElement('div');
+    timerEl.id = 'aj-global-timer';
+
+    // Load saved position or use default
+    const savedPos = localStorage.getItem('aj_timer_pos');
+    let cssPos = 'top:20px;left:50%;transform:translateX(-50%);';
+    if (savedPos) {
+      try {
+        const p = JSON.parse(savedPos);
+        cssPos = `top:${p.top}px;left:${p.left}px;transform:none;`;
+      } catch (e) { }
+    }
+
+    timerEl.style.cssText = `position:fixed;${cssPos}background:rgba(20,20,20,0.85);backdrop-filter:blur(16px);border:1.5px solid #ef4444;border-radius:99px;padding:12px 24px;color:#fff;font-weight:800;font-size:15px;z-index:99999;display:flex;align-items:center;gap:12px;box-shadow:0 12px 32px rgba(239,68,68,0.25);cursor:grab;user-select:none;touch-action:none;`;
+    timerEl.innerHTML = `
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <div>Deposit Due: <span id="aj-timer-countdown" style="color:#ef4444;font-variant-numeric:tabular-nums;">--:--</span></div>
+    `;
+    document.body.appendChild(timerEl);
+
+    // Draggable Logic
+    let isDragging = false, startX, startY, startLeft, startTop;
+    const onStart = (e) => {
+      isDragging = true;
+      timerEl.style.cursor = 'grabbing';
+      timerEl.style.transform = 'none'; // Clear translate if it was centered
+      const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+      const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+      const rect = timerEl.getBoundingClientRect();
+      startX = clientX;
+      startY = clientY;
+      startLeft = rect.left;
+      startTop = rect.top;
+      // Convert to px explicitly
+      timerEl.style.left = startLeft + 'px';
+      timerEl.style.top = startTop + 'px';
+      e.preventDefault();
+    };
+    const onMove = (e) => {
+      if (!isDragging) return;
+      const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+      const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+      const dx = clientX - startX;
+      const dy = clientY - startY;
+
+      let newLeft = startLeft + dx;
+      let newTop = startTop + dy;
+
+      // Screen boundaries
+      const maxL = window.innerWidth - timerEl.offsetWidth;
+      const maxT = window.innerHeight - timerEl.offsetHeight;
+      if (newLeft < 0) newLeft = 0;
+      if (newLeft > maxL) newLeft = maxL;
+      if (newTop < 0) newTop = 0;
+      if (newTop > maxT) newTop = maxT;
+
+      timerEl.style.left = newLeft + 'px';
+      timerEl.style.top = newTop + 'px';
+    };
+    const onEnd = () => {
+      if (!isDragging) return;
+      isDragging = false;
+      timerEl.style.cursor = 'grab';
+      localStorage.setItem('aj_timer_pos', JSON.stringify({
+        left: parseInt(timerEl.style.left),
+        top: parseInt(timerEl.style.top)
+      }));
+    };
+
+    timerEl.addEventListener('mousedown', onStart);
+    document.addEventListener('mousemove', onMove);
+    document.addEventListener('mouseup', onEnd);
+    timerEl.addEventListener('touchstart', onStart, { passive: false });
+    document.addEventListener('touchmove', onMove, { passive: false });
+    document.addEventListener('touchend', onEnd);
+  }
+
+  const cdSpan = document.getElementById('aj-timer-countdown');
+
+  const interval = setInterval(() => {
+    // If auth state dictates logout, hide timer
+    if (typeof firebase !== 'undefined' && firebase.auth) {
+      const user = firebase.auth().currentUser;
+      // We assume if auth state loaded and no user, we might be signed out. 
+      // But it takes time to load. For robustness, if user explicitly signs out, 
+      // they should clear localStorage 'aj_order_timer_end' directly.
+    }
+
+    const now = Date.now();
+    const diff = timerEnd - now;
+
+    if (diff <= 0) {
+      clearInterval(interval);
+      handleTimerExpiration();
+    } else {
+      const h = Math.floor(diff / (1000 * 60 * 60));
+      const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const s = Math.floor((diff % (1000 * 60)) / 1000);
+      let str = '';
+      if (h > 0) str += `${h}:`;
+      str += `${m.toString().padStart(2, '0')}:${s.toString().padStart(2, '0')}`;
+      if (cdSpan) cdSpan.textContent = str;
+    }
+  }, 1000);
+}
+
+function handleTimerExpiration() {
+  localStorage.removeItem('aj_order_timer_end');
+  localStorage.removeItem('aj_timer_pos');
+  const timerEl = document.getElementById('aj-global-timer');
+  if (timerEl) {
+    timerEl.innerHTML = `<span style="color:#ef4444;">Time Expired. Order Cancelled.</span>`;
+    setTimeout(() => timerEl.remove(), 4000);
+  }
+
+  localStorage.removeItem('aj_cart');
+  if (typeof updateCartUI === 'function') updateCartUI();
+
+  if (typeof toast === 'function') {
+    toast('Deposit timer expired. Your pending order has been cancelled and cart cleared.');
+  }
+
+  setTimeout(() => {
+    window.location.href = 'index.html';
+  }, 2000);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  initGlobalTimer();
+
+  // Inject Global Beta Badge
+  if (!window.location.pathname.endsWith('maintenance.html')) {
+    const betaBadge = document.createElement('div');
+    betaBadge.innerHTML = `
+      <div style="position:fixed; bottom:24px; right:24px; background:var(--surface); color:var(--text); border:2px solid var(--primary); font-size:12px; font-weight:900; letter-spacing:1.5px; padding:10px 24px; border-radius:99px; box-shadow:0 8px 30px rgba(255, 255, 255, 0.3); z-index:9999; display:flex; align-items:center; gap:10px; cursor:default; backdrop-filter:blur(8px);">
+        <div style="width:10px; height:10px; background:var(--primary); border-radius:50%; animation:pulseBeta 1.5s infinite;"></div>
+        IN BETA STAGE
+      </div>
+      <style>
+        @keyframes pulseBeta {
+          0% { transform: scale(0.95); box-shadow: 0 0 0 0 #00ff40ff; }
+          70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(255, 109, 46, 0); }
+          100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(255, 109, 46, 0); }
+        }
+      </style>
+    `;
+    document.body.appendChild(betaBadge);
+  }
+});
+
+
+
+// === AUTH STATE LISTENER (NAVBAR) ===
+if (typeof auth !== 'undefined') {
+  auth.onAuthStateChanged((user) => {
+    const signInBtn = document.getElementById('nav-signin');
+    const signUpBtn = document.getElementById('nav-signup');
+    const profileBtn = document.getElementById('nav-profile');
+
+    if (user) {
+      if (signInBtn) signInBtn.classList.add('hidden');
+      if (signUpBtn) signUpBtn.classList.add('hidden');
+      if (profileBtn) {
+        profileBtn.classList.remove('hidden');
+        profileBtn.style.display = 'flex'; // override inline none
+        // Display initial or name
+        if (user.displayName) {
+          profileBtn.textContent = user.displayName.charAt(0).toUpperCase();
+        } else {
+          profileBtn.textContent = 'U';
+        }
+      }
+    } else {
+      if (signInBtn) { signInBtn.classList.remove('hidden'); signInBtn.style.display = 'block'; }
+      if (signUpBtn) { signUpBtn.classList.remove('hidden'); signUpBtn.style.display = 'block'; }
+      if (profileBtn) profileBtn.classList.add('hidden');
+    }
+  });
 }
